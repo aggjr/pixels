@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PIXELS · Administração</title><link rel="stylesheet" href="/admin.css"></head>
+<body><header><strong>PIXELS</strong><span>Administração</span><button id="logout" hidden>Sair</button></header>
+<main>
+  <form id="login"><h1>Acompanhar os criadores</h1><label for="password">Senha administrativa</label><input id="password" type="password" autocomplete="current-password" required><button>Entrar</button></form>
+  <p id="status" role="status"></p>
+  <div id="dashboard" hidden>
+    <div class="toolbar"><h1>Visão do jogo</h1><button id="refresh">Atualizar</button><button id="export">Exportar resumo JSON</button></div>
+    <p class="note">São instalações com autorização de envio, não pessoas verificadas. Cada abertura conectada inicia uma sessão. Tempo ativo: tela visível e interação nos últimos 60 segundos. Atividade offline pode chegar depois; eventos ainda não enviados se perdem ao fechar a página.</p>
+    <div id="totals" class="cards"></div>
+    <h2>Jogadores</h2><p>Clique no apelido para ver sessões, coleção e eventos recentes. São exibidos os 500 jogadores mais recentes.</p><div class="table" id="players"></div>
+    <h2>Ranking interno de criação</h2><p>Ordem: PIXELS adultos, depois total de PIXELS. Dados enviados pelo navegador; este ranking ainda não tem validação contra manipulação.</p><div class="table" id="ranking"></div>
+    <h2>Ações e dificuldades</h2><p>Contagens são indícios de uso. Uma ação frequente não comprova preferência; uma recusa pode ser exploração ou dificuldade.</p><div class="table" id="actions"></div>
+    <h2>Últimos 30 dias com atividade (UTC)</h2><div class="table" id="daily"></div>
+    <section id="detail" hidden><h2 id="detailTitle"></h2><div class="table" id="sessions"></div><h3>Coleção salva</h3><div class="table" id="pets"></div><h3>Últimos 100 eventos recebidos</h3><div class="table" id="events"></div></section>
+  </div>
+</main><script src="/admin.js"></script></body></html>

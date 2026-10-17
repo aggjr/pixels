@@ -1,23 +1,99 @@
-# Pixel Play — instalar no tablet / celular
+# PIXELS — EasyPanel, Android, iOS e métricas
 
-Endereço: **https://aggjr.github.io/bichinho-magico/**
+## Arquitetura atual
 
-## Android (Chrome)
-1. Abra o link no Chrome.
-2. Menu **⋮** → **Instalar aplicativo** (ou **Adicionar à tela inicial**).
-3. Abra pelo ícone **Pixel Play** — tela cheia.
+Node.js 24 serve o jogo, a API e o painel /admin. SQLite guarda os dados em
+/data/pixels.sqlite. Não há dependências npm nem serviço MySQL separado.
+Uma única réplica do aplicativo deve usar o volume persistente.
 
-## iPhone / iPad (Safari)
-1. Abra o link no **Safari** (não use Chrome no iPhone para instalar).
-2. Toque em **Compartilhar** (quadrado com seta para cima).
-3. Role e toque em **Adicionar à Tela de Início**.
-4. Toque em **Adicionar**.
-5. Abra pelo ícone **Pixel Play** — abre como app, com barra de status transparente.
+## EasyPanel
 
-No primeiro acesso pelo Safari, aparece um cartão com esses passos. Depois de instalar, o cartão some.
+1. Serviço App pixels, repositório aggjr/pixels. A preparação está na branch
+   codex/easypanel-pwa; após integrar, use main.
+2. Builder Dockerfile, contexto /, arquivo Dockerfile.
+3. Variáveis: ADMIN_PASSWORD com senha aleatória de pelo menos 16 caracteres.
+   Não use o texto de exemplo como senha. PORT=3000 e DB_PATH=/data/pixels.sqlite
+   já estão na imagem.
+4. Crie um volume persistente montado em /data, gravável pelo usuário node
+   (UID 1000). Sem esse volume, uma substituição do contêiner perde o banco.
+5. Configure pixels.gutoapps.site, HTTPS com certificado válido e porta interna
+   3000. A configuração anterior de porta 80 foi substituída por esta API.
+6. Implante, confira /healthz e abra /admin com sua senha administrativa.
+7. Teste cadastro autorizado, nascimento, cuidados e coleção. Confira os dados
+   no painel, reimplante e confirme que continuam presentes.
 
-## Republicar atualizações
-```bash
-git add -A && git commit -m "update" && git push
-```
-Espere ~1 minuto. No app instalado: feche e abra de novo (às vezes precisa matar o app nas apps recentes).
+## Dados e métricas
+
+- Apelido e ID de instalação, criado no servidor, autenticado por cookie HttpOnly.
+- Cadastro e último sinal; sessões por abertura conectada da página.
+- Tempo ativo com página visível e interação nos últimos 60 segundos.
+- Tentativas de cuidados, sucessos, recusas e motivos; necessidades baixas
+  (no máximo uma amostra/minuto por necessidade); tentativas de aquecer o ovo,
+  nascimentos, crescimento, novos ovos, armário, coleção e itens escolhidos.
+- Cópias dos PIXELS, necessidades, fases, roupas e estado da coleção.
+- Resumo administrativo, detalhes por jogador, exportação do resumo JSON e
+  ranking interno dos jogadores listados por adultos/total de PIXELS.
+
+O responsável pode autorizar o envio no cadastro. Sem autorização, o jogo
+permanece local e não aparece nas métricas. Apelidos podem repetir; IDs distinguem
+instalações. Não é autenticação por conta: não há recuperação por nome nem
+continuidade automática em outro aparelho. Limpar cookies cria outra identidade.
+Não armazenamos localização, IP ou user-agent no banco da aplicação.
+
+O painel não publica apelidos ou ranking no jogo. Os valores enviados pelo
+navegador não têm proteção contra trapaça. Contagens de ações são indícios de
+uso, não prova de preferência ou de dificuldade. Eventos recebem a data de
+chegada ao servidor; períodos diários usam UTC. Relatórios limitam jogadores a
+500 e detalhes a 100 sessões/eventos recentes. Coleção: até 300 PIXELS.
+
+## Sincronização e offline
+
+O jogo mantém os dados locais e funciona se a API falhar. Métricas são enviadas
+em lotes a cada 15 segundos; eventos aguardam em memória (até 500). Se fechar a
+página offline, eventos ainda não enviados podem se perder. O tempo e eventos
+finais enviados ao fechar são uma tentativa, não uma garantia do navegador.
+A coleção é sincronizada após alterações e nas tentativas seguintes com internet.
+O servidor mescla os PIXELS recebidos, sem apagar os demais; a última gravação
+recebida vence para o mesmo PIXEL. Não há exclusão remota pela interface ainda.
+Ao abrir conectado com a coleção local vazia e o cookie preservado, ela é
+restaurada do servidor antes de iniciar. Se a conexão só voltar durante o jogo,
+a coleção restaurada será retomada ao reabrir.
+
+A mudança do domínio antigo para o novo não transporta localStorage nem cookies.
+Antes de remover o endereço antigo, avalie exportar a coleção.
+
+## Segurança e operação
+
+Use HTTPS; o cookie é Secure em produção. ADMIN_PASSWORD fica apenas no servidor,
+a senha digitada fica em memória da página e o botão Sair a remove. Admin/API
+não entram no cache offline. Arquivos de servidor, Git, banco e configuração não
+são servidos ao público. Não coloque credenciais no repositório.
+
+Mantenha backup do volume /data. Para cópia por arquivos, pare o serviço e copie
+o diretório inteiro, incluindo arquivos WAL/SHM existentes; não copie apenas o
+.sqlite enquanto ele está em uso. Teste a restauração em ambiente separado.
+A exportação JSON do painel é um resumo, não um backup completo do banco.
+
+## GitHub privado
+
+Valide o novo site primeiro. Configure no EasyPanel acesso autenticado ao
+repositório privado. Depois mude a visibilidade no GitHub e teste outro deploy.
+O código entregue ao navegador continua acessível aos visitantes; tornar o
+repositório privado protege o repositório, não os arquivos executados no cliente.
+
+## Instalação
+
+Android/Chrome: menu → Instalar aplicativo ou Adicionar à tela inicial.
+iPhone/iPad/Safari: Compartilhar → Adicionar à Tela de Início. Se aparecer,
+mantenha Abrir como App ativo. Não exige Play Store ou App Store.
+
+## Desenvolvimento e validação
+
+Node 24+: npm start (porta 3000). Defina ADMIN_PASSWORD no ambiente para usar
+/admin. Desenvolvimento guarda o SQLite em data/, ignorado pelo Git.
+Execute npm test e npm run bump antes de preparar uma nova versão.
+
+Referências:
+- https://easypanel.io/docs/services/app
+- https://easypanel.io/docs/builders
+- https://support.apple.com/en-lamr/guide/iphone/iphea86e5236/ios

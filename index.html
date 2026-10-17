@@ -8,10 +8,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Pixel Play" />
-  <meta name="application-name" content="Pixel Play" />
+  <meta name="apple-mobile-web-app-title" content="PIXELS" />
+  <meta name="application-name" content="PIXELS" />
   <meta name="format-detection" content="telephone=no" />
-  <title>Pixel Play</title>
+  <title>PIXELS</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
   <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
@@ -31,9 +31,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=0.1.49" />
+  <link rel="stylesheet" href="styles.css?v=0.1.59" />
 </head>
 <body>
+  <section class="player-welcome" id="playerWelcome" hidden aria-labelledby="playerWelcomeTitle">
+    <form class="player-card" id="playerForm">
+      <p class="player-brand">PIXELS ✨</p>
+      <h1 id="playerWelcomeTitle">Como podemos te chamar?</h1>
+      <p>Escolha um apelido para começar a cuidar do seu PIXEL.</p>
+      <label for="playerNickname">Seu nome ou apelido</label>
+      <input id="playerNickname" name="nickname" type="text" minlength="1" maxlength="30" required autocomplete="nickname" enterkeyhint="go" spellcheck="false" aria-describedby="playerPrivacy playerError" />
+      <p class="player-privacy" id="playerPrivacy">Pode ser um nome inventado! Não precisa colocar seu nome completo. Seu apelido fica salvo neste aparelho.</p>
+      <label class="player-consent"><input id="playerMetricsConsent" type="checkbox" />
+        <span>Sou responsável e permito salvar no servidor o apelido, a coleção, as sessões, o tempo ativo e as ações no jogo para melhorar o PIXELS. Sem marcar, o jogo funciona só neste aparelho, sem enviar esses dados. Não coletamos localização.</span>
+      </label>
+      <p class="player-error" id="playerError" role="alert"></p>
+      <button type="submit">Vamos brincar!</button>
+    </form>
+  </section>
   <div class="ios-install" id="iosInstall" hidden>
     <button type="button" class="ios-install-close" id="iosInstallClose" aria-label="Fechar">×</button>
     <p><strong>Instalar no iPhone / iPad</strong></p>
@@ -45,7 +60,7 @@
   </div>
   <div class="audience-pick" id="audiencePick" hidden>
     <div class="audience-card glass">
-      <p class="audience-eyebrow">Pixel Play</p>
+      <p class="audience-eyebrow">PIXELS</p>
       <h2>Seu PIXEL é para quem?</h2>
       <p class="audience-sub">Assim o ovo nasce com surpresas que combinam melhor</p>
       <div class="audience-actions">
@@ -83,6 +98,7 @@
         <div class="nameplate-avatar" id="avatar"></div>
         <div class="nameplate-text">
           <strong id="petName">Ovo Mágico</strong>
+          <button type="button" id="renamePet" class="rename-pet" aria-label="Trocar nome do PIXEL">✎ Nome</button>
           <span id="petStage">Esperando nascer</span>
         </div>
       </div>
@@ -114,12 +130,14 @@
         <div class="actor-glow" id="actorGlow"></div>
         <div class="actor-move" id="actorMove">
           <img class="egg-peek" id="eggPeek" alt="" draggable="false" hidden />
+          <div class="actor-appearance" id="actorAppearance">
           <img class="actor-img" id="actorImg" alt="" draggable="false" />
           <span class="wear wear-body" id="wearBody" hidden></span>
           <span class="wear wear-neck" id="wearNeck" hidden></span>
           <span class="wear wear-face" id="wearFace" hidden></span>
           <span class="wear wear-hat" id="wearHat" hidden></span>
           <span class="wear wear-held" id="wearHeld" hidden></span>
+          </div>
         </div>
         <div class="actor-fx" id="actorFx"></div>
       </div>
@@ -154,6 +172,7 @@
           <button type="button" class="sheet-x" id="closetClose" aria-label="Fechar">✕</button>
         </header>
         <div class="closet-tabs" id="closetTabs"></div>
+        <p class="closet-status" id="closetStatus" role="status"></p>
         <div class="closet-grid" id="closetGrid"></div>
       </div>
     </div>
@@ -204,14 +223,29 @@
         <li data-i="0">🥚</li><li data-i="1">Bebê</li><li data-i="2">Criança</li><li data-i="3">Jovem</li><li data-i="4">Adulto</li>
       </ol>
       <div class="growth-bar"><i id="growthFill"></i></div>
-      <p class="meta">Demo · 1 dia ≈ 2,9 min · ritmos −30% · teste: <kbd>0</kbd> novo ovo <kbd>7</kbd> fome <kbd>8</kbd> trapalhada <kbd>9</kbd> crescer · <span id="appVersion">V0.1.49</span></p>
+      <p class="meta">Demo · 1 dia ≈ 2,9 min · ritmos −30% · teste: <kbd>0</kbd> novo ovo <kbd>7</kbd> fome <kbd>8</kbd> trapalhada <kbd>9</kbd> crescer · <span id="appVersion">V0.1.59</span></p>
     </footer>
 
     <div class="flash" id="flash"></div>
     <div class="projectiles" id="projectiles"></div>
   </main>
-  <script src="audio.js?v=0.1.49"></script>
-  <script src="game.js?v=0.1.49"></script>
+  <dialog class="pet-naming" id="petNaming" aria-labelledby="petNamingTitle">
+    <form id="petNamingForm" class="player-card">
+      <p class="player-brand">Um novo amigo! ✨</p>
+      <h2 id="petNamingTitle">Qual vai ser o nome?</h2>
+      <p id="petNamingHint">Pode manter a sugestão ou inventar um nome só seu.</p>
+      <label for="petNickname">Nome do seu PIXEL</label>
+      <input id="petNickname" name="petNickname" type="text" required maxlength="30" autocomplete="off" enterkeyhint="done" aria-describedby="petNamingHint" />
+      <label for="petPronoun">Como chamar seu PIXEL?</label>
+      <select id="petPronoun"><option value="ela">Ela</option><option value="ele">Ele</option></select>
+      <button type="submit">Esse é o nome! 💖</button>
+      <button type="button" class="pet-name-suggestion" id="petNameSuggestion">Usar a sugestão</button>
+    </form>
+  </dialog>
+  <script src="audio.js?v=0.1.59"></script>
+  <script src="player.js?v=0.1.59"></script>
+  <script src="telemetry.js?v=0.1.59"></script>
+  <script src="game.js?v=0.1.59"></script>
   <script>
     (function () {
       const ua = navigator.userAgent || "";

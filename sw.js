@@ -1,14 +1,19 @@
-/* Service worker — Pixel Play PWA */
-const CACHE = "bichinho-v0.1.49";
+/* Service worker — PIXELS PWA */
+const CACHE = "bichinho-v0.1.59";
 const PRECACHE = [
   "./",
   "./index.html",
   "./styles.css",
   "./game.js",
+  "./player.js",
+  "./telemetry.js",
   "./audio.js",
   "./manifest.webmanifest",
   "./assets/icons/icon-192.png",
   "./assets/icons/icon-512.png",
+  "./assets/accessories/kitty-glasses.png",
+  "./assets/accessories/kitty-bow.png",
+  "./assets/accessories/kitty-bag.png",
   "./assets/scene/bg_meadow.webp",
   "./assets/scene/bg_garage.webp",
   "./assets/scene/bg_marina.webp",
@@ -35,6 +40,7 @@ self.addEventListener("fetch", (event) => {
   if (req.method !== "GET") return;
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
+  if (url.pathname.startsWith("/api/") || url.pathname.startsWith("/admin")) return;
 
   event.respondWith(
     caches.match(req).then((cached) => {

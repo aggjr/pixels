@@ -1,0 +1,12 @@
+.git
+.github
+.cursor
+node_modules
+assets/raw
+shots
+screenshots
+.env
+.env.*
+*.log
+data
+tests

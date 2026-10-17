@@ -363,6 +363,8 @@ body.touch .btn .k { display: none; }
 }
 
 .nameplate-text { display: flex; flex-direction: column; line-height: 1.05; }
+.rename-pet { border: 0; background: transparent; color: inherit; font: 800 .65rem var(--body); cursor: pointer; text-align: left; padding: 3px 0; }
+.device[data-phase="egg"] .rename-pet, .device[data-phase="hatching"] .rename-pet { display: none; }
 .nameplate-text strong { font-family: var(--display); font-size: 1.35rem; font-weight: 800; color: #fff; text-shadow: 0 2px 8px rgba(80, 20, 90, 0.45); }
 .nameplate-text span { font-size: 0.78rem; font-weight: 800; color: rgba(255, 255, 255, 0.92); text-shadow: 0 1px 4px rgba(80, 20, 90, 0.4); }
 
@@ -1228,3 +1230,69 @@ html[data-sound="off"] .mute-btn { opacity: 0.85; }
 .flash { position: absolute; inset: 0; background: radial-gradient(circle at 50% 60%, #fff, rgba(255, 240, 200, 0.6) 40%, transparent 75%); opacity: 0; pointer-events: none; z-index: 20; }
 .flash.go { animation: flash 1.4s ease-out; }
 @keyframes flash { 0% { opacity: 0; } 15% { opacity: 1; } 100% { opacity: 0; } }
+
+/* Player welcome: scrolls above the game when the mobile keyboard is open. */
+.player-welcome {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: safe center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: max(24px, env(safe-area-inset-top)) 20px max(24px, env(safe-area-inset-bottom));
+  background: radial-gradient(ellipse at top, #63417d, #1a0f2e);
+}
+.player-welcome[hidden] { display: none; }
+.player-card {
+  width: min(100%, 420px);
+  padding: 28px;
+  border-radius: 28px;
+  background: #fff4fa;
+  box-shadow: 0 20px 70px #0005;
+  display: grid;
+  gap: 16px;
+}
+.player-brand, .player-card h1 { font-family: var(--display); }
+.player-brand { color: #89416d; font-size: 1.2rem; }
+.player-card h1 { font-size: clamp(1.6rem, 6vw, 2rem); line-height: 1.15; }
+.player-card label { font-weight: 900; }
+.player-card input {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 14px;
+  border: 2px solid #bd8aa9;
+  border-radius: 14px;
+  background: white;
+  color: var(--ink);
+  font: 18px var(--body);
+  user-select: text;
+  -webkit-user-select: text;
+}
+.player-card input:focus-visible, .player-card button:focus-visible { outline: 3px solid #7441b8; outline-offset: 3px; }
+.player-card .player-privacy { font-size: .85rem; line-height: 1.5; color: #66536c; }
+.player-card button { min-height: 52px; border: 0; border-radius: 16px; background: #743b95; color: white; font: 900 18px var(--body); cursor: pointer; }
+.player-card .player-error { font-size: .9rem; color: #9d2344; }
+.player-error:empty { display: none; }
+.player-card .player-consent { display: flex; align-items: flex-start; gap: 10px; font-size: .8rem; line-height: 1.5; font-weight: 400; }
+.player-card .player-consent input { width: 22px; height: 22px; min-height: 22px; flex-shrink: 0; margin-top: 2px; }
+.pet-naming { margin: auto; padding: 0; border: 0; border-radius: 28px; max-width: calc(100vw - 32px); max-height: calc(100dvh - 32px); overflow-y: auto; color: var(--ink); background: #fff4fa; }
+.pet-naming::backdrop { background: #1a0f2ebf; backdrop-filter: blur(5px); }
+.pet-naming .player-card { box-shadow: none; }
+.pet-naming .player-card .pet-name-suggestion { color: #63327f; background: #eadcf2; }
+
+/* Accessory prototype: one shared animated frame for the sprite and fitted pieces. */
+.actor-appearance { position: absolute; inset: 0; transform-origin: 50% 100%; }
+.actor.has-accessories .actor-appearance { scale: var(--pet-scale, 1); animation: breathe 3.2s ease-in-out infinite; }
+.actor.has-accessories .actor-img { scale: 1 !important; animation: none !important; }
+.wear.wear-art { display: block; height: auto; right: auto; translate: -50% -50%; animation: none; line-height: 0; filter: drop-shadow(0 2px 2px #35193633); opacity: 1; }
+.wear.wear-art img { display: block; width: 100%; height: auto; }
+.wear[hidden] { display: none !important; }
+.closet-item .ce img { width: 66px; height: 66px; object-fit: contain; }
+.closet-status { margin: 0 0 14px; color: #663378; font-size: .85rem; line-height: 1.5; }
+.photo-veranda .actor, .photo-veranda .actor-shadow, .photo-veranda .rub-hand, .photo-veranda .wish { visibility: hidden; }
+.photo-veranda .scene-bg { background-image: url("assets/scene/veranda-photo.png") !important; background-position: center; background-size: cover; animation: none; filter: none !important; }
+.photo-veranda .scene-tint, .photo-veranda .scene-stars, .photo-veranda .scene-vignette { display: none; }
+.veranda-portrait { position: absolute; left: 12%; bottom: -2%; width: 76%; height: 110%; object-fit: contain; object-position: center bottom; pointer-events: none; filter: drop-shadow(0 10px 9px #643b5633); }
+.photo-veranda .bubble { z-index: 6; }
+.photo-veranda *, .photo-veranda *::before, .photo-veranda *::after { animation: none !important; }

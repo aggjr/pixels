@@ -1,5 +1,5 @@
 /**
- * Pixel Play — áudio com samples reais (Mixkit) + fallback procedural.
+ * PIXELS — áudio com samples reais (Mixkit) + fallback procedural.
  * Bebês: soluço e pum no nascimento · carros: escapamento.
  */
 (() => {

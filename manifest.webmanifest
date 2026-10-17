@@ -1,7 +1,7 @@
 {
-  "name": "Pixel Play",
-  "short_name": "Pixel Play",
-  "description": "Pixel Play — aqueça o ovo, cuide do seu PIXEL, vista, brinque e veja ele crescer!",
+  "name": "PIXELS",
+  "short_name": "PIXELS",
+  "description": "PIXELS — aqueça o ovo, cuide do seu PIXEL, vista, brinque e veja ele crescer!",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

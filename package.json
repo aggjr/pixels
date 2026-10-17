@@ -1,10 +1,14 @@
 {
-  "name": "bichinho-magico",
-  "version": "0.1.49",
+  "name": "pixels",
+  "version": "0.1.59",
   "private": true,
-  "description": "Pixel Play — Tamagotchi de PIXELs",
+  "description": "PIXELS — Tamagotchi de PIXELs",
   "scripts": {
     "bump": "node scripts/bump-app-version.js",
-    "start": "npx --yes serve -p 5173 ."
+    "start": "node server.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "engines": {
+    "node": ">=24"
   }
 }
