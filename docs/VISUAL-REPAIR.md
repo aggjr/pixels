@@ -1,4 +1,19 @@
-# Revisão do básico — 0.2.3
+# Revisão do básico — 0.2.4
+
+## Leão mais acessível
+
+- Humor neutro não usa mais a expressão brava. Necessidades moderadamente
+  atendidas já permitem felicidade; não exige todos os medidores quase cheios.
+- Carência isolada pede ajuda. Raiva exige pelo menos duas necessidades críticas
+  e 45 segundos de carência acumulada; saúde continua precisando de cuidados.
+- Cuidados recuperam tanto quanto nos demais PIXELS e interrompem a raiva
+  acumulada. Repetir carinho com a barra cheia recebe resposta afetuosa.
+- Rugido tratado como brincadeira, sem recusar carinho. Desgaste das necessidades
+  do leão reduzido ao ritmo padrão.
+
+Publicação autorizada pelo usuário em main após concluir e validar a revisão
+completa. As alterações artísticas de todo o elenco ainda estão pendentes;
+esta etapa não deve ser publicada como revisão completa.
 
 ## Ampliação para todo o elenco
 

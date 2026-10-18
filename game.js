@@ -371,11 +371,8 @@
     return sp?.id === "lion" || sp?.temperament === "grumpy";
   }
 
-  /** Tyton fica contente e ronrona quando bem cuidado. */
   function lionPamperedEnough() {
-    const n = state.needs;
-    return n.love >= 68 && n.hunger >= 62 && n.thirst >= 58
-      && n.hygiene >= 55 && n.energy >= 50 && n.health >= 60;
+    return window.PixelsCatalog.lionContent(state.needs);
   }
 
   function hasPose(pose) {
@@ -416,11 +413,12 @@
     const n = state.needs;
     const has = (p) => state.species.poses.includes(p);
     if ((state.mood === "sick" || n.health < 35) && has("sad")) return "sad";
-    // Tyton: cara fechada (mad) até estar MUITO bem cuidado; sorriso só no happy
+    // The expression follows the actual mood, including a calm neutral face.
     if (isLion()) {
       if (state.mood === "happy" && lionPamperedEnough() && has("happy")) return "happy";
       if (state.mood === "sad" && has("sad")) return "sad";
-      if (has("mad")) return "mad";
+      if (state.mood === "mad" && has("mad")) return "mad";
+      return null;
     }
     if (state.mood === "mad" && has("mad")) return "mad";
     const order = ["health", "hygiene", "energy", "love", "hunger", "thirst"];
@@ -1912,8 +1910,8 @@
     if (night) return setGuide(`Está de noite… hora de nanar? 🌙`, "6", "🌙");
     if (isLion() && !lionPamperedEnough()) {
       const nL = state.needs;
-      if (nL.love < 68) return setGuide(`${p} quer um chamego… Dá carinho! 💗`, "5", "💗", false);
-      if (nL.hunger < 62) return setGuide(`${p} quer um petisco… Dá ${state.species.foodName}! 🥩`, "2", state.species.food, false);
+      if (nL.love < 45) return setGuide(`${p} quer um chamego… Dá carinho! 💗`, "5", "💗", false);
+      if (nL.hunger < 40) return setGuide(`${p} quer um petisco… Dá ${state.species.foodName}! 🥩`, "2", state.species.food, false);
       return setGuide(`${p} quer brincar com você! ${toyEmoji()}`, "P", toyEmoji(), false);
     }
     if (n.energy > 40 && n.love < 85 && Math.random() < 0.002) {
@@ -2152,8 +2150,8 @@
         renderActor();
         say("GRRRRAWR! 🦁", 1400);
         await playMove("rear", 1200);
-        rain(["💢", "💨", "✨"], 8);
-        say("Não me faça carinho agora!", 1800);
+        rain(["🦁", "💛", "✨"], 8);
+        say("Esse é meu rugido de brincadeira! Vem brincar comigo! 🦁💛", 1800);
         await wait(1600);
       } else if (kind === "hop") {
         state.pose = state.species.poses.includes("hop") ? "hop" : null;
@@ -2276,7 +2274,7 @@
     el.btn1Text.textContent = "Acordar";
     if (isLion(species)) {
       Object.assign(state.needs, { hunger: 70, thirst: 72, hygiene: 75, love: 58, energy: 72, health: 95 });
-      setMood("neutral", 1400);
+      setMood("happy", 1400);
       rain(["✨", "🦁", "⭐"], 10);
       say("Oi… acabei de chegar! 🦁", 2200);
       if (window.PixelAudio) window.PixelAudio.speak("lion", "neutral", { force: true });
@@ -2528,12 +2526,14 @@
     }
     const n = state.needs;
     // Tyton responde bem ao carinho
-    const boost = isLion()
-      ? (10 + state.stage * 3)
-      : (12 + state.stage * 4);
+    const boost = 12 + state.stage * 4;
     const tooMuch = (key, limit, msg) => {
       if (n[key] <= limit) return false;
       metric("care_blocked", { action: kind, reason: "already_full" });
+      if (isLion()) {
+        say(key === "love" ? "Adorei o carinho! Vamos brincar um pouquinho? 💛" : "Já estou satisfeito! Obrigado por cuidar de mim! 💛", 2000);
+        return true;
+      }
       state.over[key]++;
       setMood("mad", 1800);
       rain(["💢", "😤"], 3);
@@ -2554,7 +2554,7 @@
       if (el.stageGroundProp) el.stageGroundProp.hidden = false;
 
       await throwToGroundBowl("2", state.species.food, 480);
-      n.hunger = clamp(n.hunger + boost + (isLion() ? 4 : 8), 0, 100);
+      n.hunger = clamp(n.hunger + boost + 8, 0, 100);
       relieve("hunger");
       renderNeeds();
 
@@ -2609,7 +2609,7 @@
       if (el.stageGroundProp) el.stageGroundProp.hidden = false;
 
       await throwToGroundBowl("3", machine ? "⛽" : (canUsePacifier() ? "🍼" : "💧"), 460);
-      n.thirst = clamp(n.thirst + boost + (isLion() ? 5 : 10), 0, 100);
+      n.thirst = clamp(n.thirst + boost + 10, 0, 100);
       relieve("thirst");
       renderNeeds();
 
@@ -2654,7 +2654,7 @@
       state.busy = true;
       state.actorOff = { x: 0, y: 0 };
       el.actorMove.style.transform = "";
-      n.hygiene = clamp(n.hygiene + (isLion() ? 18 : 35), 0, 100);
+      n.hygiene = clamp(n.hygiene + 35, 0, 100);
       relieve("hygiene");
       renderNeeds();
 
@@ -2748,7 +2748,7 @@
       state.busy = true;
       rain(isMachine() ? ["🛠️", "🔩", "✨"] : ["💊", "💚", "✨"], 10);
       playMove("wobble", 1200);
-      n.health = clamp(n.health + (isLion() ? 22 : 38), 0, 100);
+      n.health = clamp(n.health + 38, 0, 100);
       n.hygiene = clamp(n.hygiene + 6, 0, 100);
       say(isMachine() ? "Consertado! Vruum! 🛠️" : "Já estou melhor! 💚", 2200);
       await wait(1400);
@@ -2760,6 +2760,8 @@
       if (n.energy < 12) { metric("care_blocked", { action: kind, reason: "tired" }); say("Estou cansadinho demais… 😴", 1800); return; }
       setPlaying(!state.playing);
       if (state.playing && isLion()) {
+        state.lackMs = 0;
+        state.moodLock = 0;
         n.love = clamp(n.love + 3, 0, 100);
         say(pick(["Grr… brincar?", "…tudo bem. Vamos.", "Roar! Só um pouco."]), 1800);
       }
@@ -2770,14 +2772,16 @@
       metric("care_success", { action: kind });
       return;
     }
-    // Não força "feliz" no Tyton — ele só sorri se estiver bem cuidado
+    // Successful care clears accumulated frustration before reassessing needs.
     if (isLion()) {
+      state.lackMs = 0;
+      for (const key of Object.keys(state.over)) state.over[key] = 0;
       state.moodLock = 0;
       evaluateMood(performance.now() + 1);
     } else {
       setMood("happy", 1600);
     }
-    state.lackMs = Math.max(0, state.lackMs - (isLion() ? 1500 : 4000));
+    state.lackMs = Math.max(0, state.lackMs - 4000);
     renderActor();
     renderNeeds();
     saveActivePet();
@@ -2788,6 +2792,7 @@
     if (now < state.moodLock || state.busy) return;
     if (state.sleeping) return setMood("sleep");
     const n = state.needs;
+    if (isLion()) return setMood(window.PixelsCatalog.lionMood(n, state.lackMs));
     if (n.health < 28) return setMood("sick");
     if (Object.values(state.over).some((v) => v > 2)) return setMood("mad");
 
@@ -2800,13 +2805,6 @@
     if (n.health < 45) return setMood("sad");
     if (lows.length >= 1 || n.hunger < 28 || n.thirst < 28 || n.love < 25 || n.energy < 22 || n.hygiene < 22) {
       return setMood("sad");
-    }
-
-    // Tyton: nobre e carinhoso quando bem cuidado, só fica bravo se negligenciado
-    if (isLion()) {
-      if (lionPamperedEnough() && (state.playing || n.love >= 72)) return setMood("happy");
-      if (n.love < 40 || n.hunger < 38 || n.energy < 30) return setMood("mad");
-      return setMood("neutral");
     }
 
     if (state.playing) return setMood("happy");

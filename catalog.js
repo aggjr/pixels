@@ -154,7 +154,7 @@
       poses: ["plead", "eat", "sleep", "fall", "roar", "mad", "sad", "scratch", "sleepy", "happy"],
       skit: "roar", childSkit: "roar", adultSkit: "roar",
       focus: ["love", "hunger"],
-      profile: { hunger: 1.15, thirst: 1.05, hygiene: 1.0, love: 1.25, energy: 1.1, growthMs: 78_000 },
+      profile: { hunger: 1.0, thirst: 1.0, hygiene: 1.0, love: 1.0, energy: 1.0, growthMs: 78_000 },
       temperament: "grumpy",
     },
     {
@@ -368,5 +368,18 @@
     { id: "tuning", label: "🏎️ Oficina", machine: true },
     { id: "toys", label: "🧶 Brinquedos" },
   ];
-return { SPECIES, SPECIES_ANCHORS, CLOSET_ITEMS, CLOSET_TABS };
+// A child can make the lion content without topping up every meter.
+function lionContent(n) {
+  return n.love >= 45 && n.hunger >= 40 && n.thirst >= 35
+    && n.hygiene >= 30 && n.energy >= 30 && n.health >= 45;
+}
+function lionMood(n, lackMs = 0) {
+  if (n.health < 28) return "sick";
+  const levels = [n.hunger, n.thirst, n.hygiene, n.love, n.energy];
+  // Anger requires sustained, serious neglect; a missed care is a request for help.
+  if (levels.filter(v => v < 18).length >= 2 && lackMs >= 45_000) return "mad";
+  if (n.health < 45 || levels.some(v => v < 25)) return "sad";
+  return lionContent(n) ? "happy" : "neutral";
+}
+return { SPECIES, SPECIES_ANCHORS, CLOSET_ITEMS, CLOSET_TABS, lionContent, lionMood };
 });
