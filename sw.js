@@ -1,11 +1,13 @@
 /* Service worker — PIXELS PWA */
-const CACHE = "bichinho-v0.2.2";
+const CACHE = "bichinho-v0.2.3";
 const PRECACHE = [
   "./",
   "./index.html",
   "./styles.css",
   "./game.js",
   "./looks.js",
+  "./catalog.js",
+  "./wardrobe.js",
   "./assets/pets/lili-dressed-photo.png",
   "./assets/pets/lili-dressed-sleep.png",
   "./assets/pets/lili-dressed-sad.png",

@@ -1,4 +1,30 @@
-# Revisão do básico — 0.2.2
+# Revisão do básico — 0.2.3
+
+## Ampliação para todo o elenco
+
+O escopo inclui os 27 tipos disponíveis, ou 30 aparências com as quatro cores
+do Slime, nas quatro fases. A Lili é a referência de acabamento, não o limite
+da revisão. Esta versão entrega a primeira correção transversal do armário;
+não declara concluída a produção de roupas e animações de todo o elenco.
+
+- Catálogo único em catalog.js, compartilhado pelo jogo e pela inspeção visual.
+- Regras de anatomia em wardrobe.js: oficina para veículos; rodas para carrinhos
+  e trator; aerofólios/nitro para carrinhos; roupas, sapatos e objetos de mão
+  apenas nos corpos compatíveis. Laços, coroas e óculos continuam disponíveis
+  para todas as espécies. As opções não dependem do gênero da criança.
+- Regras valem na lista, ao equipar, ao desenhar e ao restaurar personagens salvos.
+- Resolução de encaixes por espécie, cor e fase; não empresta o corpo da gatinha
+  quando falta informação de outro PIXEL.
+- Inspeção local: node scripts/preview-wardrobe.js, http://127.0.0.1:5192.
+  Mostra todos lado a lado, com seleção de fase e peça. Não é publicada no jogo.
+- Testes percorrem 120 combinações de aparência/fase e todos os acessórios
+  compatíveis, verificando sprites existentes, encaixes e restauração dos dados.
+  Isso não substitui aprovação visual de cada combinação.
+
+Próxima parte artística ainda pendente: roupas e bolsas com contato convincente,
+poses vestidas de cuidado/sono e acabamento individual em todo o elenco. O
+potinho com duas poses integradas continua específico do conjunto da Lili;
+não deve ser apresentado como animação nova de alimentação de todos os PIXELS.
 
 Base: fb045d6. Trabalho isolado em C:\pixels-visual-repair, branch codex/visual-repair.
 O checkout original e o servidor público não foram modificados por esta revisão.
