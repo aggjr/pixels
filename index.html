@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=0.1.65" />
+  <link rel="stylesheet" href="styles.css?v=0.1.64" />
 </head>
 <body>
   <section class="player-welcome" id="playerWelcome" hidden aria-labelledby="playerWelcomeTitle">
@@ -171,15 +171,15 @@
         <span class="i">👗</span>
         <span class="t">Armário</span>
       </button>
-      <button type="button" class="side-btn side-contest" id="btnContest" data-key="D" disabled hidden title="Desfile de Moda (D)">
+      <button type="button" class="side-btn side-contest" id="btnContest" data-key="D" disabled title="Desfile de Moda (D)">
         <span class="i">📸</span>
         <span class="t">Desfile</span>
       </button>
-      <button type="button" class="side-btn side-hospital" id="btnHospital" data-key="A" disabled hidden title="Hospital Voluntário & Anjo do Mês (A)">
+      <button type="button" class="side-btn side-hospital" id="btnHospital" data-key="A" disabled title="Hospital Voluntário & Anjo do Mês (A)">
         <span class="i">🏥</span>
         <span class="t">Hospital</span>
       </button>
-      <button type="button" class="side-btn side-album" id="btnAlbum" data-key="F" disabled hidden title="Álbum 3D de Figurinhas (F)">
+      <button type="button" class="side-btn side-album" id="btnAlbum" data-key="F" disabled title="Álbum 3D de Figurinhas (F)">
         <span class="i">📖</span>
         <span class="t">Álbum 3D</span>
       </button>
@@ -278,41 +278,29 @@
         <li data-i="0">🥚</li><li data-i="1">Bebê</li><li data-i="2">Criança</li><li data-i="3">Jovem</li><li data-i="4">Adulto</li>
       </ol>
       <div class="growth-bar"><i id="growthFill"></i></div>
-      <p class="meta">Demo · 1 dia ≈ 2,9 min · ritmos −30% · teste: <kbd>0</kbd> novo ovo <kbd>7</kbd> fome <kbd>8</kbd> trapalhada <kbd>9</kbd> crescer · <span id="appVersion">V0.1.65</span></p>
+      <p class="meta">Demo · 1 dia ≈ 2,9 min · ritmos −30% · teste: <kbd>0</kbd> novo ovo <kbd>7</kbd> fome <kbd>8</kbd> trapalhada <kbd>9</kbd> crescer · <span id="appVersion">V0.1.64</span></p>
     </footer>
-
-    <section class="wa-naming-chat" id="petNaming" hidden aria-labelledby="petNamingTitle">
-      <form id="petNamingForm" class="wa-chat-card">
-        <header class="wa-chat-head">
-          <span class="wa-chat-avatar" id="waChatAvatar"></span>
-          <div class="wa-chat-meta">
-            <strong id="petNamingTitle">Seu novo PIXEL ✨</strong>
-            <small id="petNamingHint">online agora · olha pra mim aqui em cima!</small>
-          </div>
-          <button type="button" class="wa-suggestion-pill" id="petNameSuggestion">Usar sugestão</button>
-        </header>
-        <div class="wa-chat-messages" id="waChatMessages"></div>
-        <div class="wa-quick-row" id="waPronounRow">
-          <span class="wa-quick-label">Sou:</span>
-          <button type="button" class="wa-chip" data-pronoun="ela">👧 Menina (Ela)</button>
-          <button type="button" class="wa-chip" data-pronoun="ele">👦 Menino (Ele)</button>
-          <select id="petPronoun" hidden><option value="ela">Ela</option><option value="ele">Ele</option></select>
-        </div>
-        <div class="wa-quick-row" id="waNameChips"></div>
-        <div class="wa-input-bar">
-          <input id="petNickname" name="petNickname" type="text" required maxlength="30" autocomplete="off" enterkeyhint="send" placeholder="Digite o nome do PIXEL…" aria-label="Nome do seu PIXEL" />
-          <button type="submit" class="wa-send-btn" aria-label="Enviar nome">➤</button>
-        </div>
-      </form>
-    </section>
 
     <div class="flash" id="flash"></div>
     <div class="projectiles" id="projectiles"></div>
   </main>
-  <script src="audio.js?v=0.1.65"></script>
-  <script src="player.js?v=0.1.65"></script>
-  <script src="telemetry.js?v=0.1.65"></script>
-  <script src="game.js?v=0.1.65"></script>
+  <dialog class="pet-naming" id="petNaming" aria-labelledby="petNamingTitle">
+    <form id="petNamingForm" class="player-card">
+      <p class="player-brand">Um novo amigo! ✨</p>
+      <h2 id="petNamingTitle">Qual vai ser o nome?</h2>
+      <p id="petNamingHint">Pode manter a sugestão ou inventar um nome só seu.</p>
+      <label for="petNickname">Nome do seu PIXEL</label>
+      <input id="petNickname" name="petNickname" type="text" required maxlength="30" autocomplete="off" enterkeyhint="done" aria-describedby="petNamingHint" />
+      <label for="petPronoun">Como chamar seu PIXEL?</label>
+      <select id="petPronoun"><option value="ela">Ela</option><option value="ele">Ele</option></select>
+      <button type="submit">Esse é o nome! 💖</button>
+      <button type="button" class="pet-name-suggestion" id="petNameSuggestion">Usar a sugestão</button>
+    </form>
+  </dialog>
+  <script src="audio.js?v=0.1.64"></script>
+  <script src="player.js?v=0.1.64"></script>
+  <script src="telemetry.js?v=0.1.64"></script>
+  <script src="game.js?v=0.1.64"></script>
   <script>
     (function () {
       const ua = navigator.userAgent || "";
