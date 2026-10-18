@@ -1,5 +1,5 @@
 /* Service worker — PIXELS PWA */
-const CACHE = "bichinho-v0.1.59";
+const CACHE = "bichinho-v0.1.65";
 const PRECACHE = [
   "./",
   "./index.html",
@@ -14,6 +14,14 @@ const PRECACHE = [
   "./assets/accessories/kitty-glasses.png",
   "./assets/accessories/kitty-bow.png",
   "./assets/accessories/kitty-bag.png",
+  "./assets/care/food-bowl-berry.png",
+  "./assets/care/food-bowl-fish.png",
+  "./assets/care/food-bowl-empty.png",
+  "./assets/care/drink-water-bowl.png",
+  "./assets/care/bath-foam-suit.png",
+  "./assets/care/bath-foam-crown.png",
+  "./assets/care/bath-sponge.png",
+  "./assets/care/bath-showerhead.png",
   "./assets/scene/bg_meadow.webp",
   "./assets/scene/bg_garage.webp",
   "./assets/scene/bg_marina.webp",
@@ -43,17 +51,14 @@ self.addEventListener("fetch", (event) => {
   if (url.pathname.startsWith("/api/") || url.pathname.startsWith("/admin")) return;
 
   event.respondWith(
-    caches.match(req).then((cached) => {
-      const fetchPromise = fetch(req)
-        .then((res) => {
-          if (res && res.ok) {
-            const clone = res.clone();
-            caches.open(CACHE).then((cache) => cache.put(req, clone));
-          }
-          return res;
-        })
-        .catch(() => cached);
-      return cached || fetchPromise;
-    })
+    fetch(req)
+      .then((res) => {
+        if (res && res.ok) {
+          const clone = res.clone();
+          caches.open(CACHE).then((cache) => cache.put(req, clone));
+        }
+        return res;
+      })
+      .catch(() => caches.match(req))
   );
 });
