@@ -14,7 +14,7 @@ fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
 
 const label = `V${pkg.version}`;
 let html = fs.readFileSync(htmlPath, "utf8");
-html = html.replace(/((?:styles\.css|game\.js|player\.js|telemetry\.js|audio\.js)\?v=)[\d.]+/g, `$1${pkg.version}`);
+html = html.replace(/((?:styles\.css|game\.js|looks\.js|player\.js|telemetry\.js|audio\.js)\?v=)[\d.]+/g, `$1${pkg.version}`);
 html = html.replace(
   /(<span id="appVersion">)V[\d.]+(<\/span>)/,
   `$1${label}$2`

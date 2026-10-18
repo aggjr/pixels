@@ -63,7 +63,7 @@ function transaction(fn) {
   try { const value = fn(); db.exec("COMMIT"); return value; } catch (e) { db.exec("ROLLBACK"); throw e; }
 }
 const mime = { ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": "application/javascript", ".webmanifest": "application/manifest+json", ".png": "image/png", ".webp": "image/webp", ".svg": "image/svg+xml", ".mp3": "audio/mpeg", ".wav": "audio/wav", ".ogg": "audio/ogg", ".m4a": "audio/mp4" };
-const publicFiles = new Set(["index.html", "styles.css", "game.js", "player.js", "telemetry.js", "audio.js", "sw.js", "manifest.webmanifest", "admin.html", "admin.js", "admin.css"]);
+const publicFiles = new Set(["index.html", "styles.css", "game.js", "looks.js", "player.js", "telemetry.js", "audio.js", "sw.js", "manifest.webmanifest", "admin.html", "admin.js", "admin.css"]);
 const server = http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url, "http://localhost");

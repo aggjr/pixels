@@ -396,6 +396,7 @@
 
   // Armário 3D: Acessórios e brinquedos 100% calibrados para todos os 28 PIXELs
   const CLOSET_ITEMS = [
+    { id: "look_lili_complete", tab: "looks", slot: "body", tier: "basic", price: "Grátis", emoji: "✨", name: "Conjunto Lili · vestido, bolsa, laço, óculos e sapatinhos", art: "assets/pets/lili-dressed-photo.png", species: "kitty", completeLook: true },
     // --- ROUPAS & LAÇOS 3D ---
     { id: "hat_bow_pink", tab: "clothes", slot: "hat", tier: "basic", price: "Grátis", emoji: "🎀", name: "Laço Estrelinha Rosa", art: "assets/accessories/kitty-bow.png" },
     { id: "hat_bow_turquoise", tab: "clothes", slot: "hat", tier: "basic", price: "Grátis", emoji: "🎀", name: "Laço Estrelinha Turquesa", art: "assets/accessories/acc-bow-turquoise.png" },
@@ -436,7 +437,7 @@
     { id: "tune_wheels_gold", tab: "tuning", slot: "feet", tier: "grife", price: "R$ 4,99", emoji: "🛞", name: "Rodas Estrela de Ouro", art: "assets/accessories/acc-wheel-gold.png" },
 
     // --- BRINQUEDOS (livres para correr atrás no palco) ---
-    { id: "toy_ball", tab: "toys", tier: "basic", price: "Grátis", emoji: "🎾", name: "Bolinha" },
+    { id: "toy_ball", tab: "toys", tier: "basic", price: "Grátis", emoji: "🎾", name: "Bolinha de estrelinha", art: "assets/accessories/toy-star-ball.png" },
     { id: "toy_yarn", tab: "toys", tier: "basic", price: "Grátis", emoji: "🧶", name: "Novelo" },
     { id: "toy_bone", tab: "toys", tier: "basic", price: "Grátis", emoji: "🦴", name: "Ossinho" },
     { id: "toy_carrot", tab: "toys", tier: "basic", price: "Grátis", emoji: "🥕", name: "Cenoura" },
@@ -450,11 +451,12 @@
     { id: "toy_flag", tab: "toys", tier: "basic", price: "Grátis", emoji: "🏁", name: "Bandeirinha" },
   ];
   const CLOSET_TABS = [
+    { id: "looks", label: "✨ Conjuntos", species: "kitty" },
     { id: "clothes", label: "👗 Roupas" },
     { id: "bags", label: "👜 Óculos & Bolsas" },
     { id: "sports", label: "👟 Calçados & Tênis" },
-    { id: "powers", label: "👑 Grife & Poderes" },
-    { id: "tuning", label: "🏎️ Oficina" },
+    { id: "powers", label: "🪽 Acessórios mágicos", species: "unicorn" },
+    { id: "tuning", label: "🏎️ Oficina", machine: true },
     { id: "toys", label: "🧶 Brinquedos" },
   ];
   const SAVE_KEY = "bichinho-collection-v1";
@@ -519,7 +521,14 @@
   function syncToyUI() {
     const emoji = toyEmoji();
     if (el.btnPlayIcon) el.btnPlayIcon.textContent = emoji;
-    if (el.toy) el.toy.textContent = emoji;
+    if (el.toy) {
+      if (state.activeToyId === "toy_ball") {
+        if (!el.toy.querySelector("img")) {
+          const image = document.createElement("img"); image.src = "assets/accessories/toy-star-ball.png"; image.alt = "Bolinha de estrelinha"; image.draggable = false;
+          el.toy.replaceChildren(image);
+        }
+      } else el.toy.textContent = emoji;
+    }
     if (el.wish && !el.wish.hidden && el.wishIcon && state.playing) {
       el.wishIcon.textContent = emoji;
     }
@@ -830,6 +839,7 @@
       speciesId: state.species.id,
       variant: state.variant,
       name: state.name,
+      nameChosen: state.nameChosen !== false,
       pronoun: state.pronoun || state.species.he,
       stage: state.stage,
       needs: { ...state.needs },
@@ -876,13 +886,14 @@
       petId: snap.id,
       species,
       name: snap.name || pick(species.names),
+      nameChosen: snap.nameChosen !== false,
       pronoun: snap.pronoun || species.he,
       stage: clamp(snap.stage || 1, 1, 4),
       needs: { hunger: 80, thirst: 80, hygiene: 85, love: 75, energy: 90, health: 100, ...(snap.needs || {}) },
       sleeping: !!snap.sleeping,
       boosts: snap.boosts || { hunger: 1, thirst: 1, hygiene: 1, love: 1, energy: 1, health: 1 },
       strongTraits: snap.strongTraits || [],
-      outfit: { ...emptyOutfit(), ...(snap.outfit || {}) },
+      outfit: { ...emptyOutfit(), ...window.PixelsLooks.migrate(snap.outfit || {}) },
       activeToyId: snap.activeToyId || null,
       hatchAt: snap.hatchAt || Date.now(),
       growthIntervalMs: snap.growthIntervalMs || speciesGrowthMs(species),
@@ -910,7 +921,11 @@
     el.btn1Text.textContent = "Acordar";
     renderActor(); renderOutfit(); renderHeader(); renderNeeds(); renderGrowth();
     setMood(snap.sleeping ? "sleep" : (snap.mood || "happy"), 1200);
-    say(snap.frozen ? `${state.name} acordou do pausado! 💖` : `Oi de novo! Eu sou ${state.name}! 💖`, 2400);
+    if (state.nameChosen === false) {
+      state.naming = true;
+      say("Oi! Ainda estou esperando meu nome 💛", 2000);
+      setTimeout(choosePetName, 900);
+    } else say(snap.frozen ? `${state.name} acordou do pausado! 💖` : `Oi de novo! Eu sou ${state.name}! 💖`, 2400);
   }
   function tryResumeSavedPet() {
     if (state.preview) return false;
@@ -994,9 +1009,7 @@
     try { localStorage.setItem(ECO_KEY, JSON.stringify(eco)); } catch (_) {}
   }
   function isItemUnlocked(item) {
-    if (!item || item.tab === "toys" || !item.tier || item.tier === "basic") return true;
-    const eco = loadEco();
-    return Array.isArray(eco.unlockedItems) && eco.unlockedItems.includes(item.id);
+    return true;
   }
   function unlockClosetItem(itemId) {
     const eco = loadEco();
@@ -1136,6 +1149,7 @@
   }
 
   function defaultClosetTab() {
+    if (state.species?.id === "kitty") return "looks";
     if (state.species?.id === "unicorn") return "powers";
     if (isMachine()) return "tuning";
     return "clothes";
@@ -1152,8 +1166,8 @@
   function openCloset(tab) {
     metric("closet_open");
     if (state.phase !== "pet") return;
-    const validTabs = CLOSET_TABS.filter((t) => !t.species || t.species === state.species?.id).map((t) => t.id);
-    const wanted = tab || state.closetTab;
+    const validTabs = CLOSET_TABS.filter((t) => (!t.species || t.species === state.species?.id) && (!t.machine || isMachine())).map((t) => t.id);
+    const wanted = tab || (state.species?.id === "kitty" ? "looks" : state.closetTab);
     state.closetTab = validTabs.includes(wanted) ? wanted : defaultClosetTab();
     closeAllSheets();
     if (el.closetPanel) el.closetPanel.hidden = false;
@@ -1161,8 +1175,10 @@
   }
   function closeCloset() {
     if (el.closetPanel) el.closetPanel.hidden = true;
+    state.nextSkit = performance.now() + 8000;
   }
   function tierBadgeMarkup(item) {
+    return ""; // No prices or future reward systems in the current wardrobe.
     if (item.tab === "toys") return "";
     if (item.tier === "grife") {
       return `<span class="tier-badge tier-grife">👑 Grife · ${isItemUnlocked(item) ? "Liberado" : item.price}</span>`;
@@ -1176,10 +1192,12 @@
     if (!el.closetTabs || !el.closetGrid) return;
     const equippedList = equippedItemsList();
     const count = equippedList.length;
+    const completeLook = window.PixelsLooks.active(state.species?.id, state.outfit);
 
     if (el.closetTray) {
       el.closetTray.innerHTML = "";
       for (let idx = 0; idx < 3; idx++) {
+        if (completeLook && idx > 0) continue;
         const eq = equippedList[idx];
         const slotBtn = document.createElement("button");
         slotBtn.type = "button";
@@ -1211,7 +1229,7 @@
     }
 
     el.closetTabs.innerHTML = "";
-    const tabs = [...CLOSET_TABS.filter((t) => !t.species || t.species === state.species?.id)];
+    const tabs = [...CLOSET_TABS.filter((t) => (!t.species || t.species === state.species?.id) && (!t.machine || isMachine()))];
     if (isMachine()) {
       tabs.sort((a, b) => (a.id === "tuning" ? -1 : b.id === "tuning" ? 1 : 0));
     } else if (state.species?.id === "unicorn") {
@@ -1228,10 +1246,11 @@
     el.closetGrid.innerHTML = "";
     const statusEl = document.getElementById("closetStatus");
     if (statusEl) {
-      const eco = loadEco();
-      statusEl.innerHTML = count >= 3
-        ? `<b>3/3 peças equipadas</b> · toque numa peça acima para devolver e trocar! · 😇 Bondade: <b>${eco.angelPoints} pts</b>`
-        : `<b>${count}/3 peças no PIXEL</b> · combine até 3 peças 3D (Básico Grátis, Fashion ou Grife/Poderes · 😇 Bondade: <b>${eco.angelPoints} pts</b>)`;
+      statusEl.innerHTML = completeLook
+        ? "<b>Conjunto completo</b> · vestido, bolsa e acessórios combinando. Escolher uma peça avulsa troca este visual."
+        : count >= 3
+        ? `<b>3/3 peças equipadas</b> · toque numa peça acima para devolver e trocar!`
+        : `<b>${count}/3 peças no PIXEL</b> · experimente, combine e guarde suas favoritas.`;
     }
     CLOSET_ITEMS.filter((i) => i.tab === state.closetTab && (!i.species || i.species === state.species?.id)).forEach((item) => {
       const b = document.createElement("button");
@@ -1255,6 +1274,17 @@
   }
 
   function equipItem(item) {
+    if (item.species && item.species !== state.species?.id) return;
+    if (item.completeLook) {
+      const removing = state.outfit.body === item.id;
+      state.outfit = { ...emptyOutfit(), body: removing ? null : item.id };
+      renderActor(); saveActivePet(); renderCloset();
+      metric("equip", { action: item.id });
+      say(removing ? "Guardei o conjunto com carinho! ✨" : "Vestido, bolsinha e tudo combinando! 💖", 2400);
+      return;
+    }
+    // Separate accessories replace the integrated outfit, rather than floating over it.
+    if (item.tab !== "toys" && window.PixelsLooks.active(state.species?.id, state.outfit)) state.outfit = emptyOutfit();
     if (item.tab === "toys") {
       state.activeToyId = state.activeToyId === item.id ? null : item.id;
       syncToyUI();
@@ -1338,6 +1368,7 @@
   }
 
   function openContest() {
+    return; // Future feature, outside the current care game.
     if (state.phase !== "pet") return;
     contestAgeTab = clamp(state.stage || 3, 1, 4);
     closeAllSheets();
@@ -1437,6 +1468,7 @@
   ];
 
   function openHospital() {
+    return; // Future feature, outside the current care game.
     if (state.phase !== "pet") return;
     closeAllSheets();
     if (el.hospitalPanel) el.hospitalPanel.hidden = false;
@@ -1585,6 +1617,7 @@
   let activeStickerStoryId = "titanic";
 
   function openAlbum() {
+    return; // Future feature, outside the current care game.
     if (state.phase !== "pet") return;
     closeAllSheets();
     if (el.albumPanel) el.albumPanel.hidden = false;
@@ -1751,13 +1784,12 @@
   }
   function currentArt() {
     const sp = state.species;
+    const integratedArt = window.PixelsLooks.chooseArt(state);
+    if (integratedArt) return integratedArt;
     const ak = artKey(sp);
     if (state.sleeping) {
       const s = sleepArt(sp, state.stage);
       if (s) return s;
-    }
-    if (equippedItemsList().some((i) => i.art)) {
-      return baseArt(sp, state.stage);
     }
     if (state.pose && hasPose(state.pose)) return `${ART}${ak}_${state.pose}.webp`;
     const expr = expressionPose();
@@ -1976,6 +2008,7 @@
     el.actor.style.setProperty("--egg-veil", veil.toFixed(3));
   }
   function renderActor() {
+    el.stage?.classList.toggle("integrated-meal", window.PixelsLooks.active(state.species?.id, state.outfit) && state.pose === "eat");
     if (state.phase === "egg" || state.phase === "hatching") {
       el.actorImg.style.scale = "1";
       syncEggPeekLayers();
@@ -1999,15 +2032,15 @@
   }
   function renderChosenEggHeader(sp) {
     if (!sp) return;
-    el.avatar.style.backgroundImage = `url(${baseArt(sp, 1)})`;
-    el.petName.textContent = pick(sp.names);
-    el.petStage.textContent = `${sp.name} · ovo escolhido`;
+    el.avatar.style.backgroundImage = `url(${ART}egg.webp)`;
+    el.petName.textContent = "Quem será que vem aí?";
+    el.petStage.textContent = "Aqueça o ovo para descobrir";
     syncBiome();
   }
   function renderHeader() {
     if (!state.species) return;
     el.avatar.style.backgroundImage = `url(${baseArt(state.species, 1)})`;
-    el.petName.textContent = state.name;
+    el.petName.textContent = state.nameChosen === false ? "Um novo amigo!" : state.name;
     const label = state.species.id === "kitty" && isFemalePixel() ? "Gatinha" : state.species.name;
     el.petStage.textContent = `${label} · ${STAGE_LABELS[state.stage]}`;
     applyDietUI();
@@ -2021,7 +2054,7 @@
   const isFemalePixel = () => (state.pronoun || state.species?.he) === "ela";
   function genderedText(text) {
     if (!isFemalePixel()) return text;
-    const forms = { nervoso: "nervosa", cansadinho: "cansadinha", sujinho: "sujinha", limpinho: "limpinha", cheirosinho: "cheirosinha", Cheirosinho: "Cheirosinha", acordado: "acordada", novinho: "novinha", Quebrado: "Quebrada", Consertado: "Consertada", Abastecido: "Abastecida", dele: "dela", molhado: "molhada", pausada: "pausada" };
+    const forms = { nervoso: "nervosa", cansadinho: "cansadinha", sujinho: "sujinha", limpinho: "limpinha", cheirosinho: "cheirosinha", Cheirosinho: "Cheirosinha", acordado: "acordada", novinho: "novinha", Quebrado: "Quebrada", Consertado: "Consertada", Abastecido: "Abastecida", dele: "dela", molhado: "molhada", pausado: "pausada" };
     return text.replace(/\b(nervoso|cansadinho|sujinho|limpinho|cheirosinho|Cheirosinho|acordado|novinho|Quebrado|Consertado|Abastecido|dele|molhado|pausado)\b/g, word => forms[word]);
   }
   function choosePetName() {
@@ -2031,14 +2064,20 @@
     const pronounSelect = document.getElementById("petPronoun");
     if (pronounSelect) pronounSelect.value = state.pronoun || state.species.he;
     if (namingInput) {
-      namingInput.value = namingSuggestion;
+      namingInput.value = state.nameChosen === false ? "" : namingSuggestion;
+      namingInput.placeholder = "Escreva um nome para mim…";
       namingInput.setCustomValidity("");
     }
     const hintEl = document.getElementById("petNamingHint");
-    if (hintEl) hintEl.textContent = `${state.species.name}: pode manter ${namingSuggestion} ou inventar um nome só seu.`;
+    if (hintEl) hintEl.textContent = state.nameChosen === false ? "Oi! Acabei de nascer 💛 Que nome você quer me dar?" : "Sou eu! Quer escolher outro nome para mim? 💛";
+    const chatAvatar = document.getElementById("namingChatAvatar");
+    if (chatAvatar) chatAvatar.src = currentArt();
+    const suggestionButton = document.getElementById("petNameSuggestion");
+    if (suggestionButton) suggestionButton.textContent = `Que tal ${namingSuggestion}?`;
     state.naming = true;
     state.rubbing = false;
-    namingDialog.showModal();
+    namingDialog.show();
+    el.app.classList.add("naming-chat-open");
     if (namingInput) {
       namingInput.focus();
       namingInput.select();
@@ -2054,12 +2093,15 @@
       return;
     }
     state.name = name;
+    state.nameChosen = true;
+    state.nextSkit = performance.now() + 12000;
     const pronounSelect = document.getElementById("petPronoun");
     if (pronounSelect) state.pronoun = pronounSelect.value;
     state.naming = false;
     // Naming time does not count toward growth or decay.
     state.lastGrowth += performance.now() - namingStarted;
     namingDialog.close();
+    el.app.classList.remove("naming-chat-open");
     renderHeader();
     saveActivePet();
     say(`Oi! Eu sou ${state.name}! 💖`, 3000);
@@ -2160,6 +2202,9 @@
   }
 
   function updateGuide() {
+    if (state.phase === "pet" && state.nameChosen === false) {
+      return setGuide("Seu novo amigo chegou! Vamos escolher um nome? 💛");
+    }
     if (state.phase === "egg") {
       if (!state.audience) return setGuide("Primeiro escolhe: menina, menino ou tanto faz! ✨");
       const t = state.temp;
@@ -2265,6 +2310,10 @@
 
   // ---------- Clumsy baby skits ----------
   async function skit(kind) {
+    if (window.PixelsLooks.active(state.species?.id, state.outfit)) {
+      state.nextSkit = performance.now() + 20000;
+      return;
+    }
     if (state.busy || state.sleeping || state.playing || state.phase !== "pet") return;
     state.busy = true;
     const p = state.name;
@@ -2581,7 +2630,7 @@
 
     const knewSpecies = wasChosenEgg;
     Object.assign(state, {
-      phase: "pet", stage: 1, species, pronoun: species.he, name: pick((state.variant && species.variants?.[state.variant]?.names) || species.names),
+      phase: "pet", stage: 1, species, pronoun: species.he, nameChosen: false, name: pick((state.variant && species.variants?.[state.variant]?.names) || species.names),
       lastGrowth: performance.now(), eggCrack: 0, pose: null, lackMs: 0,
       boosts: rolled.boosts,
       strongTraits: rolled.strongTraits,
@@ -2609,12 +2658,12 @@
       Object.assign(state.needs, { hunger: 70, thirst: 72, hygiene: 75, love: 58, energy: 72, health: 95 });
       setMood("neutral", 1400);
       rain(["✨", "🦁", "⭐"], 10);
-      say(`Sou ${state.name}! 🦁 Um leãozinho nobre e curioso!`, 3000);
+      say("Oi… acabei de chegar! 🦁", 2200);
       if (window.PixelAudio) window.PixelAudio.speak("lion", "neutral", { force: true });
     } else {
       setMood("happy", 2000);
       rain(["✨", "💖", "⭐"], 10);
-      say(knewSpecies ? `Sou eu, ${state.name}! 💖` : `Surpresa! Eu sou ${state.name}! 💖`, 2600);
+      say("Surpresa! Olha quem chegou! 💖", 2200);
       if (window.PixelAudio && species) window.PixelAudio.speak(species.id, "happy", { force: true });
       // Bebê recém-nascido: soluço (e às vezes pum / escapamento) é normal
       setTimeout(() => {
@@ -2632,7 +2681,9 @@
     state.nextSkit = performance.now() + 3200;
     saveActivePet();
     metric("hatched");
-    choosePetName();
+    updateGuide();
+    state.naming = true;
+    setTimeout(choosePetName, 1600);
   }
 
   function grow() {
@@ -2785,6 +2836,7 @@
 
   function applyBowlCrouchTransform() {
     if (!el.stage || !el.actorMove) return;
+    if (window.PixelsLooks.active(state.species?.id, state.outfit)) return;
     const stageRect = el.stage.getBoundingClientRect();
     const stageH = stageRect.height || 440;
     const stageW = stageRect.width || 380;
@@ -2887,6 +2939,7 @@
       renderNeeds();
 
       state.pose = "eat";
+      state.careFrame = "bite";
       renderActor();
       el.actor.dataset.mood = "neutral";
       applyBowlCrouchTransform();
@@ -2898,6 +2951,10 @@
       biteTimes.forEach((ms, idx) => {
         setTimeout(() => {
           if (!state.busy) return;
+          if (window.PixelsLooks.active(state.species?.id, state.outfit)) {
+            state.careFrame = idx % 2 === 0 ? "chew" : "bite";
+            renderActor();
+          }
           pulseBowlChomp();
           if (idx === 1 && el.groundBowlImg) {
             el.groundBowlImg.src = `assets/care/food-bowl-${bowlType}-half.png`;
@@ -2917,6 +2974,7 @@
       await wait(2550);
       clearStageCareProps();
       state.pose = null;
+      state.careFrame = null;
       state.busy = false;
     } else if (kind === "drink") {
       if (tooMuch("thirst", 92, isMachine() ? "Tanque cheio! ⛽" : "Chega de água! 💦")) return;
@@ -3152,6 +3210,12 @@
   function tick(now) {
     const dt = Math.min(0.1, (now - state.last) / 1000);
     state.last = now;
+    const browsing = (el.closetPanel && !el.closetPanel.hidden) || (el.collectionPanel && !el.collectionPanel.hidden);
+    if (browsing) {
+      state.lastGrowth += dt * 1000;
+      requestAnimationFrame(tick);
+      return;
+    }
     if (state.naming) {
       requestAnimationFrame(tick);
       return;
@@ -3465,6 +3529,7 @@
     Object.assign(state, { phase: "pet", species: sp || SPECIES[0], stage: clamp(Number(q.get("stage")) || 1, 1, 4) });
     applyVariant(state.species, pickVariant(state.species));
     state.name = q.get("name") || pick((state.variant && state.species.variants?.[state.variant]?.names) || state.species.names);
+    state.nameChosen = true;
     state.pronoun = q.get("pronoun") === "ela" ? "ela" : q.get("pronoun") === "ele" ? "ele" : state.species.he;
     const rolled = rollStrongTraits(state.species);
     if (q.get("trait")) {
@@ -3581,7 +3646,7 @@
   if (state.phase === "pet" && !state.preview) {
     /* retomado — já falou oi */
   } else if (!state.preview && state.forceSpecies) {
-    say(`Ovo escolhido! Aquece pra ver ${pick(state.forceSpecies.names)}… 🥚`, 3200);
+    say("Tem uma surpresa aqui dentro! Aqueça o ovinho… 🥚", 3200);
   } else if (!state.preview && state.audience) say("Tem um ovinho aqui! 🥚", 3000);
   else if (!state.preview && !state.audience) say("Escolhe pra quem é o PIXEL! ✨", 4000);
   requestAnimationFrame(tick);

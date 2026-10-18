@@ -1,10 +1,17 @@
 /* Service worker — PIXELS PWA */
-const CACHE = "bichinho-v0.1.64";
+const CACHE = "bichinho-v0.2.2";
 const PRECACHE = [
   "./",
   "./index.html",
   "./styles.css",
   "./game.js",
+  "./looks.js",
+  "./assets/pets/lili-dressed-photo.png",
+  "./assets/pets/lili-dressed-sleep.png",
+  "./assets/pets/lili-dressed-sad.png",
+  "./assets/pets/lili-dressed-eat.png",
+  "./assets/pets/lili-dressed-chew.png",
+  "./assets/accessories/toy-star-ball.png",
   "./player.js",
   "./telemetry.js",
   "./audio.js",
