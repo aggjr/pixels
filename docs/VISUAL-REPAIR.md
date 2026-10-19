@@ -1,4 +1,14 @@
-# Revisão do básico — 0.2.4
+# Revisão do básico — 0.2.6
+
+## Auditoria visual de acessórios
+
+Revisão completa de cobertura estática e resultados em
+[docs/qa/REVISAO-ACESSORIOS.md](qa/REVISAO-ACESSORIOS.md).
+Foram registradas 30 pranchas, com 1.536 encaixes avulsos e quatro casos do
+conjunto da Lili. A revisão **não aprovou o acabamento final**: há pendências
+de roupas, bolsas, calçados, contato com o corpo, fontes e continuidade em poses.
+Rodas individuais foram calibradas; medalhas e dois rostos tiveram ajustes;
+o recorte do Slime verde adulto foi corrigido. A main permanece sem publicação.
 
 ## Leão mais acessível
 

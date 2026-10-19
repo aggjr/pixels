@@ -1369,8 +1369,9 @@ html[data-sound="off"] .mute-btn { opacity: 0.85; }
 .actor-appearance { position: absolute; inset: 0; transform-origin: 50% 100%; }
 .actor.has-accessories .actor-appearance { scale: var(--pet-scale, 1); animation: breathe 3.2s ease-in-out infinite; }
 .actor.has-accessories .actor-img { scale: 1 !important; animation: none !important; z-index: 2; }
-.wear.wear-art { display: block; height: auto; right: auto; translate: -50% -50%; animation: none; line-height: 0; filter: drop-shadow(0 3px 4px rgba(45, 18, 55, 0.28)); opacity: 1; }
+.wear.wear-art { display: block; height: auto; right: auto; bottom: auto; translate: -50% -50%; animation: none; line-height: 0; filter: drop-shadow(0 3px 4px rgba(45, 18, 55, 0.28)); opacity: 1; }
 .wear.wear-art img { display: block; width: 100%; height: auto; }
+.wear.wear-art.wear-multiple { translate: none; filter: none; }
 .wear-wings { z-index: 1 !important; transform-origin: 50% 60%; }
 .actor.unicorn-flying .actor-appearance {
   animation: unicorn-soar 2.6s ease-in-out infinite !important;

@@ -20,8 +20,8 @@
     if (item.completeLook) return item.species === speciesId;
     if (item.tab === "powers") return speciesId === "unicorn";
     if (item.tab === "tuning") {
-      if (item.id.includes("spoiler") || item.id.includes("nitro") || item.id.includes("exhaust")) return family === "car";
-      if (item.id === "tune_wheels_gold") return ["car", "tractor"].includes(family);
+      if (item.id.includes("spoiler") || item.id.includes("nitro") || item.id.includes("exhaust")) return speciesId === "racer";
+      if (item.id === "tune_wheels_gold") return ["racer", "tractor"].includes(speciesId);
       return machines.has(family);
     }
     if (item.slot === "hat" || item.slot === "face") return true;
@@ -55,7 +55,27 @@
     if (!a) return null;
     a = [...a];
     if (item.id === "hat_cap_3d") { a[1] += .01; a[2] *= 1.24; }
+    if (item.id === "neck_medal_3d") { a[1] += a[2] * .46; a[2] *= .6; }
+    if (item.id === "neck_scarf_3d") a[1] += .055;
     return a;
   }
-  return { families, compatible, sanitize, tabs, anchorsFor, fit };
+  // Visible wheel hubs measured on each source image; never a wheel over the belly.
+  const hubs = {
+    racer: {
+      newborn: [[.843,.812,.20,0,.43],[.971,.707,.14,0,.40]],
+      child: [[.752,.793,.22,0,.54],[.950,.671,.15,0,.42]],
+      adult: [[.613,.790,.20,0,.66],[.937,.650,.18,0,.48]],
+    },
+    tractor: {
+      newborn: [[.613,.835,.18,0,.62],[.909,.721,.25,0,.55],[.156,.807,.13,0,.56]],
+      child: [[.614,.827,.18,0,.62],[.916,.701,.25,0,.52],[.152,.793,.13,0,.56]],
+      adult: [[.614,.827,.18,0,.62],[.916,.701,.25,0,.52],[.152,.793,.13,0,.56]],
+    },
+  };
+  function mounts(species, stage, anchors, item) {
+    if (item.id === "tune_wheels_gold") return hubs[species.id]?.[species.stages[stage]] || [];
+    const point = fit(anchors, item);
+    return point ? [[...point, 1]] : [];
+  }
+  return { families, compatible, sanitize, tabs, anchorsFor, fit, mounts };
 });

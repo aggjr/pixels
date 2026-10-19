@@ -386,7 +386,7 @@
     return sp.id;
   }
   function baseArt(sp, stage) {
-    return `${ART}${artKey(sp)}_${sp.stages[stage]}.webp`;
+    return window.PixelsCatalog.spriteArt(sp, stage, state.variant);
   }
   function sleepArt(sp, stage) {
     const key = sp.stages[stage];
@@ -677,7 +677,7 @@
     const fitted = items.some((i) => i.art);
     const img = el.actorImg;
     const src = img?.getAttribute("src") || "";
-    const coreArt = /_(newborn|baby|child|adult)\.webp(?:$|\?)/i.test(src);
+    const coreArt = /_(newborn|baby|child|adult)\.(?:webp|png)(?:$|\?)/i.test(src);
     const bathActive = !!(el.bathFoamLayer && !el.bathFoamLayer.hidden);
     const canShowOverlays = !!getSpriteAnchors(src) && fitted && !state.sleeping && coreArt && img.naturalWidth > 0 && img.clientWidth > 0;
     const useSharedFrame = (canShowOverlays || bathActive) && !state.sleeping && img.naturalWidth > 0 && img.clientWidth > 0;
@@ -722,19 +722,29 @@
       node.hidden = false;
       node.classList.toggle("wear-art", !!item?.art);
       if (item?.art) {
-        if (node.dataset.item !== item.id) {
-          const art = document.createElement("img");
-          art.src = item.art;
-          art.alt = item.name;
-          art.draggable = false;
-          node.replaceChildren(art);
-          node.dataset.item = item.id;
+        const mounts = window.PixelsWardrobe.mounts(state.species, state.stage, anchors, item);
+        const multi = item.id === "tune_wheels_gold";
+        node.classList.toggle("wear-multiple", multi);
+        const cacheKey = item.id + ":" + mounts.length;
+        if (node.dataset.item !== cacheKey) {
+          node.replaceChildren(...mounts.map(() => {
+            const art = document.createElement("img");
+            art.src = item.art; art.alt = item.name; art.draggable = false;
+            return art;
+          }));
+          node.dataset.item = cacheKey;
         }
-        const a = resolveAnchorForItem(anchors, slot, item);
-        node.style.left = `${left + w * a[0]}px`;
-        node.style.top = `${top + h * a[1]}px`;
-        node.style.width = `${w * a[2]}px`;
-        node.style.rotate = `${a[3]}deg`;
+        if (multi) {
+          Object.assign(node.style, { left: left + "px", top: top + "px", width: w + "px", height: h + "px", rotate: "0deg" });
+          mounts.forEach((a, i) => Object.assign(node.children[i].style, {
+            position: "absolute", left: w*a[0]+"px", top: h*a[1]+"px", width: w*a[2]+"px",
+            transform: "translate(-50%,-50%) scaleX("+a[4]+")", rotate: a[3]+"deg"
+          }));
+        } else {
+          const a = mounts[0];
+          if (!a) { node.hidden = true; continue; }
+          Object.assign(node.style, { left: left+w*a[0]+"px", top: top+h*a[1]+"px", width: w*a[2]+"px", height: "auto", rotate: a[3]+"deg" });
+        }
       } else {
         node.removeAttribute("style");
         node.dataset.item = "";

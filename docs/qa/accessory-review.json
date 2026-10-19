@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-19",
+  "overall": "not_ready_for_release",
+  "method": "Static browser contact sheets for all four life stages; colour variants share byte-identical alpha masks and were also inspected in the palette gallery. Technical checks are separate from visual approval. In-game spot check of wheel mounts. This does not approve every animation or every three-piece combination.",
+  "groups": [
+    { "items": ["hat_bow_pink", "hat_bow_turquoise", "hat_bow_lilac"], "status": "needs_refinement", "finding": "Head accessories need individual contact/occlusion at horns, antennae and rotors. Similar anchors alone do not prove contact." },
+    { "items": ["hat_cap_3d", "hat_crown_3d"], "status": "needs_refinement", "finding": "Cap reads as a flat miniature; crown/head intersections require refinement. No global artistic approval." },
+    { "items": ["neck_scarf_3d"], "status": "needs_art", "finding": "Lowered below mouth, but source is a flat striped strip: needs neck wrap and folds." },
+    { "items": ["body_dress_lilac", "body_dress_sky"], "status": "needs_art", "finding": "Generic skirt does not form a fitted bodice or respect arms/paws and torso depth." },
+    { "items": ["face_glasses_ocean", "face_glasses_pink", "face_glasses_gold"], "status": "needs_refinement", "finding": "Corrected boat and pig newborn height. Some angles still need frame/temple contact and a clear choice of eyes versus forehead." },
+    { "items": ["bag_lavender_3d", "bag_mint_3d", "bag_berry_3d"], "status": "needs_art", "finding": "Handbag has a handle but no body-following shoulder strap or grip; floats beside the body." },
+    { "items": ["feet_paw_shoes", "feet_sneakers_3d"], "status": "needs_art", "finding": "Fixed pair has the same spacing and sole-forward orientation for every anatomy; individual paws need separate fits/occlusion." },
+    { "items": ["sport_tennis_3d", "sport_bat_3d"], "status": "needs_art", "finding": "Handle does not meet the paw/hand in multiple poses; needs grip landmarks and foreground paw layers." },
+    { "items": ["neck_medal_3d"], "status": "calibrated_static", "finding": "Reduced size and moved below face; checked all compatible stages. Ribbon wrap and moving poses still need approval." },
+    { "items": ["unicorn_saddle_3d"], "status": "needs_art", "finding": "Saddle reads as a small shoulder ornament rather than resting on the back; perspective and straps need revision." },
+    { "items": ["unicorn_wings_3d"], "status": "needs_refinement", "finding": "Audit now draws wings behind the body like gameplay. Attachment, wing joints and flight animation remain unapproved." },
+    { "items": ["power_lightning_3d", "power_beauty_elixir"], "status": "needs_art", "finding": "Source artwork reads as floating badge/bottle; needs a physical mount or explicit ground prop presentation." },
+    { "items": ["tune_spoiler_gt", "tune_spoiler_neon"], "status": "needs_art", "finding": "Vehicle source already contains a spoiler; generic overlay duplicates stock part instead of replacing it. Removed from robot anatomy." },
+    { "items": ["tune_siren_3d"], "status": "calibrated_static", "finding": "Static roof placement inspected; rotor/chimney clearance during movement still requires validation." },
+    { "items": ["tune_exhaust_flame", "tune_nitro_3d"], "status": "needs_art", "finding": "Side overlay needs chassis contact, rear placement and attachment hardware; removed from robot anatomy." },
+    { "items": ["tune_wheels_gold"], "status": "calibrated_static", "finding": "Individual perspective-scaled hubs for both car and tractor, all stages; removed wheel over robot torso. Verified in gameplay." },
+    { "items": ["look_lili_complete"], "status": "needs_stage_art", "finding": "Integrated clothes and bag strap are coherent. Same dressed character is scaled through growth; distinct age-specific dressed anatomy still missing." },
+    { "items": ["toy_ball"], "status": "calibrated_static", "finding": "Transparent rendered toy already used in gameplay. Interaction with every species remains a separate motion review." },
+    { "items": ["toy_yarn", "toy_bone", "toy_carrot", "toy_star", "toy_balloon", "toy_frisbee", "toy_robot", "toy_rocket", "toy_fish", "toy_pudding", "toy_flag"], "status": "needs_art", "finding": "Still platform-dependent emoji; inconsistent with the rendered art direction." }
+  ],
+  "source_issues": [
+    { "id": "green_slime_cutouts", "status": "partly_fixed", "finding": "Adult base cutout regenerated without magenta. Newborn, child and several care poses still contain magenta pixels and require cleanup." },
+    { "id": "nini_lettering", "status": "open", "finding": "Butterfly source images include NINI lettering/marks, visible during every accessory inspection. Requires clean source sprites." },
+    { "id": "pose_persistence", "status": "open", "finding": "Separate accessories are hidden on uncalibrated action/sleep poses. This avoids wrong overlays but means outfit continuity is not complete." }
+  ]
+}
