@@ -1696,10 +1696,7 @@
     state.rubbing = false;
     namingDialog.show();
     el.app.classList.add("naming-chat-open");
-    if (namingInput) {
-      namingInput.focus();
-      namingInput.select();
-    }
+    hintEl?.focus({ preventScroll: true });
   }
   function finishPetName(value) {
     const name = value.replace(/[\u0000-\u001f\u007f-\u009f]/g, "").replace(/\s+/g, " ").trim();
