@@ -4,6 +4,7 @@
   "private": true,
   "description": "PIXELS — Tamagotchi de PIXELs",
   "scripts": {
+    "git:integrate": "node scripts/git-integrate.js",
     "bump": "node scripts/bump-app-version.js",
     "start": "node server.js",
     "test": "node --test tests/*.test.js"

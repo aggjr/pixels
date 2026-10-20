@@ -1,0 +1,13 @@
+{
+  "integrationBranch": "main",
+  "machineBranches": [
+    "codex-gamer",
+    "codex-guto",
+    "note-gamer",
+    "note-guto",
+    "antigravity-gamer",
+    "antigravity-guto",
+    "cursor-gamer"
+  ],
+  "machineBranchPrefixes": ["codex/", "antigravity/", "cursor/"]
+}

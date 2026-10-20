@@ -89,6 +89,28 @@ mantenha Abrir como App ativo. Não exige Play Store ou App Store.
 
 ## Desenvolvimento e validação
 
+### Integracao das branches de IA
+
+O fluxo foi adaptado de `scripts/git-publish-to-main.ps1` do CO-CEO.
+Execute na branch `main`, com todos os arquivos commitados:
+
+- `npm run git:integrate -- --dry-run`: simula os merges e valida a versao e os testes.
+- `npm run git:integrate`: integra e valida localmente, permanecendo em `main`.
+- `npm run git:integrate -- --push`: integra, valida e publica `main` no GitHub.
+
+As branches sao definidas em `scripts/git-machines.json`; nomes com os prefixos
+`codex/`, `antigravity/` e `cursor/` tambem entram automaticamente. Novas IAs
+podem ser adicionadas nessa configuracao. Sao considerados commits locais e
+remotos, apos `fetch --prune`; alteracoes ainda sem commit nao sao integradas.
+
+Os merges e testes rodam em um worktree temporario. Em caso de conflito ou
+falha nos testes, a integracao para e informa o diretorio para diagnostico.
+A versao sobe uma vez, acima da maior versao encontrada, sincronizando jogo,
+assets e cache offline. Sem commits novos, a versao permanece igual.
+O push usa o fluxo normal do Git, respeitando protecoes e recusando sobrescrita
+do historico remoto. Se outro agente publicar durante a integracao, rode de novo.
+O deploy depende de o EasyPanel acompanhar `main`; confira `/healthz` apos publicar.
+
 Node 24+: npm start (porta 3000). Defina ADMIN_PASSWORD no ambiente para usar
 /admin. Desenvolvimento guarda o SQLite em data/, ignorado pelo Git.
 Execute npm test e npm run bump antes de preparar uma nova versão.
