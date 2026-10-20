@@ -1840,4 +1840,14 @@ html[data-sound="off"] .mute-btn { opacity: 0.85; }
 
 /* Keep touch controls from scrolling the clipped game frame when focused. */
 .device { overflow: clip; }
+.device[data-loading] { visibility: hidden; }
+.side-btn.side-new-pixel {
+  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.65), transparent 50%), linear-gradient(160deg, #ffe584, #e89b24);
+  color: #57320a;
+}
+@media (max-height: 700px) {
+  .device[data-phase="pet"] .side-care { top: 27%; gap: 4px; }
+  .device[data-phase="pet"] .side-btn { min-height: 44px; padding: 3px 2px; }
+  .device[data-phase="pet"] .side-btn .i { font-size: 1.2rem; }
+}
 .side-care { top: 34%; }

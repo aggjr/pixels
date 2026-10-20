@@ -191,7 +191,7 @@
     hospitalPanel: $("hospitalPanel"), hospitalContent: $("hospitalContent"), hospitalClose: $("hospitalClose"),
     albumPanel: $("albumPanel"), albumContent: $("albumContent"), albumClose: $("albumClose"),
     collectionPanel: $("collectionPanel"), collectionGrid: $("collectionGrid"), collectionClose: $("collectionClose"),
-    btnNewEgg: $("btnNewEgg"),
+    btnNewEgg: $("btnNewEgg"), btnNewPixel: $("btnNewPixel"),
     sceneBg: $("sceneBg"),
     wearWings: $("wearWings"), wearHat: $("wearHat"), wearFace: $("wearFace"), wearNeck: $("wearNeck"), wearBody: $("wearBody"), wearHeld: $("wearHeld"), wearFeet: $("wearFeet"), powerAura: $("powerAura"),
     bathFoamLayer: $("bathFoamLayer"), bathFoamSuit: $("bathFoamSuit"), bathFoamCrown: $("bathFoamCrown"),
@@ -453,6 +453,7 @@
     if (el.btnHospital) el.btnHospital.disabled = false;
     if (el.btnAlbum) el.btnAlbum.disabled = false;
     if (el.btnCollection) el.btnCollection.disabled = false;
+    if (el.btnNewPixel) el.btnNewPixel.disabled = !!state.preview || !canStartNewEgg();
     syncToyUI();
   }
 
@@ -600,13 +601,15 @@
     } catch (_) { /* ignore */ }
     return pool.find((s) => s.id === id) || pool[0];
   }
-  function archiveAndNewEgg() {
-    if (state.preview) return;
+  let creatingNewPixel = false;
+  async function archiveAndNewEgg() {
+    if (state.preview || creatingNewPixel) return;
     metric("new_egg");
     if (!canStartNewEgg()) {
       say("Ainda não tem PIXELs liberados pra esse público…", 2800);
       return;
     }
+    creatingNewPixel = true;
     if (state.phase === "pet") {
       saveActivePet({ freeze: true });
     }
@@ -617,6 +620,7 @@
       localStorage.setItem(profileKey("bichinho-force-new-egg"), "1");
     } catch (_) {}
     state.skipAutosave = true;
+    await window.PixelsMetrics?.flushCollection?.();
     try { sessionStorage.setItem("pixels-enter-profile", window.pixelsPlayer.id); } catch (_) {}
     location.href = "./?new=1";
   }
@@ -3080,6 +3084,7 @@
     e.stopPropagation();
     archiveAndNewEgg();
   });
+  el.btnNewPixel?.addEventListener("click", () => archiveAndNewEgg());
 
   // Arrastar brinquedo no stage
   let toyDrag = false;
@@ -3266,10 +3271,6 @@
     const i = new Image();
     i.src = `${ART}${n}.webp`;
   });
-  renderActor();
-  renderEgg();
-  renderGrowth();
-  syncBiome();
   applyPreview();
 
   const qBoot = new URLSearchParams(location.search);
@@ -3286,6 +3287,12 @@
       localStorage.removeItem(profileKey("bichinho-force-new-egg"));
     }
   } catch (_) { /* ignore */ }
+  // Consume the request once; later visits resume the saved PIXEL, not another egg.
+  if (qBoot.has("new")) {
+    const cleanUrl = new URL(location.href);
+    cleanUrl.searchParams.delete("new");
+    history.replaceState(null, "", cleanUrl.pathname + cleanUrl.search + cleanUrl.hash);
+  }
   if (forceNew) {
     // Garante ovo fresco para esfregar (nunca retoma PIXEL pausado)
     Object.assign(state, {
@@ -3298,9 +3305,6 @@
     if (el.sideCare) el.sideCare.hidden = true;
     if (el.btn1Icon) el.btn1Icon.textContent = "🤚";
     if (el.btn1Text) el.btn1Text.textContent = "Esfregar";
-    renderActor();
-    renderEgg();
-    syncBiome();
   }
   // Preview/hatch direto pula a pergunta
   if (state.preview || qBoot.get("hatch") != null || qBoot.get("species")) {
@@ -3313,6 +3317,10 @@
   } else {
     hideAudiencePick();
   }
+  renderActor();
+  if (state.phase === "egg" || state.phase === "hatching") renderEgg();
+  if (!state.preview) renderGrowth();
+  syncBiome();
   // Filtra bag salva pelo público atual
   state.hatchBag = (state.hatchBag || []).filter((id) => readySpecies().some((s) => s.id === id));
 
@@ -3322,5 +3330,7 @@
     say("Tem uma surpresa aqui dentro! Aqueça o ovinho… 🥚", 3200);
   } else if (!state.preview && state.audience) say("Tem um ovinho aqui! 🥚", 3000);
   else if (!state.preview && !state.audience) say("Escolhe pra quem é o PIXEL! ✨", 4000);
+  try { await el.actorImg.decode(); } catch (_) { /* The normal image error state remains visible. */ }
+  el.app.removeAttribute("data-loading");
   requestAnimationFrame(tick);
 })();

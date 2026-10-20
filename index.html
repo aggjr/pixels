@@ -94,7 +94,7 @@
     </div>
   </div>
 
-  <main class="device" id="app" data-period="day" data-phase="egg">
+  <main class="device" id="app" data-period="day" data-phase="egg" data-loading>
     <div class="scene">
       <div class="scene-bg" id="sceneBg"></div>
       <div class="scene-tint"></div>
@@ -187,6 +187,10 @@
         <span class="i">🏡</span>
         <span class="t">Meus PIXELs</span>
       </button>
+      <button type="button" class="side-btn side-new-pixel" id="btnNewPixel" disabled title="Criar novo PIXEL e guardar o atual na coleção">
+        <span class="i">🥚</span>
+        <span class="t">Novo PIXEL</span>
+      </button>
     </aside>
 
     <div class="sheet" id="closetPanel" hidden>
@@ -241,7 +245,7 @@
         <button type="button" class="collection-new-egg" id="btnNewEgg">
           <span class="cne-ico">🥚</span>
           <span class="cne-txt">
-            <b>Pegar ovo novo</b>
+            <b>Novo PIXEL</b>
             <i>Seu PIXEL atual fica pausado no tempo</i>
           </span>
         </button>
