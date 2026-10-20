@@ -6,6 +6,15 @@ Inventário de 542 PNG/WebP, incluindo arquivos intermediários e personagens
 ainda indisponíveis. Todos decodificam sem erro. Isso verifica integridade,
 não aprova anatomia, animações ou acabamento artístico.
 
+Atualização 0.2.8: três sprites integrados do morcego dormindo no galho
+elevam o inventário a 545 imagens, sem erro de decodificação. Gerados com
+image_gen a partir do morcego existente, preservando pelagem e cores;
+patinhas agarradas ao galho acima e cabeça abaixo, fundo transparente.
+As quatro fases foram verificadas no jogo, assim como dormir e acordar.
+Capturas `images/bat-roost-stage1.png`, `bat-roost-stage2.png`,
+`bat-roost-stage3.png` e `bat-roost-adult.png`. Os arquivos novos estão em
+`assets/pets/bat-roost-{newborn,child,adult}.png`; os antigos foram mantidos.
+
 As pranchas do elenco, cuidados, acessórios, cenários, ícones e fontes foram
 inspecionadas. Algumas capturas da galeria foram feitas antes de todas as
 miniaturas aparecerem; não constituem prova de aprovação individual.

@@ -57,6 +57,7 @@
     },
     {
       id: "bat", audience: "both", ready: true, name: "Morceguinho", he: "ele", names: ["Smytyi"],
+      sleepArt: { newborn: "assets/pets/bat-roost-newborn.png", child: "assets/pets/bat-roost-child.png", adult: "assets/pets/bat-roost-adult.png" },
       food: "🫐", foodName: "mirtilinho", glow: "rgba(160,140,220,.65)",
       stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
       poses: ["plead", "eat", "sleep", "fall", "fly", "mad", "sad", "scratch", "sleepy"],

@@ -390,6 +390,7 @@
   }
   function sleepArt(sp, stage) {
     const key = sp.stages[stage];
+    if (sp.sleepArt?.[key]) return sp.sleepArt[key];
     const ak = artKey(sp);
     const staged = sp.sleepStages || [];
     if (canUsePacifier()) {
@@ -1433,7 +1434,8 @@
       const ak = artKey(sp);
       const list = [1, 2, 3, 4].map((s) => baseArt(sp, s))
         .concat(sp.poses.map((p) => `${ART}${ak}_${p}.webp`))
-        .concat((sp.sleepStages || []).map((k) => `${ART}${ak}_${k}_sleep.webp`));
+        .concat((sp.sleepStages || []).map((k) => `${ART}${ak}_${k}_sleep.webp`))
+        .concat(Object.values(sp.sleepArt || {}));
       list.forEach((src) => { const i = new Image(); i.src = src; });
       state.variant = prev;
     });
@@ -1637,6 +1639,7 @@
     el.actor.style.setProperty("--egg-veil", veil.toFixed(3));
   }
   function renderActor() {
+    el.stage?.classList.toggle("bat-roost", state.phase === "pet" && state.species?.id === "bat" && state.sleeping);
     el.stage?.classList.toggle("integrated-drink", window.PixelsLooks.active(state.species?.id, state.outfit) && state.pose === "drink");
     el.stage?.classList.toggle("integrated-meal", window.PixelsLooks.active(state.species?.id, state.outfit) && state.pose === "eat");
     if (state.phase === "egg" || state.phase === "hatching") {

@@ -1,4 +1,15 @@
-# Revisão do básico — 0.2.7
+# Revisão do básico — 0.2.8
+
+## Sono do morceguinho
+
+O morcego dorme de cabeça para baixo, com as duas patinhas agarradas a um
+galho integrado à imagem. Há fontes próprias de filhote, criança e adulto
+(as duas primeiras fases do catálogo compartilham a aparência de filhote).
+A seleção ocorre sempre que dorme, independentemente de chupeta ou humor.
+Ao acordar, volta à aparência e aos acessórios normais. A animação que
+deformava a imagem inteira foi removida nesse sono para manter firme o galho;
+o brilho e a sombra de personagem apoiado no chão ficam ocultos.
+As fontes antigas foram preservadas. Implementação local, sem publicação.
 
 Conferência geral de 542 imagens e correção da língua ao beber:
 [REVISAO-IMAGENS.md](qa/REVISAO-IMAGENS.md). A arte final continua pendente.

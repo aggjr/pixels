@@ -1,6 +1,6 @@
 {
   "date": "2026-10-20",
-  "count": 542,
+  "count": 545,
   "files": [
     {
       "path": "assets/accessories/acc-bag-berry.png",
@@ -1284,6 +1284,48 @@
       "height": 900,
       "mode": "RGBA",
       "transparentFraction": 0.4969,
+      "magentaPixels": 0,
+      "magentaBorderPixels": 0,
+      "empty": false,
+      "reviewFlags": [],
+      "decoded": true
+    },
+    {
+      "path": "assets/pets/bat-roost-adult.png",
+      "sha256": "85e8a52ea838eba0eedf7afdf661a0feb126b3c35b63095cfdf22e077ff782d7",
+      "group": "pets/bat",
+      "width": 1070,
+      "height": 1470,
+      "mode": "RGBA",
+      "transparentFraction": 0.5404,
+      "magentaPixels": 0,
+      "magentaBorderPixels": 0,
+      "empty": false,
+      "reviewFlags": [],
+      "decoded": true
+    },
+    {
+      "path": "assets/pets/bat-roost-child.png",
+      "sha256": "e5a4196487493f6fa5a6a9bd8e358318294d781e556548b101361e3302fc8fd3",
+      "group": "pets/bat",
+      "width": 1070,
+      "height": 1470,
+      "mode": "RGBA",
+      "transparentFraction": 0.5497,
+      "magentaPixels": 0,
+      "magentaBorderPixels": 0,
+      "empty": false,
+      "reviewFlags": [],
+      "decoded": true
+    },
+    {
+      "path": "assets/pets/bat-roost-newborn.png",
+      "sha256": "6b93f8a7e83526c1c7e2b1dcd648f457b994929cc809463c55a705faaf9a3a4a",
+      "group": "pets/bat",
+      "width": 1070,
+      "height": 1470,
+      "mode": "RGBA",
+      "transparentFraction": 0.5792,
       "magentaPixels": 0,
       "magentaBorderPixels": 0,
       "empty": false,

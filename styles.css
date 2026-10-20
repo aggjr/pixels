@@ -895,6 +895,11 @@ html[data-sound="off"] .mute-btn { opacity: 0.85; }
   50% { transform: scale(1.015, 0.99) rotate(-2deg); }
 }
 
+/* Branch and gripping feet belong to one sprite: never wobble their contact. */
+.stage.bat-roost .actor-img { animation: none; }
+.stage.bat-roost .actor-shadow,
+.stage.bat-roost .actor-glow { opacity: 0; animation: none; }
+
 .actor-glow {
   position: absolute;
   inset: 10% 5% 0;

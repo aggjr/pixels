@@ -5,6 +5,16 @@ const path = require('node:path');
 const { SPECIES, SPECIES_ANCHORS, CLOSET_ITEMS, CLOSET_TABS, spriteArt } = require('../catalog');
 const rig = require('../wardrobe');
 
+test('bat has a branch-gripping sleep sprite for every growth stage', () => {
+  const bat = SPECIES.find(s => s.id === 'bat');
+  for (let stage = 1; stage <= 4; stage++) {
+    const art = bat.sleepArt[bat.stages[stage]];
+    assert.match(art, /bat-roost-(newborn|child|adult)\.png$/);
+    assert.ok(fs.existsSync(path.join(__dirname, '..', art)), `sleep stage ${stage}`);
+  }
+  assert.equal(new Set(Object.values(bat.sleepArt)).size, 3);
+});
+
 test('every released PIXEL, colour and growth stage has its own existing sprite and anchors', () => {
   for (const species of SPECIES.filter(s => s.ready)) {
     assert.ok(rig.families[species.id], species.id);

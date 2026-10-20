@@ -130,10 +130,10 @@
     "assets/pets/lilica_newborn.webp": "ecdd73507084eeb036815655281117f39990dd9a2c2ac9a85c6e16ce5c5aba6e",
     "assets/pets/lilica_child.webp": "9d0d0b1cba9659a0ce36dba26a45c5fc9e8de361ae13ba32ab90dba90b503cc4",
     "assets/pets/lilica_adult.webp": "33a64ee1adde92427ac0dc7a44c22dd28206b0997adf6792dd10c4c9ff784eae",
-    "catalog.js": "d3739d2b6ece6a2265cff1ee56daf8d6c100da25dd01c9d5abbb81d5459259ba",
+    "catalog.js": "e702d3af391e5d4baa28218c9ecd9edc4707eeeccea52793ae34b07149123d83",
     "wardrobe.js": "f700b53f90aca513a0496a61418330993c22d409ac8f6b52f48677937de79167",
-    "game.js": "cb3ae47e24dcecc00793f3c2621d51ca55ebac04257b85ea3376dcc1dbba3900",
-    "styles.css": "5919d5179b76c7ee2e65f35b9b0da3ac738907fb6ba6307c7526fe6c99140e78",
+    "game.js": "56f4bede1d431d831866b526dc017a215239a5e4299319afcf5924987f7f5ad1",
+    "styles.css": "ad3dec67cdbcebbc5289a0d43c2f667f6df75bdfd2781db9cbb5240ce38e53ed",
     "looks.js": "a13430bae05316e92c34ceb4c52447dee242c048afd63a10dc86b516887029f6"
   },
   "combinations": [
