@@ -1,5 +1,5 @@
 /* Service worker — PIXELS PWA */
-const CACHE = "bichinho-v0.2.9";
+const CACHE = "bichinho-v0.2.10";
 const PRECACHE = [
   "./",
   "./index.html",
