@@ -36,7 +36,10 @@ do perfil. `pets` guarda todos os bichinhos desse perfil, incluindo as roupas,
 cores, fase e necessidades no snapshot. `collections` guarda o bichinho ativo.
 Sessoes e eventos continuam separados por perfil.
 
-O botao "Trocar jogador" escolhe ou cria perfis no mesmo aparelho. Eles
+A entrada oferece um combo com os usuarios cadastrados naquele aparelho e um
+botao "Novo usuario" para cadastrar outro nome. O nome fica disponivel no combo
+dos proximos acessos. O botao "Trocar jogador" reabre essa mesma selecao. Nao ha
+usuarios pre-cadastrados; a autoria dos desenhos e independente dos jogadores. Eles
 compartilham a autorizacao do aparelho, mas possuem colecoes e salvamentos locais
 separados. Nao sao contas protegidas por senhas entre as pessoas daquele aparelho.
 A migracao automatica preserva IDs, cookies, colecoes e roupas existentes.

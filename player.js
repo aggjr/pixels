@@ -12,6 +12,10 @@
   const profileList = document.getElementById("playerProfiles");
   const switchButton = document.getElementById("btnProfiles");
   const cancelButton = document.getElementById("playerCancel");
+  const enterButton = document.getElementById("playerEnter");
+  const newButton = document.getElementById("playerNew");
+  const newFields = document.getElementById("playerNewFields");
+  const newCancel = document.getElementById("playerNewCancel");
   const PROFILES_KEY = "pixels-profiles-v1";
   let profiles = [];
   try {
@@ -49,7 +53,7 @@
       localStorage.setItem(PROFILES_KEY, JSON.stringify(profiles));
       localStorage.setItem(KEY, JSON.stringify(profile));
     }
-    function finish(profile) {
+    function migrateLegacy(profile) {
       // Only the original owner receives the old shared local save.
       const owner = localStorage.getItem("pixels-legacy-owner-v1");
       if (!owner) {
@@ -59,6 +63,9 @@
         }
         localStorage.setItem("pixels-legacy-owner-v1", profile.id);
       }
+    }
+    function finish(profile) {
+      migrateLegacy(uuidPattern.test(saved?.id) ? saved : profile);
       remember(profile);
       window.pixelsStorageKey = (key) => `${key}:${profile.id}`;
       window.pixelsPlayer = Object.freeze(profile);
@@ -75,6 +82,7 @@
       try {
         await window.PixelsMetrics?.flushCollection?.();
         remember(profile);
+        sessionStorage.setItem("pixels-enter-profile", profile.id);
         window.location.reload();
       } catch (_) {
         switching = false;
@@ -83,23 +91,37 @@
     }
     function renderProfiles() {
       if (!profileList) return;
+      const selected = profileList.value || window.pixelsPlayer?.id || (valid ? saved.id : "");
       profileList.replaceChildren();
-      for (const profile of profiles) {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.textContent = profile.nickname;
-        button.addEventListener("click", () => select(profile));
-        profileList.appendChild(button);
+      const placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = profiles.length ? "Selecione seu nome" : "Nenhum usuário cadastrado";
+      profileList.appendChild(placeholder);
+      for (const profile of profiles.slice().sort((a, b) => a.nickname.localeCompare(b.nickname, "pt-BR"))) {
+        const option = document.createElement("option");
+        option.value = profile.id;
+        option.textContent = profile.nickname;
+        profileList.appendChild(option);
       }
+      profileList.value = profiles.some(p => p.id === selected) ? selected : "";
+      profileList.disabled = profiles.length === 0;
+      if (enterButton) enterButton.disabled = !profileList.value;
+    }
+    function creating(active) {
+      if (newFields) { newFields.hidden = !active; newFields.disabled = !active; }
+      error.textContent = "";
+      if (active) input.focus();
     }
     async function showPicker() {
       app.inert = true;
       welcome.hidden = false;
       input.value = "";
       consent.checked = false;
+      creating(false);
       if (cancelButton) cancelButton.hidden = !window.pixelsPlayer;
       renderProfiles();
-      input.focus();
+      if (profiles.length) profileList?.focus();
+      else newButton?.focus();
       // The secret device cookie authorizes this list, never a typed name or UUID.
       if (typeof fetch === "function") {
         try {
@@ -118,13 +140,21 @@
     }
     switchButton?.addEventListener("click", showPicker);
     cancelButton?.addEventListener("click", () => { welcome.hidden = true; app.inert = false; });
+    newButton?.addEventListener("click", () => creating(true));
+    newCancel?.addEventListener("click", () => creating(false));
+    profileList?.addEventListener("change", () => { if (enterButton) enterButton.disabled = !profileList.value; });
+    enterButton?.addEventListener("click", () => {
+      const profile = profiles.find(p => p.id === profileList.value);
+      if (profile) select(profile);
+    });
 
     if (valid) {
-      finish({ version: 2, id: saved.id, nickname, createdAt: saved.createdAt, metricsConsent: saved.metricsConsent });
-    } else {
-      showPicker();
-      if (nickname) input.value = nickname.slice(0, 30);
+      if (!profiles.some(p => p.id === saved.id)) profiles.push({ version: 2, id: saved.id, nickname, createdAt: saved.createdAt, metricsConsent: saved.metricsConsent });
     }
+    let entering = null;
+    try { entering = sessionStorage.getItem("pixels-enter-profile"); sessionStorage.removeItem("pixels-enter-profile"); } catch (_) {}
+    if (valid && entering === saved.id) finish(profiles.find(p => p.id === saved.id));
+    else showPicker();
     input.addEventListener("input", () => {
       input.setCustomValidity("");
       error.textContent = "";

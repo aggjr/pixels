@@ -617,6 +617,7 @@
       localStorage.setItem(profileKey("bichinho-force-new-egg"), "1");
     } catch (_) {}
     state.skipAutosave = true;
+    try { sessionStorage.setItem("pixels-enter-profile", window.pixelsPlayer.id); } catch (_) {}
     location.href = "./?new=1";
   }
 
@@ -3045,6 +3046,7 @@
         localStorage.setItem(profileKey("bichinho-force-new-egg"), "1");
       } catch (_) {}
       state.skipAutosave = true;
+      try { sessionStorage.setItem("pixels-enter-profile", window.pixelsPlayer.id); } catch (_) {}
       location.href = "./?new=1";
       return;
     }

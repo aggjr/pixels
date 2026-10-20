@@ -37,9 +37,15 @@
   <section class="player-welcome" id="playerWelcome" hidden aria-labelledby="playerWelcomeTitle">
     <form class="player-card" id="playerForm">
       <p class="player-brand">PIXELS ✨</p>
-      <h1 id="playerWelcomeTitle">Como podemos te chamar?</h1>
-      <div class="player-profiles" id="playerProfiles"></div>
-      <p>Escolha um apelido para começar a cuidar do seu PIXEL.</p>
+      <h1 id="playerWelcomeTitle">Quem vai brincar?</h1>
+      <div class="player-existing">
+        <label for="playerProfiles">Usuário</label>
+        <select id="playerProfiles"><option value="">Selecione seu nome</option></select>
+        <button type="button" id="playerEnter" disabled>Entrar</button>
+      </div>
+      <button type="button" id="playerNew">Novo usuário</button>
+      <fieldset class="player-new" id="playerNewFields" hidden disabled>
+      <legend>Novo usuário</legend>
       <label for="playerNickname">Seu nome ou apelido</label>
       <input id="playerNickname" name="nickname" type="text" minlength="1" maxlength="30" required autocomplete="nickname" enterkeyhint="go" spellcheck="false" aria-describedby="playerPrivacy playerError" />
       <p class="player-privacy" id="playerPrivacy">Pode ser um nome inventado! Não precisa colocar seu nome completo. Seu apelido fica salvo neste aparelho.</p>
@@ -47,7 +53,9 @@
         <span>Sou responsável e permito salvar no servidor o apelido, a coleção, as sessões, o tempo ativo e as ações no jogo para melhorar o PIXELS. Sem marcar, o jogo funciona só neste aparelho, sem enviar esses dados. Não coletamos localização.</span>
       </label>
       <p class="player-error" id="playerError" role="alert"></p>
-      <button type="submit">Vamos brincar!</button>
+      <button type="submit">Criar usuário e entrar</button>
+      <button type="button" id="playerNewCancel">Cancelar</button>
+      </fieldset>
       <button type="button" id="playerCancel" hidden>Voltar ao jogo</button>
     </form>
   </section>
