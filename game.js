@@ -95,7 +95,8 @@
   // Armário 3D: Acessórios e brinquedos 100% calibrados para todos os 28 PIXELs
   const CLOSET_ITEMS = window.PixelsCatalog.CLOSET_ITEMS;
   const CLOSET_TABS = window.PixelsCatalog.CLOSET_TABS;
-  const SAVE_KEY = "bichinho-collection-v1";
+  const profileKey = window.pixelsStorageKey || (key => key);
+  const SAVE_KEY = profileKey("bichinho-collection-v1");
   const emptyOutfit = () => ({ hat: null, face: null, neck: null, body: null, held: null, feet: null, wings: null });
 
 
@@ -271,16 +272,16 @@
   }
 
   try {
-    const saved = JSON.parse(localStorage.getItem("bichinho-hatch-bag") || "[]");
+    const saved = JSON.parse(localStorage.getItem(profileKey("bichinho-hatch-bag")) || "[]");
     if (Array.isArray(saved)) state.hatchBag = saved;
   } catch (_) { /* ignore */ }
 
   function setAudience(audience, { resetBag = true } = {}) {
     state.audience = audience;
     try {
-      localStorage.setItem("bichinho-audience", audience);
+      localStorage.setItem(profileKey("bichinho-audience"), audience);
       if (resetBag) {
-        localStorage.removeItem("bichinho-hatch-bag");
+        localStorage.removeItem(profileKey("bichinho-hatch-bag"));
         state.hatchBag = [];
       }
     } catch (_) { /* ignore */ }
@@ -288,7 +289,7 @@
 
   function loadAudience() {
     try {
-      const a = localStorage.getItem("bichinho-audience");
+      const a = localStorage.getItem(profileKey("bichinho-audience"));
       if (a === "boy" || a === "girl" || a === "both") return a;
     } catch (_) { /* ignore */ }
     return null;
@@ -595,7 +596,7 @@
     }
     const id = state.hatchBag.pop();
     try {
-      localStorage.setItem("bichinho-hatch-bag", JSON.stringify(state.hatchBag));
+      localStorage.setItem(profileKey("bichinho-hatch-bag"), JSON.stringify(state.hatchBag));
     } catch (_) { /* ignore */ }
     return pool.find((s) => s.id === id) || pool[0];
   }
@@ -612,8 +613,8 @@
     try {
       // Reconstrói a bag (prioriza espécies ainda não usadas)
       state.hatchBag = [];
-      localStorage.removeItem("bichinho-hatch-bag");
-      localStorage.setItem("bichinho-force-new-egg", "1");
+      localStorage.removeItem(profileKey("bichinho-hatch-bag"));
+      localStorage.setItem(profileKey("bichinho-force-new-egg"), "1");
     } catch (_) {}
     state.skipAutosave = true;
     location.href = "./?new=1";
@@ -635,7 +636,7 @@
     return caption;
   }
 
-  const ECO_KEY = "pixels-ecosystem-v1";
+  const ECO_KEY = profileKey("pixels-ecosystem-v1");
   function loadEco() {
     try {
       const raw = JSON.parse(localStorage.getItem(ECO_KEY) || "null");
@@ -3039,9 +3040,9 @@
         return;
       }
       try {
-        localStorage.removeItem("bichinho-hatch-bag");
-        localStorage.removeItem("bichinho-audience");
-        localStorage.setItem("bichinho-force-new-egg", "1");
+        localStorage.removeItem(profileKey("bichinho-hatch-bag"));
+        localStorage.removeItem(profileKey("bichinho-audience"));
+        localStorage.setItem(profileKey("bichinho-force-new-egg"), "1");
       } catch (_) {}
       state.skipAutosave = true;
       location.href = "./?new=1";
@@ -3278,9 +3279,9 @@
   }
   let forceNew = qBoot.get("new") != null;
   try {
-    if (localStorage.getItem("bichinho-force-new-egg") === "1") {
+    if (localStorage.getItem(profileKey("bichinho-force-new-egg")) === "1") {
       forceNew = true;
-      localStorage.removeItem("bichinho-force-new-egg");
+      localStorage.removeItem(profileKey("bichinho-force-new-egg"));
     }
   } catch (_) { /* ignore */ }
   if (forceNew) {

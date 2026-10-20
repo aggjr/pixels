@@ -45,9 +45,9 @@
         const card = document.createElement("div"), number = document.createElement("strong");
         card.className = "card"; number.textContent = value; card.append(number, document.createTextNode(title)); $("totals").append(card);
       }
-      table("players", ["Apelido", "ID", "Cadastro", "Último acesso", "Sessões", "Tempo ativo", "PIXELS"], summary.players.map(p => {
+      table("players", ["Apelido", "ID", "Aparelho", "Cadastro", "Último acesso", "Sessões", "Tempo ativo", "PIXELS"], summary.players.map(p => {
         const button = document.createElement("button"); button.textContent = p.nickname; button.onclick = () => detail(p.id);
-        return [button, p.id.slice(0, 8), date(p.created_at), date(p.last_seen), p.sessions, duration(p.activeMs), p.pets];
+        return [button, p.id.slice(0, 8), p.device_id?.slice(0, 8), date(p.created_at), date(p.last_seen), p.sessions, duration(p.activeMs), p.pets];
       }));
       table("ranking", ["Posição", "Criador", "Adultos", "PIXELS"], [...summary.players].sort((a,b) => b.adults - a.adults || b.pets - a.pets || a.created_at - b.created_at).filter(p => p.pets).slice(0,20).map((p,i) => [i+1,p.nickname,p.adults,p.pets]));
       table("actions", ["Evento", "Ação", "Motivo", "Quantidade"], summary.actions.map(a => [translate(a.type),translate(a.action),translate(a.reason),a.count]));

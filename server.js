@@ -18,6 +18,24 @@ db.exec(`PRAGMA journal_mode=WAL; PRAGMA foreign_keys=ON; PRAGMA busy_timeout=50
  CREATE INDEX IF NOT EXISTS sessions_player ON sessions(player_id);
  CREATE INDEX IF NOT EXISTS events_player ON events(player_id,created_at);
  CREATE INDEX IF NOT EXISTS events_type ON events(type,action,reason);`);
+// Preserve existing owners and collections while separating devices from profiles.
+db.exec("CREATE TABLE IF NOT EXISTS devices(id TEXT PRIMARY KEY,token_hash TEXT UNIQUE NOT NULL,created_at INTEGER NOT NULL,last_seen INTEGER NOT NULL)");
+const playerColumns = new Set(db.prepare("PRAGMA table_info(players)").all().map(column => column.name));
+if (!playerColumns.has("device_id")) db.exec("ALTER TABLE players ADD COLUMN device_id TEXT REFERENCES devices(id)");
+if (!playerColumns.has("profile_key")) db.exec("ALTER TABLE players ADD COLUMN profile_key TEXT");
+if (!playerColumns.has("nickname_key")) db.exec("ALTER TABLE players ADD COLUMN nickname_key TEXT");
+transaction(() => {
+  for (const old of db.prepare("SELECT * FROM players WHERE device_id IS NULL").all()) {
+    db.prepare("INSERT OR IGNORE INTO devices VALUES(?,?,?,?)").run(old.id, old.token_hash, old.created_at, old.last_seen);
+    db.prepare("UPDATE players SET device_id=? WHERE id=?").run(old.id, old.id);
+  }
+  for (const user of db.prepare("SELECT id,nickname FROM players WHERE nickname_key IS NULL").all()) {
+    db.prepare("UPDATE players SET nickname_key=? WHERE id=?").run(nicknameKey(user.nickname), user.id);
+  }
+});
+db.exec("CREATE UNIQUE INDEX IF NOT EXISTS players_device_profile ON players(device_id,profile_key)");
+db.exec("CREATE UNIQUE INDEX IF NOT EXISTS players_device_nickname ON players(device_id,nickname_key)");
+function nicknameKey(name) { return name.normalize("NFKC").toLocaleLowerCase("pt-BR"); }
 const hash = (s) => createHash("sha256").update(s).digest("hex");
 const adminSecret = process.env.ADMIN_PASSWORD || "";
 const idOK = (s) => typeof s === "string" && /^[\w-]{1,100}$/.test(s);
@@ -49,9 +67,16 @@ async function body(req) {
   } catch (_) { throw Object.assign(Error("invalid_json"), { status: 400 }); }
 }
 function fail(message = "invalid_data") { throw Object.assign(Error(message), { status: 400 }); }
-function player(req) {
+function device(req) {
   const match = (req.headers.cookie || "").match(/(?:^|;\s*)pixels_device=([a-f0-9]{64})(?:;|$)/);
-  return match ? db.prepare("SELECT * FROM players WHERE token_hash=?").get(hash(match[1])) : null;
+  return match ? db.prepare("SELECT * FROM devices WHERE token_hash=?").get(hash(match[1])) : null;
+}
+function player(req) {
+  const owner = device(req);
+  if (!owner) return null;
+  const selected = req.headers["x-pixels-player"];
+  if (selected) return db.prepare("SELECT * FROM players WHERE id=? AND device_id=?").get(selected, owner.id);
+  return db.prepare("SELECT * FROM players WHERE device_id=? ORDER BY created_at,id LIMIT 1").get(owner.id);
 }
 function sessionFor(id, user) {
   const session = idOK(id) && db.prepare("SELECT * FROM sessions WHERE id=? AND player_id=?").get(id, user.id);
@@ -81,7 +106,7 @@ const server = http.createServer(async (req, res) => {
         if (req.method !== "GET") return send(res, 405, { error: "method_not_allowed" });
         if (url.pathname === "/api/admin/summary") {
           const totals = db.prepare(`SELECT (SELECT count(*) FROM players) players,(SELECT count(*) FROM sessions) sessions,(SELECT coalesce(sum(active_ms),0) FROM sessions) activeMs,(SELECT count(*) FROM pets) pets`).get();
-          const players = db.prepare(`SELECT p.id,p.nickname,p.created_at,p.last_seen,
+          const players = db.prepare(`SELECT p.id,p.nickname,p.device_id,p.created_at,p.last_seen,
             (SELECT count(*) FROM sessions s WHERE s.player_id=p.id) sessions,
             (SELECT coalesce(sum(active_ms),0) FROM sessions s WHERE s.player_id=p.id) activeMs,
             (SELECT count(*) FROM pets t WHERE t.player_id=p.id) pets,
@@ -93,7 +118,7 @@ const server = http.createServer(async (req, res) => {
         }
         if (url.pathname === "/api/admin/player") {
           const id = url.searchParams.get("id");
-          const user = db.prepare("SELECT id,nickname,created_at,last_seen,consent_at FROM players WHERE id=?").get(id);
+          const user = db.prepare("SELECT id,nickname,device_id,profile_key,created_at,last_seen,consent_at FROM players WHERE id=?").get(id);
           if (!user) return send(res, 404, { error: "not_found" });
           return send(res, 200, { player: user,
             sessions: db.prepare("SELECT id,started_at,last_seen,active_ms FROM sessions WHERE player_id=? ORDER BY started_at DESC LIMIT 100").all(id),
@@ -107,19 +132,46 @@ const server = http.createServer(async (req, res) => {
         const nickname = label(data.nickname, 31).replace(/\s+/g, " ");
         if (!nickname || nickname.length > 30 || data.consent !== true) fail("nickname_and_consent_required");
         const now = Date.now();
-        let user = player(req);
-        if (!user) {
+        if (data.profileId !== undefined && (typeof data.profileId !== "string" || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(data.profileId))) fail("invalid_profile");
+        let owner = device(req);
+        let token;
+        if (!owner) {
           if (limited(req, "register", 10)) return send(res, 429, { error: "too_many_registrations" });
-          const token = randomBytes(32).toString("hex");
-          const id = randomUUID();
-          db.prepare("INSERT INTO players VALUES(?,?,?,?,?,?)").run(id, nickname, hash(token), now, now, now);
-          // NODE_ENV=production is set in the Docker image; localhost development remains usable.
-          res.setHeader("Set-Cookie", `pixels_device=${token}; HttpOnly; SameSite=Strict; Path=/api; Max-Age=31536000${process.env.NODE_ENV === "production" ? "; Secure" : ""}`);
-          user = { id, nickname };
-        } else {
-          db.prepare("UPDATE players SET nickname=?,last_seen=? WHERE id=?").run(nickname, now, user.id);
+          token = randomBytes(32).toString("hex");
+          owner = { id: randomUUID(), token_hash: hash(token) };
         }
-        return send(res, 200, { id: user.id, nickname });
+        const user = transaction(() => {
+          if (token) db.prepare("INSERT INTO devices VALUES(?,?,?,?)").run(owner.id, owner.token_hash, now, now);
+          let selected = data.profileId
+            ? db.prepare("SELECT * FROM players WHERE device_id=? AND profile_key=?").get(owner.id, data.profileId)
+            : db.prepare("SELECT * FROM players WHERE device_id=? ORDER BY created_at,id LIMIT 1").get(owner.id);
+          // Bind the old single profile only when its name matches; never move another child's pets.
+          if (!selected && data.profileId) {
+            selected = db.prepare("SELECT * FROM players WHERE device_id=? AND nickname_key=?").get(owner.id, nicknameKey(nickname));
+            if (selected && !selected.profile_key) db.prepare("UPDATE players SET profile_key=? WHERE id=?").run(data.profileId, selected.id);
+          }
+          if (!selected) {
+            if (db.prepare("SELECT count(*) count FROM players WHERE device_id=?").get(owner.id).count >= 20) fail("profile_limit");
+            selected = { id: randomUUID() };
+            db.prepare("INSERT INTO players(id,nickname,token_hash,created_at,last_seen,consent_at,device_id,profile_key,nickname_key) VALUES(?,?,?,?,?,?,?,?,?)")
+              .run(selected.id, nickname, hash(randomBytes(32).toString("hex")), now, now, now, owner.id, data.profileId || null, nicknameKey(nickname));
+          }
+          const sameName = db.prepare("SELECT id FROM players WHERE device_id=? AND nickname_key=?").get(owner.id, nicknameKey(nickname));
+          if (sameName && sameName.id !== selected.id) fail("nickname_already_used");
+          db.prepare("UPDATE players SET nickname=?,nickname_key=?,last_seen=? WHERE id=?").run(nickname, nicknameKey(nickname), now, selected.id);
+          db.prepare("UPDATE devices SET last_seen=? WHERE id=?").run(now, owner.id);
+          return selected;
+        });
+        if (token) {
+          res.setHeader("Set-Cookie", `pixels_device=${token}; HttpOnly; SameSite=Strict; Path=/api; Max-Age=31536000${process.env.NODE_ENV === "production" ? "; Secure" : ""}`);
+        }
+        return send(res, 200, { id: user.id, nickname, deviceId: owner.id });
+      }
+      if (req.method === "GET" && url.pathname === "/api/profiles") {
+        const owner = device(req);
+        if (!owner) return send(res, 401, { error: "registration_required" });
+        return send(res, 200, { deviceId: owner.id,
+          profiles: db.prepare("SELECT id,profile_key AS profileId,nickname,created_at AS createdAt FROM players WHERE device_id=? ORDER BY created_at,id").all(owner.id) });
       }
       const user = player(req);
       if (!user) return send(res, 401, { error: "registration_required" });

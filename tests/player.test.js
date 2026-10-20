@@ -6,13 +6,14 @@ const path = require("node:path");
 const vm = require("node:vm");
 const { webcrypto } = require("node:crypto");
 const code = fs.readFileSync(path.join(__dirname,"..","player.js"),"utf8");
-function boot(stored=null, blocked=false) {
+function boot(stored=null, blocked=false, extra={}) {
   const elements={};
   for(const id of ["playerWelcome","playerForm","playerNickname","playerError","app","playerMetricsConsent"]) elements[id]={hidden:true,value:"",checked:false,events:{},focus(){},addEventListener(type,fn){this.events[type]=fn},setCustomValidity(value){this.validation=value},reportValidity(){}};
-  let value=stored;
-  const context={window:{},document:{getElementById:id=>elements[id]},crypto:webcrypto,Date,Uint8Array,localStorage:{getItem(){return value},setItem(key,text){if(blocked)throw Error("storage blocked");value=text}}};
+  const storage = new Map(Object.entries(extra));
+  if (stored !== null) storage.set("pixels-player-v1", stored);
+  const context={window:{location:{reload(){context.reloaded=true}}},document:{getElementById:id=>elements[id]},crypto:webcrypto,Date,Uint8Array,localStorage:{getItem(key){return storage.get(key)??null},setItem(key,text){if(blocked)throw Error("storage blocked");storage.set(key,text)}}};
   vm.runInNewContext(code,context);
-  return {context,elements,stored:()=>value,submit(name,consent=false){elements.playerNickname.value=name;elements.playerMetricsConsent.checked=consent;elements.playerForm.events.submit({preventDefault(){}})}};
+  return {context,elements,storage,stored:()=>storage.get("pixels-player-v1"),submit(name,consent=false){elements.playerNickname.value=name;elements.playerMetricsConsent.checked=consent;elements.playerForm.events.submit({preventDefault(){}})}};
 }
 test("nickname gate, device ID, explicit consent, persistence and blocked storage",async()=>{
   const first=boot();assert.equal(first.elements.app.inert,true);
@@ -30,4 +31,24 @@ test("legacy profile asks for consent without changing the device ID",async()=>{
   const legacy={version:1,id:webcrypto.randomUUID(),nickname:"Luna",createdAt:new Date().toISOString()};
   const updated=boot(JSON.stringify(legacy));assert.equal(updated.elements.playerWelcome.hidden,false);
   updated.submit("Luna",true);assert.equal((await updated.context.window.pixelsProfileReady).id,legacy.id);
+});
+
+test("profiles on one installation have separate local saves and legacy data migrates only once", async () => {
+  const oldCollection = JSON.stringify({ pets: [{ id: "old-pet", outfit: { hat: "hat_bow_pink" } }], activePetId: "old-pet" });
+  const first = boot(null, false, { "bichinho-collection-v1": oldCollection });
+  first.submit("Bia", true);
+  const bia = await first.context.window.pixelsProfileReady;
+  assert.equal(first.storage.get(`bichinho-collection-v1:${bia.id}`), oldCollection);
+  first.submit("Juju", true);
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(first.context.reloaded, true);
+  const second = boot(first.stored(), false, Object.fromEntries(first.storage));
+  const juju = await second.context.window.pixelsProfileReady;
+  assert.notEqual(juju.id, bia.id);
+  assert.equal(second.context.window.pixelsStorageKey("bichinho-collection-v1"), `bichinho-collection-v1:${juju.id}`);
+  assert.equal(second.storage.get(`bichinho-collection-v1:${juju.id}`), undefined);
+  assert.equal(second.storage.get(`bichinho-collection-v1:${bia.id}`), oldCollection);
+  second.submit("bia", true);
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(JSON.parse(second.stored()).id, bia.id);
 });

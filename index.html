@@ -38,6 +38,7 @@
     <form class="player-card" id="playerForm">
       <p class="player-brand">PIXELS ✨</p>
       <h1 id="playerWelcomeTitle">Como podemos te chamar?</h1>
+      <div class="player-profiles" id="playerProfiles"></div>
       <p>Escolha um apelido para começar a cuidar do seu PIXEL.</p>
       <label for="playerNickname">Seu nome ou apelido</label>
       <input id="playerNickname" name="nickname" type="text" minlength="1" maxlength="30" required autocomplete="nickname" enterkeyhint="go" spellcheck="false" aria-describedby="playerPrivacy playerError" />
@@ -47,6 +48,7 @@
       </label>
       <p class="player-error" id="playerError" role="alert"></p>
       <button type="submit">Vamos brincar!</button>
+      <button type="button" id="playerCancel" hidden>Voltar ao jogo</button>
     </form>
   </section>
   <div class="ios-install" id="iosInstall" hidden>
@@ -100,6 +102,7 @@
           <strong id="petName">Ovo Mágico</strong>
           <button type="button" id="renamePet" class="rename-pet" aria-label="Trocar nome do PIXEL">✎ Nome</button>
           <span id="petStage">Esperando nascer</span>
+          <button type="button" class="profile-switch" id="btnProfiles">Trocar jogador</button>
         </div>
       </div>
       <div class="clock glass" id="clock">

@@ -22,6 +22,34 @@ Uma única réplica do aplicativo deve usar o volume persistente.
 7. Teste cadastro autorizado, nascimento, cuidados e coleção. Confira os dados
    no painel, reimplante e confirme que continuam presentes.
 
+## Banco no servidor e perfis por aparelho
+
+O banco SQLite roda no servidor Node, em `/data/pixels.sqlite`. No EasyPanel,
+monte um volume persistente em `/data`, gravavel pelo usuario `node` (UID 1000).
+Use uma replica do aplicativo; todas as atualizacoes devem reutilizar esse mesmo
+volume. Sem o volume, a troca do container pode perder os dados do servidor.
+
+`devices` identifica a instalacao por um cookie secreto HttpOnly; navegadores
+nao fornecem o MAC do celular ao site. `players` liga cada perfil ao aparelho,
+com indice unico de aparelho + apelido normalizado e outro de aparelho + chave
+do perfil. `pets` guarda todos os bichinhos desse perfil, incluindo as roupas,
+cores, fase e necessidades no snapshot. `collections` guarda o bichinho ativo.
+Sessoes e eventos continuam separados por perfil.
+
+O botao "Trocar jogador" escolhe ou cria perfis no mesmo aparelho. Eles
+compartilham a autorizacao do aparelho, mas possuem colecoes e salvamentos locais
+separados. Nao sao contas protegidas por senhas entre as pessoas daquele aparelho.
+A migracao automatica preserva IDs, cookies, colecoes e roupas existentes.
+As requisicoes indicam o perfil, e o servidor verifica se pertence ao aparelho;
+isso tambem evita misturar perfis em abas diferentes.
+
+O salvamento no servidor continua dependendo da autorizacao do responsavel.
+Sem ela, a colecao fica apenas local. Ao conectar, bichinhos que so existem na
+nuvem voltam para a colecao; a versao local vence para o mesmo bichinho.
+Limpar cookies ou trocar de navegador pode criar outra instalacao. Apelido e
+ID publico nao recuperam uma conta sem o cookie. Recuperacao em outro aparelho
+exigira um fluxo de conta separado.
+
 ## Dados e métricas
 
 - Apelido e ID de instalação, criado no servidor, autenticado por cookie HttpOnly.
