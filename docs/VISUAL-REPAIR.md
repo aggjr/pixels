@@ -1,4 +1,13 @@
-# Revisão do básico — 0.2.8
+# Revisão do básico — 0.2.9
+
+## Leão brincalhão
+
+Ajuste adicional após retorno das crianças: carinho, comida e água em 30 já
+permitem felicidade, com higiene/energia em 30 e saúde em 45. Necessidades
+baixas pedem cuidados ou indicam tristeza/doença; não provocam raiva automática
+mesmo após ausência longa. Falas de carinho, banho, acordar e brincar passam
+a ser acolhedoras. Os testes cobrem recuperação e ausência prolongada.
+Alteração local, ainda não publicada no servidor.
 
 ## Sono do morceguinho
 
@@ -28,8 +37,7 @@ o recorte do Slime verde adulto foi corrigido. A main permanece sem publicação
 
 - Humor neutro não usa mais a expressão brava. Necessidades moderadamente
   atendidas já permitem felicidade; não exige todos os medidores quase cheios.
-- Carência isolada pede ajuda. Raiva exige pelo menos duas necessidades críticas
-  e 45 segundos de carência acumulada; saúde continua precisando de cuidados.
+- Carência pede ajuda, sem raiva automática; saúde continua precisando de cuidados.
 - Cuidados recuperam tanto quanto nos demais PIXELS e interrompem a raiva
   acumulada. Repetir carinho com a barra cheia recebe resposta afetuosa.
 - Rugido tratado como brincadeira, sem recusar carinho. Desgaste das necessidades

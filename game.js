@@ -1922,8 +1922,8 @@
     if (night) return setGuide(`Está de noite… hora de nanar? 🌙`, "6", "🌙");
     if (isLion() && !lionPamperedEnough()) {
       const nL = state.needs;
-      if (nL.love < 45) return setGuide(`${p} quer um chamego… Dá carinho! 💗`, "5", "💗", false);
-      if (nL.hunger < 40) return setGuide(`${p} quer um petisco… Dá ${state.species.foodName}! 🥩`, "2", state.species.food, false);
+      if (nL.love < 30) return setGuide(`${p} quer um chamego… Dá carinho! 💗`, "5", "💗", false);
+      if (nL.hunger < 30) return setGuide(`${p} quer um petisco… Dá ${state.species.foodName}! 🥩`, "2", state.species.food, false);
       return setGuide(`${p} quer brincar com você! ${toyEmoji()}`, "P", toyEmoji(), false);
     }
     if (n.energy > 40 && n.love < 85 && Math.random() < 0.002) {
@@ -2695,7 +2695,7 @@
         }), i * 80);
       }
       playMove("wobble", 1500);
-      say(isLion() ? "Grr… quanta espuma pelo corpo todo! 🫧" : "Espuminha cheirosa pelo corpo todo! Hihihi 🫧🛁", 1550);
+      say(isLion() ? "Olha minha juba de espuma! 🦁🫧" : "Espuminha cheirosa pelo corpo todo! Hihihi 🫧🛁", 1550);
       await wait(1550);
 
       // Fase 2: Chuveirinho 3D com jatos de água morna enxaguando a espuma!
@@ -2710,7 +2710,7 @@
         el.stageCareOverlay.innerHTML = `${streams}<img class="care-shower-prop" src="assets/care/bath-showerhead.png" alt="" />`;
       }
       rain(["💧", "🫧", "✨"], 6);
-      say(isLion() ? "Água morninha… humf. 🚿" : "Chuveirinho quentinho! Splash splash! 🚿💧", 1250);
+      say(isLion() ? "Que água gostosa! Splash! 🚿💛" : "Chuveirinho quentinho! Splash splash! 🚿💧", 1250);
       await wait(1250);
 
       // Fase 3: Sacudida pra secar e ficar brilhando!
@@ -2724,7 +2724,7 @@
     } else if (kind === "pet") {
       // Tyton ACEITA muito carinho — é assim que ele melhora
       const loveCap = isLion() ? 98 : 94;
-      if (tooMuch("love", loveCap, isLion() ? "Grr! Agora chega um pouquinho… 🦁" : "Ai, chega de apertar! 😤")) return;
+      if (tooMuch("love", loveCap, isLion() ? "Adorei seu carinho! 🦁💛" : "Ai, chega de apertar! 😤")) return;
       n.love = clamp(n.love + boost + (isLion() ? 2 : 0), 0, 100);
       relieve("love");
       if (el.stageCareOverlay) {
@@ -2740,7 +2740,7 @@
       playMove("pet-nuzzle", 1200);
       rain(["💖", "💗", "💕", "🥰"], isLion() ? 4 : 7);
       say(isLion()
-        ? pick(["…humf.", "Grr… mais um?", "Tá… só mais um carinho.", "Rrr… talvez eu goste."])
+        ? pick(["Adoro seu carinho! 🦁💛", "Mais um abraço! 💖", "Você é meu melhor amigo!", "Minha juba ama esse cafuné! 🥰"])
         : pick(["Hihihi!", "Te amo! 💖", "Mais um abraço!", "Rrrrrr… 😊"]));
     } else if (kind === "sleep") {
       if (!state.sleeping) {
@@ -2759,7 +2759,7 @@
       if (!state.sleeping) { metric("care_blocked", { action: kind, reason: "already_awake" }); say("Já estou acordado!", 1400); return; }
       state.sleeping = false;
       rain(["☀️", "✨"], 4);
-      say(isLion() ? "Grr… dia. 🦁" : "Bom dia!! ☀️", 2000);
+      say(isLion() ? "Bom dia! Vamos brincar? 🦁☀️" : "Bom dia!! ☀️", 2000);
     } else if (kind === "heal") {
       if (n.health > 92) { metric("care_blocked", { action: kind, reason: "healthy" }); say(isMachine() ? "Já estou novinho! 🛠️" : "Já estou saudável! 💚", 1600); return; }
       state.busy = true;
@@ -2780,7 +2780,7 @@
         state.lackMs = 0;
         state.moodLock = 0;
         n.love = clamp(n.love + 3, 0, 100);
-        say(pick(["Grr… brincar?", "…tudo bem. Vamos.", "Roar! Só um pouco."]), 1800);
+        say(pick(["Oba! Vamos brincar! 🦁💛", "Vem correr comigo!", "Meu rugido é de alegria! 🦁✨"]), 1800);
       }
       renderNeeds();
       evaluateMood(performance.now() + 1);

@@ -12,12 +12,14 @@ test('lion is happy with ordinary care, including immediately after birth', () =
   assert.ok(profile.love <= 1 && profile.hunger <= 1 && profile.energy <= 1);
 });
 
-test('one unmet need asks for help; anger needs several critical needs over time', () => {
-  assert.equal(lionMood({ ...ordinary, love: 32 }), 'neutral');
+test('lion asks for care without anger, even after a long absence', () => {
+  assert.equal(lionMood({ ...ordinary, love: 32 }), 'happy');
+  assert.equal(lionMood({ ...ordinary, love: 28 }), 'neutral');
   assert.equal(lionMood({ ...ordinary, hunger: 15 }, 120_000), 'sad');
   const struggling = { ...ordinary, hunger: 10, love: 10 };
   assert.equal(lionMood(struggling, 12_000), 'sad');
-  assert.equal(lionMood(struggling, 45_000), 'mad');
+  assert.equal(lionMood(struggling, 45_000), 'sad');
+  assert.equal(lionMood(struggling, 86400_000), 'sad');
   assert.equal(lionMood(struggling, 0), 'sad');
   assert.equal(lionMood({ ...ordinary, health: 20 }), 'sick');
 });
