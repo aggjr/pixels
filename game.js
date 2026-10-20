@@ -377,10 +377,7 @@
   }
 
   function hasPose(pose) {
-    if (!state.species?.poses?.includes(pose)) return false;
-    // Poses especiais de máquina / slime / humor do leão valem em qualquer fase
-    if (["car", "turbo", "launch", "hover", "chug", "plough", "sail", "loop", "bounce", "splash", "swing", "swim", "zip", "yarn", "hide", "stomp", "roar", "hop", "mad", "sad", "scratch", "sleepy", "happy"].includes(pose)) return true;
-    return state.stage === 1;
+    return !!window.PixelsCatalog.actionArt(state.species, state.stage, state.variant, pose, canUsePacifier());
   }
   function artKey(sp) {
     if (sp?.variants && state.variant) return `${sp.id}_${state.variant}`;
@@ -390,21 +387,7 @@
     return window.PixelsCatalog.spriteArt(sp, stage, state.variant);
   }
   function sleepArt(sp, stage) {
-    const key = sp.stages[stage];
-    if (sp.sleepArt?.[key]) return sp.sleepArt[key];
-    const ak = artKey(sp);
-    const staged = sp.sleepStages || [];
-    if (canUsePacifier()) {
-      // Bebê / início da criança: arte com chupeta (*_sleep.webp)
-      if (sp.poses.includes("sleep")) return `${ART}${ak}_sleep.webp`;
-      if (staged.includes(key)) return `${ART}${ak}_${key}_sleep.webp`;
-      return null;
-    }
-    // Sem chupeta: nunca usar *_sleep.webp genérico (quase sempre tem chupeta)
-    if (staged.includes("adult")) return `${ART}${ak}_adult_sleep.webp`;
-    if (staged.includes("child")) return `${ART}${ak}_child_sleep.webp`;
-    if (staged.includes(key) && key !== "newborn") return `${ART}${ak}_${key}_sleep.webp`;
-    return null;
+    return window.PixelsCatalog.sleepSprite(sp, stage, state.variant, canUsePacifier());
   }
   function wantsSomething() {
     const n = state.needs;
@@ -481,7 +464,7 @@
       pronoun: state.pronoun || state.species.he,
       stage: state.stage,
       needs: { ...state.needs },
-      sleeping: state.sleeping,
+      sleeping: state.sleeping || !!state.sleepRequested,
       mood: state.mood,
       boosts: { ...(state.boosts || {}) },
       strongTraits: [...(state.strongTraits || [])],
@@ -529,6 +512,7 @@
       stage: clamp(snap.stage || 1, 1, 4),
       needs: { hunger: 80, thirst: 80, hygiene: 85, love: 75, energy: 90, health: 100, ...(snap.needs || {}) },
       sleeping: !!snap.sleeping,
+      sleepRequested: false,
       boosts: snap.boosts || { hunger: 1, thirst: 1, hygiene: 1, love: 1, energy: 1, health: 1 },
       strongTraits: snap.strongTraits || [],
       outfit: { ...emptyOutfit(), ...window.PixelsWardrobe.sanitize(snap.speciesId, window.PixelsLooks.migrate(snap.outfit || {}), CLOSET_ITEMS) },
@@ -1574,11 +1558,19 @@
     void el.flash.offsetWidth;
     el.flash.classList.add("go");
   }
-  function playMove(cls, ms) {
+  let movementRevision = 0;
+  function stopMove() {
+    movementRevision++;
     el.actorMove.className = "actor-move";
+  }
+  function playMove(cls, ms) {
+    stopMove();
+    const revision = movementRevision;
     void el.actorMove.offsetWidth;
     el.actorMove.classList.add(cls);
-    return wait(ms);
+    return wait(ms).then(() => {
+      if (revision === movementRevision) el.actorMove.classList.remove(cls);
+    });
   }
 
   // Emoji flies from a button to the pet's mouth.
@@ -2219,6 +2211,7 @@
       setMood("happy", 1200);
       renderActor();
       state.nextSkit = performance.now() + 14000 + Math.random() * 10000;
+      applyRequestedSleep();
     }
     void p;
   }
@@ -2410,6 +2403,7 @@
       refuseBecauseSick("play");
       return;
     }
+    stopMove();
     state.playing = !!on;
     el.app.classList.toggle("playing", state.playing);
     if (el.toy) {
@@ -2421,6 +2415,9 @@
       say(`Pega o brinquedo! ${toyEmoji()}`, 2200);
       setMood("happy", 1800);
     } else {
+      state.combo = 0;
+      state.comboTimer = 0;
+      showCombo(0);
       state.actorOff = { x: 0, y: 0 };
       renderActor();
       say("Brincadeira acabou!", 1600);
@@ -2559,11 +2556,23 @@
     el.groundBowlImg.classList.add("bowl-chomp");
   }
 
+  function applyRequestedSleep() {
+    if (state.sleepRequested && !state.busy && !state.sleeping && state.phase === "pet") {
+      state.sleepRequested = false;
+      void care("sleep");
+    }
+  }
   async function care(kind) {
     if (state.phase !== "pet") return;
     metric("care_attempt", { action: kind });
     if (state.sleeping && kind !== "wake") { metric("care_blocked", { action: kind, reason: "sleeping" }); say("Shhh… zzz", 1400); rain(["💤"], 2, "zzz"); return; }
-    if (state.busy && kind !== "wake") { metric("care_blocked", { action: kind, reason: "busy" }); return; }
+    if (state.busy && kind !== "wake") {
+      if (kind === "sleep") {
+        state.sleepRequested = true;
+        say("Já vou dormir… só estou terminando! 🌙", 2200);
+      } else metric("care_blocked", { action: kind, reason: "busy" });
+      return;
+    }
     if (window.PixelAudio) {
       const map = { feed: "feed", drink: "drink", bath: "bath", pet: "pet", play: "play", sleep: "sleep", wake: "wake", heal: "heal" };
       if (map[kind]) window.PixelAudio.cue(map[kind], state.species?.id);
@@ -2775,8 +2784,10 @@
         ? pick(["Adoro seu carinho! 🦁💛", "Mais um abraço! 💖", "Você é meu melhor amigo!", "Minha juba ama esse cafuné! 🥰"])
         : pick(["Hihihi!", "Te amo! 💖", "Mais um abraço!", "Rrrrrr… 😊"]));
     } else if (kind === "sleep") {
+      state.sleepRequested = false;
       if (!state.sleeping) {
         if (state.playing) setPlaying(false);
+        stopMove();
         state.sleeping = true;
         state.pose = null;
         state.busy = false;
@@ -2788,6 +2799,7 @@
       metric("care_success", { action: kind });
       return;
     } else if (kind === "wake") {
+      state.sleepRequested = false;
       if (!state.sleeping) { metric("care_blocked", { action: kind, reason: "already_awake" }); say("Já estou acordado!", 1400); return; }
       state.sleeping = false;
       rain(["☀️", "✨"], 4);
@@ -2835,6 +2847,7 @@
     renderNeeds();
     saveActivePet();
     metric("care_success", { action: kind });
+    applyRequestedSleep();
   }
 
   function evaluateMood(now) {
@@ -3021,7 +3034,7 @@
     if (!b || b.disabled) return;
     b.classList.add("pressed");
     if (key === "1" && state.phase === "egg") return setRub(true);
-    actions[key]?.();
+    return actions[key]?.();
   }
   function release(key) {
     buttons[key]?.classList.remove("pressed");

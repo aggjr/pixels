@@ -382,6 +382,32 @@ function lionMood(n, lackMs = 0) {
   return lionContent(n) ? "happy" : "neutral";
 }
 const spriteOverrides = { slime_green_adult: "assets/pets/slime_green_adult.png" };
+const sharedSleepArt = new Set([
+  "axolotl", "bee", "butterfly", "nini", "floide", "tini", "elephant", "lion", "slime", "lilica",
+]);
+const stagedSleepArt = {
+  monkey: ["child", "adult"],
+};
+function sleepSprite(species, stage, variant, allowBabyArt = stage <= 2) {
+  const phase = species.stages[stage];
+  if (species.sleepArt?.[phase]) return species.sleepArt[phase];
+  const key = species.id + (species.variants ? "_" + (variant || "blue") : "");
+  const staged = species.sleepStages || stagedSleepArt[species.id] || [];
+  if (allowBabyArt && species.poses.includes("sleep")) return `assets/pets/${key}_sleep.webp`;
+  if (staged.includes(phase)) return `assets/pets/${key}_${phase}_sleep.webp`;
+  if (staged.includes("adult")) return `assets/pets/${key}_adult_sleep.webp`;
+  if (staged.includes("child")) return `assets/pets/${key}_child_sleep.webp`;
+  // These reviewed shared sprites have closed eyes and no baby-only pacifier.
+  if (sharedSleepArt.has(species.id)) return `assets/pets/${key}_sleep.webp`;
+  return null;
+}
+function actionArt(species, stage, variant, pose, allowBabyArt = stage <= 2) {
+  if (!species?.poses?.includes(pose)) return null;
+  // The only racing-car eating sprite contains a baby pacifier.
+  if (species.id === "racer" && pose === "eat" && !allowBabyArt) return null;
+  const key = species.id + (species.variants ? "_" + (variant || "blue") : "");
+  return `assets/pets/${key}_${pose}.webp`;
+}
 function spriteArt(species, stage, variant) {
  const key = species.id + (species.variants ? "_" + (variant || "blue") : "") + "_" + species.stages[stage];
  return spriteOverrides[key] || "assets/pets/" + key + ".webp";
@@ -417,5 +443,5 @@ function creatorCredit(creation) {
   const creator = CREATORS[creation?.creatorId];
   return creator?.displayName ? `por ${creator.displayName}` : "";
 }
-return { SPECIES, SPECIES_ANCHORS, CLOSET_ITEMS, CLOSET_TABS, CREATORS, creatorCredit, lionContent, lionMood, spriteOverrides, spriteArt };
+return { SPECIES, SPECIES_ANCHORS, CLOSET_ITEMS, CLOSET_TABS, CREATORS, creatorCredit, lionContent, lionMood, spriteOverrides, spriteArt, sleepSprite, actionArt };
 });
