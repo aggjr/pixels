@@ -97,6 +97,8 @@ Execute na branch `main`, com todos os arquivos commitados:
 - `npm run git:integrate -- --dry-run`: simula os merges e valida a versao e os testes.
 - `npm run git:integrate`: integra e valida localmente, permanecendo em `main`.
 - `npm run git:integrate -- --push`: integra, valida e publica `main` no GitHub.
+- Para corrigir explicitamente a sequencia de versoes, acrescente
+  `--version=0.1.65`. O valor exato sera usado no jogo, assets e cache offline.
 
 As branches sao definidas em `scripts/git-machines.json`; nomes com os prefixos
 `codex/`, `antigravity/` e `cursor/` tambem entram automaticamente. Novas IAs

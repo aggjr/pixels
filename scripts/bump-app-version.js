@@ -7,9 +7,13 @@ const htmlPath = path.join(root, "index.html");
 const swPath = path.join(root, "sw.js");
 
 const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
+const args = process.argv.slice(2);
+if (args.length > 1 || (args.length && !/^--version=\d+\.\d+\.\d+$/.test(args[0]))) {
+  throw new Error("Uso: npm run bump -- [--version=0.1.65]");
+}
 const parts = pkg.version.split(".").map(Number);
 parts[2] = (parts[2] || 0) + 1;
-pkg.version = parts.join(".");
+pkg.version = args[0] ? args[0].slice("--version=".length) : parts.join(".");
 fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
 
 const label = `V${pkg.version}`;

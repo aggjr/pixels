@@ -5,9 +5,11 @@ const path = require("node:path");
 const { execFileSync } = require("node:child_process");
 
 function integrate(root, args = []) {
-  if (args.some(arg => !["--push", "--dry-run"].includes(arg))) {
-    throw new Error("Uso: npm run git:integrate -- [--dry-run | --push]");
+  const versionArgs = args.filter(arg => /^--version=\d+\.\d+\.\d+$/.test(arg));
+  if (versionArgs.length > 1 || args.some(arg => !["--push", "--dry-run", ...versionArgs].includes(arg))) {
+    throw new Error("Uso: npm run git:integrate -- [--dry-run | --push] [--version=0.1.65]");
   }
+  const requestedVersion = versionArgs[0]?.slice("--version=".length);
   if (args.includes("--push") && args.includes("--dry-run")) {
     throw new Error("Use --push ou --dry-run, separadamente.");
   }
@@ -48,7 +50,8 @@ function integrate(root, args = []) {
   const releaseMain = unpublished && !alreadyReleased;
   for (const { ref, sha } of pending) console.log(`Integrar ${ref}: ${sha.slice(0, 12)}`);
   if (releaseMain) console.log("Preparando versao dos commits novos feitos diretamente em main.");
-  if (!pending.length && !releaseMain) {
+  const currentVersion = JSON.parse(git(["show", `${start}:package.json`])).version;
+  if (!pending.length && !releaseMain && (!requestedVersion || requestedVersion === currentVersion)) {
     console.log("main ja contem todos os commits das branches configuradas.");
     if (args.includes("--push")) git(["push", "origin", `${main}:${main}`]);
     return;
@@ -70,7 +73,7 @@ function integrate(root, args = []) {
     };
     for (const { ref, sha } of pending) merge(sha, ref);
     // A branch with an older version must never lower the published version.
-    const versions = [start, ...candidates.map(({ sha }) => sha)].map(sha =>
+    const versions = [start, ...pending.map(({ sha }) => sha)].map(sha =>
       JSON.parse(git(["show", `${sha}:package.json`])).version
     );
     if (versions.some(version => !/^\d+\.\d+\.\d+$/.test(version))) throw new Error("Versao invalida em uma das branches.");
@@ -82,7 +85,7 @@ function integrate(root, args = []) {
     const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
     pkg.version = versions.at(-1);
     fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
-    execFileSync(process.execPath, ["scripts/bump-app-version.js"], { cwd: checkout, stdio: "inherit" });
+    execFileSync(process.execPath, ["scripts/bump-app-version.js", ...(requestedVersion ? [`--version=${requestedVersion}`] : [])], { cwd: checkout, stdio: "inherit" });
     const version = JSON.parse(fs.readFileSync(pkgPath, "utf8")).version;
     const html = fs.readFileSync(path.join(checkout, "index.html"), "utf8");
     const sw = fs.readFileSync(path.join(checkout, "sw.js"), "utf8");

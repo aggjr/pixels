@@ -126,3 +126,19 @@ test("failing merged tests and uncommitted files block integration", t => {
   assert.notEqual(dirty.status, 0);
   assert.match(dirty.stderr, /Faca commit/);
 });
+
+test("explicit release version corrects the sequence and subsequent releases follow it", t => {
+  const { root, git, run } = fixture(t);
+  const result = run("--version=0.1.65");
+  assert.equal(result.status, 0, result.stdout + result.stderr);
+  assert.equal(JSON.parse(fs.readFileSync(path.join(root, "package.json"))).version, "0.1.65");
+  assert.match(fs.readFileSync(path.join(root, "index.html"), "utf8"), /V0\.1\.65/);
+  assert.match(fs.readFileSync(path.join(root, "sw.js"), "utf8"), /bichinho-v0\.1\.65/);
+  const repeat = run();
+  assert.equal(repeat.status, 0, repeat.stdout + repeat.stderr);
+  fs.writeFileSync(path.join(root, "next.txt"), "next release");
+  git("add", "."); git("commit", "-m", "feat: next release");
+  const next = run();
+  assert.equal(next.status, 0, next.stdout + next.stderr);
+  assert.equal(JSON.parse(fs.readFileSync(path.join(root, "package.json"))).version, "0.1.66");
+});
