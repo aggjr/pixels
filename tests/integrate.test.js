@@ -96,6 +96,23 @@ test("conflicting AI branches leave main and origin unchanged", t => {
   assert.equal(git("status", "--porcelain"), "");
 });
 
+test("direct main commits create one release without requiring an AI branch", t => {
+  const { root, git, run } = fixture(t);
+  fs.writeFileSync(path.join(root, "main-change.txt"), "new main code");
+  git("add", "."); git("commit", "-m", "feat: direct main change");
+  const remoteBefore = git("rev-parse", "origin/main");
+  const preview = run("--dry-run");
+  assert.equal(preview.status, 0, preview.stdout + preview.stderr);
+  assert.equal(JSON.parse(fs.readFileSync(path.join(root, "package.json"))).version, "1.0.0");
+  const result = run();
+  assert.equal(result.status, 0, result.stdout + result.stderr);
+  assert.equal(JSON.parse(fs.readFileSync(path.join(root, "package.json"))).version, "1.0.1");
+  assert.equal(git("rev-parse", "origin/main"), remoteBefore);
+  const release = git("rev-parse", "HEAD");
+  assert.equal(run().status, 0);
+  assert.equal(git("rev-parse", "HEAD"), release);
+});
+
 test("failing merged tests and uncommitted files block integration", t => {
   const { root, git, run, branch } = fixture(t);
   branch("codex-gamer", "tests/failure.test.js", 'throw new Error("blocked");');

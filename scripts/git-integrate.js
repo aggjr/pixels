@@ -41,8 +41,14 @@ function integrate(root, args = []) {
   // Freeze commit IDs so another agent cannot change a branch during validation.
   const candidates = [{ ref: `origin/${main}`, sha: remoteMain }, ...refs.map(ref => ({ ref, sha: git(["rev-parse", ref]) }))];
   const pending = candidates.filter(({ sha }) => git(["rev-list", "--count", `${start}..${sha}`]) !== "0");
+  const unpublished = git(["rev-list", "--count", `${remoteMain}..${start}`]) !== "0";
+  const alreadyReleased = /^chore\(release\): V\d+\.\d+\.\d+ - integracao main$/.test(
+    git(["log", "-1", "--format=%s", start])
+  );
+  const releaseMain = unpublished && !alreadyReleased;
   for (const { ref, sha } of pending) console.log(`Integrar ${ref}: ${sha.slice(0, 12)}`);
-  if (!pending.length) {
+  if (releaseMain) console.log("Preparando versao dos commits novos feitos diretamente em main.");
+  if (!pending.length && !releaseMain) {
     console.log("main ja contem todos os commits das branches configuradas.");
     if (args.includes("--push")) git(["push", "origin", `${main}:${main}`]);
     return;

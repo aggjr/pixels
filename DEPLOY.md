@@ -106,7 +106,9 @@ remotos, apos `fetch --prune`; alteracoes ainda sem commit nao sao integradas.
 Os merges e testes rodam em um worktree temporario. Em caso de conflito ou
 falha nos testes, a integracao para e informa o diretorio para diagnostico.
 A versao sobe uma vez, acima da maior versao encontrada, sincronizando jogo,
-assets e cache offline. Sem commits novos, a versao permanece igual.
+assets e cache offline. Commits novos feitos diretamente em `main`, ainda nao
+publicados, tambem geram uma versao. Rodar novamente sobre a mesma release nao
+incrementa a versao outra vez. Sem commits novos, a versao permanece igual.
 O push usa o fluxo normal do Git, respeitando protecoes e recusando sobrescrita
 do historico remoto. Se outro agente publicar durante a integracao, rode de novo.
 O deploy depende de o EasyPanel acompanhar `main`; confira `/healthz` apos publicar.
