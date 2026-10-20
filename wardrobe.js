@@ -16,6 +16,7 @@
   function compatible(speciesId, item) {
     const family = families[speciesId];
     if (!family || !item || (item.species && item.species !== speciesId)) return false;
+    if (item.id === "intermediate_comet") return true;
     if (item.tab === "toys") return true;
     if (item.completeLook) return item.species === speciesId;
     if (item.tab === "powers") return speciesId === "unicorn";
@@ -34,7 +35,7 @@
   function sanitize(speciesId, outfit, items) {
     return Object.fromEntries(Object.entries(outfit || {}).map(([slot, id]) => {
       const item = items.find(i => i.id === id);
-      return [slot, item?.slot === slot && compatible(speciesId, item) ? id : null];
+      return [slot, !item?.locked && item?.slot === slot && compatible(speciesId, item) ? id : null];
     }));
   }
   function tabs(speciesId, catalog, items) {
@@ -50,7 +51,7 @@
     if (!anchors || !item?.slot) return null;
     let a = anchors[item.slot];
     if (item.id.includes("spoiler")) a = anchors.spoiler;
-    if (["hat_cap_3d", "hat_crown_3d", "tune_siren_3d"].includes(item.id)) a = anchors.crown;
+    if (["hat_cap_3d", "hat_crown_3d", "tune_siren_3d", "intermediate_explorer"].includes(item.id)) a = anchors.crown;
     if (item.id === "unicorn_saddle_3d") a = anchors.saddle;
     if (!a) return null;
     a = [...a];

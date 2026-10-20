@@ -20,6 +20,45 @@
   let ambientTimer = null;
   let lastVoiceAt = 0;
   let lastMoodKey = "";
+  let character = { speciesId: null, stage: 1, sleeping: false };
+  let lastWordsAt = -Infinity;
+  let characterRevision = 0;
+  const activeVoices = new Set();
+  function stopVoices() {
+    for (const source of activeVoices) { try { source.stop(); } catch (_) {} }
+    activeVoices.clear();
+  }
+  const agePitch = () => [1.6, 1.35, 1.05, 0.78][character.stage - 1];
+  function setCharacter(speciesId, stage, sleeping = false) {
+    const changed = character.speciesId !== speciesId || character.stage !== stage;
+    const changedSleep = character.sleeping !== sleeping;
+    character = { speciesId, stage: Math.max(1, Math.min(4, Number(stage) || 1)), sleeping };
+    if (changed || changedSleep) {
+      characterRevision++;
+      stopVoices();
+      if (changed) { lastWordsAt = -Infinity; lastMoodKey = ""; }
+      window.speechSynthesis?.cancel();
+    }
+  }
+  function words(text) {
+    if (muted || !unlocked || character.sleeping || !window.speechSynthesis || !window.SpeechSynthesisUtterance) return;
+    if (performance.now() - lastWordsAt < 6000) return;
+    lastWordsAt = performance.now();
+    const utterance = new window.SpeechSynthesisUtterance(text);
+    utterance.lang = "pt-BR";
+    utterance.voice = window.speechSynthesis.getVoices().find(v => v.lang === "pt-BR") || null;
+    utterance.pitch = agePitch();
+    utterance.rate = character.stage <= 2 ? 0.9 : 0.95;
+    utterance.volume = 0.65;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+  }
+  function voiceLater(fn, delay) {
+    const revision = characterRevision;
+    setTimeout(() => {
+      if (revision === characterRevision && !muted && !character.sleeping) fn();
+    }, delay);
+  }
   const bufferCache = new Map();
   const loading = new Map();
 
@@ -60,6 +99,7 @@
   }
 
   function setMuted(on) {
+    if (on) { characterRevision++; stopVoices(); window.speechSynthesis?.cancel(); }
     muted = !!on;
     try { localStorage.setItem(STORAGE_MUTE, muted ? "1" : "0"); } catch (_) {}
     const c = ensure();
@@ -120,6 +160,10 @@
     g.gain.value = gain;
     src.connect(g);
     g.connect(bus);
+    if (bus === voiceBus) {
+      activeVoices.add(src);
+      src.onended = () => activeVoices.delete(src);
+    }
     const t0 = ctx.currentTime + when;
     const dur = duration != null ? Math.min(duration, buf.duration - offset) : undefined;
     try {
@@ -142,7 +186,8 @@
       playBuffer(buf, bus, opts);
       return true;
     }
-    playSample(file, bus, opts);
+    // Warm the cache without playing a second sound over the fallback.
+    void loadBuffer(file);
     return false;
   }
 
@@ -191,6 +236,10 @@
     if (slideTo != null) o.frequency.exponentialRampToValueAtTime(Math.max(20, slideTo), t0 + dur);
     const g = envGain(bus, t0, 0.02, Math.max(0.01, dur * 0.55), dur * 0.4, peak);
     o.connect(g);
+    if (bus === voiceBus) {
+      activeVoices.add(o);
+      o.onended = () => activeVoices.delete(o);
+    }
     o.start(t0);
     o.stop(t0 + dur + 0.05);
   }
@@ -460,24 +509,27 @@
       : 0.92 + Math.random() * 0.18;
     const gain = VEHICLE.has(family) ? 0.48 : 0.58;
     const duration = VEHICLE.has(family) ? 1.6 : 1.4;
-    return playSampleSync(file, voiceBus, { gain, rate, duration, offset: 0 });
+    return playSampleSync(file, voiceBus, { gain, rate: rate * agePitch(), duration, offset: 0 });
   }
 
   function softChirp(base, count, up = true) {
+    base *= agePitch();
     for (let i = 0; i < count; i++) {
       const f = up ? base * (1 + i * 0.12) : base * (1 - i * 0.08);
-      setTimeout(() => tone(f, 0.09, "sine", voiceBus, 0.18), i * 90);
+      voiceLater(() => tone(f, 0.09, "sine", voiceBus, 0.18), i * 90);
     }
   }
 
   function growl(base = 90) {
+    base *= agePitch();
     tone(base, 0.45, "sawtooth", voiceBus, 0.16, base * 0.7);
     noiseBurst(voiceBus, 0.35, 0.06, base * 2, "lowpass", 1);
   }
 
   function whimper(base = 320) {
+    base *= agePitch();
     tone(base, 0.35, "triangle", voiceBus, 0.14, base * 0.75);
-    setTimeout(() => tone(base * 0.9, 0.3, "sine", voiceBus, 0.1, base * 0.65), 160);
+    voiceLater(() => tone(base * 0.9, 0.3, "sine", voiceBus, 0.1, base * 0.65), 160);
   }
 
   function blub() {
@@ -523,13 +575,44 @@
     lastMoodKey = key;
     const family = FAMILY[speciesId] || "critter";
     const m = mood || "neutral";
+    if (character.sleeping || m === "sleep") return;
+    if (family === "boat") { boatHorn(m); return; }
+    if (m === "sad" || m === "sick") {
+      if (VEHICLE.has(family)) growl(85);
+      else whimper(character.stage <= 2 ? 470 : 280);
+      return;
+    }
+    if (family === "elephant") { softChirp(160, 3); return; }
+    if (family === "lion" && m !== "mad") { softChirp(280, 3); return; }
     if (!speakWithSample(family, m)) {
       try { proceduralVoice(family, m); } catch (_) {}
     }
   }
 
+  function boatHorn(mood = "happy") {
+    const base = 160 * agePitch();
+    const duration = mood === "sick" ? 0.45 : 0.9;
+    tone(base, duration, "sine", voiceBus, 0.16, base * 0.97);
+    tone(base * 1.5, duration, "triangle", voiceBus, 0.07);
+  }
+  function laugh(family) {
+    if (VEHICLE.has(family)) {
+      if (family === "boat") return boatHorn();
+      if (family === "car" || family === "tractor") {
+        noiseBurst(sfxBus, 0.35, 0.08, 1800 * agePitch(), "bandpass", 6);
+        if (playSampleSync("car_horn.mp3", voiceBus, {gain:0.35, rate:agePitch()})) return;
+      }
+      return softChirp(260, 2);
+    }
+    const base = 360 * agePitch();
+    [0, 140, 300, 460].forEach((delay, i) => voiceLater(() => {
+      if (!character.sleeping && !muted) tone(base * (1 - i * 0.06), 0.1, "sine", voiceBus, 0.15, base * 0.8);
+    }, delay));
+  }
+
   /** Soluço de bebê — normalzinho 🍼 */
   function babyHiccup() {
+    if (character.stage > 2 || character.sleeping || VEHICLE.has(FAMILY[character.speciesId])) return;
     if (playSampleSync("hiccup.wav", sfxBus, { gain: 0.55, rate: 0.95 + Math.random() * 0.12 })) return;
     // fallback: três pios glotais
     [0, 220, 480].forEach((d, i) => {
@@ -542,8 +625,13 @@
 
   /** Pum fofo de bebê (ou escapamento se for veículo) */
   function babyToot(family) {
+    if (family === "boat") { boatHorn(); return; }
+    if (VEHICLE.has(family) && family !== "car" && family !== "tractor") {
+      tone(100 * agePitch(), 0.25, "triangle", sfxBus, 0.08);
+      return;
+    }
     if (VEHICLE.has(family)) {
-      const file = pickFile(["car_putt.mp3", "car_exhaust.mp3", "fart.mp3"]);
+      const file = pickFile(["car_putt.mp3", "car_exhaust.mp3"]);
       playSampleSync(file, sfxBus, { gain: 0.42, rate: 1.05, duration: 1.1 });
       return;
     }
@@ -555,6 +643,17 @@
     const c = ensure();
     if (!c || muted || !unlocked) return;
     const family = FAMILY[speciesId] || "critter";
+    if (name === "play") { laugh(family); return; }
+    if (name === "wake" && (character.stage > 2 || VEHICLE.has(family))) {
+      if (VEHICLE.has(family)) {
+        if (family === "boat") boatHorn();
+        else {
+          const engine = {car:"car_start.mp3",tractor:"moto.mp3",train:"tram.mp3",plane:"propeller.mp3",heli:"heli.mp3",rocket:"car_exhaust.mp3"}[family];
+          if (!playSampleSync(engine, sfxBus, {gain:0.35,rate:agePitch(),duration:0.8})) growl(85);
+        }
+      } else softChirp(300, 2);
+      return;
+    }
     switch (name) {
       case "hatch": {
         playSampleSync("boing.mp3", sfxBus, { gain: 0.45 });
@@ -649,13 +748,13 @@
   }
 
   function tickNeeds(speciesId, needs) {
-    if (!needs || !speciesId || muted || !unlocked) return;
+    if (!needs || !speciesId || muted || !unlocked || character.sleeping) return;
     const now = performance.now();
     if (now - lastVoiceAt < 5000) return;
     const lows = ["hunger", "thirst", "love", "energy", "hygiene", "health"].filter((k) => needs[k] < 28);
     if (!lows.length) {
       // Bebê tranquilo: soluço espontâneo de vez em quando
-      if (Math.random() < 0.08) {
+      if (character.stage <= 2 && Math.random() < 0.08) {
         lastVoiceAt = now;
         babyHiccup();
       }
@@ -690,6 +789,8 @@
   }
 
   window.PixelAudio = {
+    setCharacter,
+    words,
     unlock,
     setMuted,
     toggleMute,

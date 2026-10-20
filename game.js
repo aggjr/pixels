@@ -644,7 +644,7 @@
     try { localStorage.setItem(ECO_KEY, JSON.stringify(eco)); } catch (_) {}
   }
   function isItemUnlocked(item) {
-    return true;
+    return !item.locked;
   }
   function unlockClosetItem(itemId) {
     const eco = loadEco();
@@ -806,6 +806,7 @@
     state.nextSkit = performance.now() + 8000;
   }
   function tierBadgeMarkup(item) {
+    if (item.locked) return '<span class="tier-badge">Em breve</span>';
     return ""; // No prices or future reward systems in the current wardrobe.
     if (item.tab === "toys") return "";
     if (item.tier === "grife") {
@@ -892,6 +893,8 @@
       const sameSlotOccupied = item.tab !== "toys" && !!state.outfit[item.slot] && state.outfit[item.slot] !== item.id;
       if (equipped) b.classList.add("on");
       if (!unlocked) b.classList.add("locked");
+      b.disabled = !unlocked;
+      if (!unlocked) b.title = "Nível intermediário · Em breve";
       if (item.tab !== "toys" && count >= 3 && !equipped && !sameSlotOccupied) {
         b.classList.add("limit-reached");
       }
@@ -905,6 +908,7 @@
   }
 
   function equipItem(item) {
+    if (!isItemUnlocked(item)) return;
     if (!window.PixelsWardrobe.compatible(state.species?.id, item)) return;
     if (item.completeLook) {
       const removing = state.outfit.body === item.id;
@@ -1601,6 +1605,7 @@
       el.actor.dataset.mood = m;
       if (m === "happy") { el.actorImg.style.animation = "none"; void el.actorImg.offsetWidth; el.actorImg.style.animation = ""; }
       if (prev !== m && state.species && window.PixelAudio) {
+        window.PixelAudio.setCharacter(state.species.id, state.stage, state.sleeping);
         window.PixelAudio.speak(state.species.id, m);
       }
     }
@@ -1658,6 +1663,7 @@
     el.actor.style.setProperty("--egg-veil", veil.toFixed(3));
   }
   function renderActor() {
+    window.PixelAudio?.setCharacter(state.species?.id, state.stage, state.sleeping);
     const credit = document.getElementById("creatorCredit");
     if (credit) {
       credit.textContent = state.phase === "pet" ? window.PixelsCatalog.creatorCredit(state.species) : "";
@@ -1902,7 +1908,7 @@
       return setGuide(`${p} está nervoso! Olha a carinha dele — cuida agora! 💢`, null, "😤", true);
     }
     if (state.mood === "sick" || state.needs.health < 40) {
-      return setGuide(`${p} está doente… Aperte 💊 Saúde na lateral!`, "H", "💊", true);
+      return setGuide(isMachine() ? `${p} precisa de um mecânico!` : `${p} precisa de um veterinário!`, "H", "💊", true);
     }
     if (state.playing) {
       return setGuide(`Arraste o ${toyEmoji()} — ${p} vai atrás! ✨`, "P", toyEmoji());
@@ -2385,11 +2391,13 @@
     metric("care_blocked", { action: kind, reason: "sick" });
     setMood("sick", 2200);
     rain(["🤒", "💢", "💧"], 4);
+    const request = isMachine() ? "Estou passando mal. Me leve a um mecânico!" : "Estou passando mal. Me leve a um veterinário!";
+    window.PixelAudio?.words(request);
     if (kind === "play") {
       if (state.playing) setPlaying(false);
-      say(isMachine() ? "Quebrado… não dá pra brincar agora 🛠️" : "Tô doente… não quero brincar 🤒", 2400);
+      say(request, 3500);
     } else if (kind === "feed") {
-      say(isMachine() ? "Motor enjoado… sem peças agora 😣" : "Buá… barriga dói, não quero comer 🤒", 2400);
+      say(request, 3500);
     } else {
       say(isMachine() ? "Preciso de conserto primeiro! 🛠️" : "Me cura primeiro… 💊", 2200);
     }
@@ -2573,10 +2581,7 @@
       } else metric("care_blocked", { action: kind, reason: "busy" });
       return;
     }
-    if (window.PixelAudio) {
-      const map = { feed: "feed", drink: "drink", bath: "bath", pet: "pet", play: "play", sleep: "sleep", wake: "wake", heal: "heal" };
-      if (map[kind]) window.PixelAudio.cue(map[kind], state.species?.id);
-    }
+    window.PixelAudio?.setCharacter(state.species?.id, state.stage, state.sleeping);
     const n = state.needs;
     // Tyton responde bem ao carinho
     const boost = 12 + state.stage * 4;
@@ -2598,6 +2603,7 @@
     if (kind === "feed") {
       if (refuseBecauseSick("feed")) return;
       if (tooMuch("hunger", 92, isMachine() ? "Já tenho peças demais! 🔧" : "Minha barriguinha tá cheia! 😣")) return;
+      window.PixelAudio?.cue("feed", state.species?.id);
       state.busy = true;
       state.actorOff = { x: 0, y: 0 };
       el.actorMove.style.transform = "";
@@ -2651,6 +2657,7 @@
       state.busy = false;
     } else if (kind === "drink") {
       if (tooMuch("thirst", 92, isMachine() ? "Tanque cheio! ⛽" : "Chega de água! 💦")) return;
+      window.PixelAudio?.cue("drink", state.species?.id);
       state.busy = true;
       state.actorOff = { x: 0, y: 0 };
       el.actorMove.style.transform = "";
@@ -2709,6 +2716,7 @@
       state.busy = false;
     } else if (kind === "bath") {
       if (tooMuch("hygiene", 90, "Já estou limpinho!")) return;
+      window.PixelAudio?.cue("bath", state.species?.id);
       state.busy = true;
       state.actorOff = { x: 0, y: 0 };
       el.actorMove.style.transform = "";
@@ -2763,10 +2771,18 @@
       await wait(580);
       state.busy = false;
     } else if (kind === "pet") {
+      if (n.love >= 95) {
+        say("Eu te amo! Você me faz muito feliz! 💖", 2800);
+        window.PixelAudio?.words("Eu te amo! Você me faz muito feliz!");
+        metric("care_success", { action: kind });
+        return;
+      }
       // Tyton ACEITA muito carinho — é assim que ele melhora
       const loveCap = isLion() ? 98 : 94;
       if (tooMuch("love", loveCap, isLion() ? "Adorei seu carinho! 🦁💛" : "Ai, chega de apertar! 😤")) return;
+      window.PixelAudio?.cue("pet", state.species?.id);
       n.love = clamp(n.love + boost + (isLion() ? 2 : 0), 0, 100);
+      if (n.love >= 90) window.PixelAudio?.words("Eu te amo! Obrigado por cuidar de mim!");
       relieve("love");
       if (el.stageCareOverlay) {
         el.stageCareOverlay.hidden = false;
@@ -2780,7 +2796,7 @@
       }
       playMove("pet-nuzzle", 1200);
       rain(["💖", "💗", "💕", "🥰"], isLion() ? 4 : 7);
-      say(isLion()
+      say(n.love >= 90 ? "Eu te amo! Você me faz muito feliz! 💖" : isLion()
         ? pick(["Adoro seu carinho! 🦁💛", "Mais um abraço! 💖", "Você é meu melhor amigo!", "Minha juba ama esse cafuné! 🥰"])
         : pick(["Hihihi!", "Te amo! 💖", "Mais um abraço!", "Rrrrrr… 😊"]));
     } else if (kind === "sleep") {
@@ -2802,10 +2818,13 @@
       state.sleepRequested = false;
       if (!state.sleeping) { metric("care_blocked", { action: kind, reason: "already_awake" }); say("Já estou acordado!", 1400); return; }
       state.sleeping = false;
+      window.PixelAudio?.setCharacter(state.species?.id, state.stage, false);
+      window.PixelAudio?.cue("wake", state.species?.id);
       rain(["☀️", "✨"], 4);
       say(isLion() ? "Bom dia! Vamos brincar? 🦁☀️" : "Bom dia!! ☀️", 2000);
     } else if (kind === "heal") {
       if (n.health > 92) { metric("care_blocked", { action: kind, reason: "healthy" }); say(isMachine() ? "Já estou novinho! 🛠️" : "Já estou saudável! 💚", 1600); return; }
+      window.PixelAudio?.cue("heal", state.species?.id);
       state.busy = true;
       rain(isMachine() ? ["🛠️", "🔩", "✨"] : ["💊", "💚", "✨"], 10);
       playMove("wobble", 1200);
@@ -2820,6 +2839,7 @@
       if (refuseBecauseSick("play")) return;
       if (n.energy < 12) { metric("care_blocked", { action: kind, reason: "tired" }); say("Estou cansadinho demais… 😴", 1800); return; }
       setPlaying(!state.playing);
+      if (state.playing) window.PixelAudio?.cue("play", state.species?.id);
       if (state.playing && isLion()) {
         state.lackMs = 0;
         state.moodLock = 0;
@@ -2992,7 +3012,11 @@
         state.fxTimer = state.playing ? 0.45 : 0.9;
         if (state.mood === "sick" || state.needs.health < 35) {
           fx("float", "🤒", { x: 48 + Math.random() * 10, y: 32, dx: (Math.random() - 0.5) * 40 });
-          if (Math.random() < 0.12) say(pick(["Estou doente…", "Ai…", "Me cura? 💊"]), 1800);
+          if (!state.sleeping && Math.random() < 0.12) {
+            const request = isMachine() ? "Estou passando mal. Me leve a um mecânico!" : "Estou passando mal. Me leve a um veterinário!";
+            say(request, 3500);
+            window.PixelAudio?.words(request);
+          }
         }
         if (state.mood === "sad") {
           fx("tear", "💧", { x: 40, y: 45, dx: -10 });

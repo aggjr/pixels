@@ -1,14 +1,21 @@
 {
   "schema": 1,
-  "date": "2026-10-19",
+  "date": "2026-10-20",
   "scope": "Static wearable fits; toys separately reviewed as inventory art",
   "appearancesAndStages": 120,
-  "separateFits": 1536,
+  "separateFits": 1776,
+  "lockedPreviews": [
+    "intermediate_explorer",
+    "intermediate_pilot",
+    "intermediate_comet"
+  ],
   "completeLookFits": 4,
   "technicalErrors": [],
   "releaseReady": false,
   "sourceHashes": {
     "assets/pets/unicorn_newborn.webp": "f5d4d746b38d3bc87f256bb29ced7503d6f63fca83044551234c4814e98e9fff",
+    "assets/accessories/intermediate-explorer.png": "7fbf196399bec227058c43dac096c6e77bbee045fe92776f685a10e37bda10d3",
+    "assets/accessories/intermediate-pilot.png": "08d3335646b23debaea27dd2ef4653a4a3ca131ca573919a0c1fb4697aacd59e",
     "assets/accessories/kitty-bow.png": "3ffda3257361e3bca4914d331b87852883354d712165fc29949034da14797456",
     "assets/accessories/acc-bow-turquoise.png": "f025f05015f943f0fe781e6c7551c661d9ab114ad0842bd2373ed63507a96c9d",
     "assets/accessories/acc-bow-lilac.png": "b77cacfd432770717d460e73b16861578d4b65ef0e7d25bff926c64d38248a6e",
@@ -130,13 +137,49 @@
     "assets/pets/lilica_newborn.webp": "ecdd73507084eeb036815655281117f39990dd9a2c2ac9a85c6e16ce5c5aba6e",
     "assets/pets/lilica_child.webp": "9d0d0b1cba9659a0ce36dba26a45c5fc9e8de361ae13ba32ab90dba90b503cc4",
     "assets/pets/lilica_adult.webp": "33a64ee1adde92427ac0dc7a44c22dd28206b0997adf6792dd10c4c9ff784eae",
-    "catalog.js": "e702d3af391e5d4baa28218c9ecd9edc4707eeeccea52793ae34b07149123d83",
-    "wardrobe.js": "f700b53f90aca513a0496a61418330993c22d409ac8f6b52f48677937de79167",
-    "game.js": "56f4bede1d431d831866b526dc017a215239a5e4299319afcf5924987f7f5ad1",
-    "styles.css": "ad3dec67cdbcebbc5289a0d43c2f667f6df75bdfd2781db9cbb5240ce38e53ed",
-    "looks.js": "a13430bae05316e92c34ceb4c52447dee242c048afd63a10dc86b516887029f6"
+    "catalog.js": "d3221bc4c92b85bc09367f28d880ed5cca4e6de9e0b820709518af649ed9e861",
+    "wardrobe.js": "76fb8afc650d08469fa3ab708d84ba1c710c7567926583304d2075da953ac266",
+    "game.js": "0f5aca65b42a781b0790ea20612e3b57b6f60b8b011397c7119fb41f060b1149",
+    "styles.css": "67f8d953b81f4debffbf793519d12a373b43a86f1a324838882530d320ad34aa",
+    "looks.js": "c4e8868eaf7fe4ba0c25c046e8b0bccd80a6e1eb813bad6b7605096e12d804e5"
   },
   "combinations": [
+    {
+      "species": "unicorn",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/unicorn_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.5,
+          0.095,
+          0.26,
+          -5,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "unicorn",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/unicorn_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.57,
+          0.305,
+          0.725,
+          -6.5,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
     {
       "species": "unicorn",
       "variant": "default",
@@ -388,6 +431,42 @@
       ],
       "visualStatus": "needs_art",
       "evidence": "accessories/power_beauty_elixir.png"
+    },
+    {
+      "species": "unicorn",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/unicorn_baby.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.63,
+          0.1,
+          0.25,
+          -4,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "unicorn",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/unicorn_baby.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.66,
+          0.353,
+          0.64,
+          -4.6,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "unicorn",
@@ -646,6 +725,42 @@
       "variant": "default",
       "stage": 3,
       "sprite": "assets/pets/unicorn_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.62,
+          0.095,
+          0.25,
+          -2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "unicorn",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/unicorn_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.688,
+          0.312,
+          0.567,
+          -3.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "unicorn",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/unicorn_child.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -898,6 +1013,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/unicorn_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.73,
+          0.09,
+          0.21,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "unicorn",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/unicorn_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.762,
+          0.275,
+          0.36,
+          -2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "unicorn",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/unicorn_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -1144,6 +1295,42 @@
       ],
       "visualStatus": "needs_art",
       "evidence": "accessories/power_beauty_elixir.png"
+    },
+    {
+      "species": "dino",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/dino_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.32,
+          0.09,
+          0.27,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "dino",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/dino_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.302,
+          0.335,
+          0.69,
+          1.7,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "dino",
@@ -1492,6 +1679,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/dino_baby.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.3,
+          0.07,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "dino",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/dino_baby.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.268,
+          0.22,
+          0.628,
+          1.9,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "dino",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/dino_baby.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -1828,6 +2051,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/neck_medal_3d.png"
+    },
+    {
+      "species": "dino",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/dino_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.3,
+          0.07,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "dino",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/dino_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.28,
+          0.22,
+          0.638,
+          1.8,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "dino",
@@ -2176,6 +2435,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/dino_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.3,
+          0.07,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "dino",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/dino_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.26,
+          0.21,
+          0.597,
+          2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "dino",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/dino_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -2512,6 +2807,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/neck_medal_3d.png"
+    },
+    {
+      "species": "kitty",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/kitty_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.1,
+          0.28,
+          8,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "kitty",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/kitty_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.46,
+          0.34,
+          0.62,
+          13,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "kitty",
@@ -2870,6 +3201,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/kitty_baby.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.42,
+          0.09,
+          0.27,
+          6,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "kitty",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/kitty_baby.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.4,
+          0.29,
+          0.56,
+          11,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "kitty",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/kitty_baby.webp",
       "item": "look_lili_complete",
       "mounts": [],
       "visualStatus": "needs_stage_art",
@@ -3222,6 +3589,42 @@
       "variant": "default",
       "stage": 3,
       "sprite": "assets/pets/kitty_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.52,
+          0.12,
+          0.26,
+          10,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "kitty",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/kitty_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.495,
+          0.3,
+          0.46,
+          15,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "kitty",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/kitty_child.webp",
       "item": "look_lili_complete",
       "mounts": [],
       "visualStatus": "needs_stage_art",
@@ -3574,6 +3977,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/kitty_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.52,
+          0.12,
+          0.26,
+          10,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "kitty",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/kitty_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.495,
+          0.3,
+          0.46,
+          15,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "kitty",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/kitty_child.webp",
       "item": "look_lili_complete",
       "mounts": [],
       "visualStatus": "needs_stage_art",
@@ -3926,6 +4365,42 @@
       "variant": "default",
       "stage": 1,
       "sprite": "assets/pets/duck_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.532,
+          0.08,
+          0.292,
+          4.3,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "duck",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/duck_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.532,
+          0.287,
+          0.614,
+          8.7,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "duck",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/duck_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -4268,6 +4743,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/duck_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.532,
+          0.08,
+          0.292,
+          4.3,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "duck",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/duck_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.532,
+          0.287,
+          0.614,
+          8.7,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "duck",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/duck_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -4604,6 +5115,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/neck_medal_3d.png"
+    },
+    {
+      "species": "duck",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/duck_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.512,
+          0.08,
+          0.271,
+          3.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "duck",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/duck_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.512,
+          0.24,
+          0.569,
+          6.2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "duck",
@@ -4952,6 +5499,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/duck_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.532,
+          0.08,
+          0.24,
+          3.3,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "duck",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/duck_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.532,
+          0.222,
+          0.445,
+          6.6,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "duck",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/duck_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -5294,6 +5877,42 @@
       "variant": "default",
       "stage": 1,
       "sprite": "assets/pets/pig_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.43,
+          0.096,
+          0.305,
+          2.8,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "pig",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/pig_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.43,
+          0.255,
+          0.641,
+          5.5,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "pig",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/pig_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -5474,6 +6093,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/pig_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.43,
+          0.096,
+          0.305,
+          2.8,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "pig",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/pig_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.43,
+          0.255,
+          0.641,
+          5.5,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "pig",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/pig_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -5648,6 +6303,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/neck_medal_3d.png"
+    },
+    {
+      "species": "pig",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/pig_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.492,
+          0.08,
+          0.26,
+          2.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "pig",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/pig_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.492,
+          0.255,
+          0.547,
+          4.3,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "pig",
@@ -5834,6 +6525,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/pig_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.38,
+          0.09,
+          0.265,
+          2.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "pig",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/pig_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.38,
+          0.285,
+          0.557,
+          4.2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "pig",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/pig_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -6014,6 +6741,42 @@
       "variant": "default",
       "stage": 1,
       "sprite": "assets/pets/mole_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.45,
+          0.08,
+          0.27,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "mole",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/mole_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.438,
+          0.268,
+          0.608,
+          2.9,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "mole",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/mole_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -6356,6 +7119,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/mole_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.45,
+          0.08,
+          0.27,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "mole",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/mole_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.438,
+          0.268,
+          0.608,
+          2.9,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "mole",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/mole_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -6692,6 +7491,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/neck_medal_3d.png"
+    },
+    {
+      "species": "mole",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/mole_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.45,
+          0.08,
+          0.27,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "mole",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/mole_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.49,
+          0.232,
+          0.536,
+          3.3,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "mole",
@@ -7040,6 +7875,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/mole_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.45,
+          0.08,
+          0.27,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "mole",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/mole_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.44,
+          0.258,
+          0.598,
+          3,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "mole",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/mole_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -7382,6 +8253,42 @@
       "variant": "default",
       "stage": 1,
       "sprite": "assets/pets/bat_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.18,
+          0.25,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "bat",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/bat_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.482,
+          0.367,
+          0.422,
+          1.4,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "bat",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/bat_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -7562,6 +8469,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/bat_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.18,
+          0.25,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "bat",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/bat_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.482,
+          0.367,
+          0.422,
+          1.4,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "bat",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/bat_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -7736,6 +8679,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/neck_medal_3d.png"
+    },
+    {
+      "species": "bat",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/bat_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.18,
+          0.25,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "bat",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/bat_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.482,
+          0.398,
+          0.422,
+          1.4,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "bat",
@@ -7922,6 +8901,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/bat_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.18,
+          0.25,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "bat",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/bat_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.485,
+          0.393,
+          0.412,
+          1.4,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "bat",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/bat_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -8102,6 +9117,42 @@
       "variant": "default",
       "stage": 1,
       "sprite": "assets/pets/seal_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.49,
+          0.08,
+          0.274,
+          0.5,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "seal",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/seal_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.49,
+          0.143,
+          0.576,
+          1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "seal",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/seal_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -8282,6 +9333,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/seal_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.49,
+          0.08,
+          0.274,
+          0.5,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "seal",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/seal_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.49,
+          0.143,
+          0.576,
+          1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "seal",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/seal_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -8456,6 +9543,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/neck_medal_3d.png"
+    },
+    {
+      "species": "seal",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/seal_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.497,
+          0.08,
+          0.26,
+          0.6,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "seal",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/seal_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.497,
+          0.147,
+          0.545,
+          1.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "seal",
@@ -8636,6 +9759,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/neck_medal_3d.png"
+    },
+    {
+      "species": "seal",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/seal_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.502,
+          0.08,
+          0.24,
+          0.8,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "seal",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/seal_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.502,
+          0.107,
+          0.36,
+          1.6,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "seal",
@@ -8822,6 +9981,42 @@
       "variant": "default",
       "stage": 1,
       "sprite": "assets/pets/monkey_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.55,
+          0.08,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "monkey",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/monkey_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.545,
+          0.258,
+          0.473,
+          1.2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "monkey",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/monkey_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -9164,6 +10359,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/monkey_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.55,
+          0.08,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "monkey",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/monkey_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.545,
+          0.258,
+          0.473,
+          1.2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "monkey",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/monkey_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -9506,6 +10737,42 @@
       "variant": "default",
       "stage": 3,
       "sprite": "assets/pets/monkey_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.55,
+          0.08,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "monkey",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/monkey_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.545,
+          0.258,
+          0.473,
+          1.2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "monkey",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/monkey_child.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -9842,6 +11109,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/neck_medal_3d.png"
+    },
+    {
+      "species": "monkey",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/monkey_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.55,
+          0.08,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "monkey",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/monkey_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.575,
+          0.205,
+          0.37,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "monkey",
@@ -10190,6 +11493,42 @@
       "variant": "default",
       "stage": 1,
       "sprite": "assets/pets/axolotl_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.46,
+          0.12,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "axolotl",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/axolotl_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.458,
+          0.325,
+          0.506,
+          4.7,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "axolotl",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/axolotl_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -10370,6 +11709,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/axolotl_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.46,
+          0.12,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "axolotl",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/axolotl_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.458,
+          0.325,
+          0.506,
+          4.7,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "axolotl",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/axolotl_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -10544,6 +11919,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/neck_medal_3d.png"
+    },
+    {
+      "species": "axolotl",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/axolotl_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.46,
+          0.12,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "axolotl",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/axolotl_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.455,
+          0.32,
+          0.496,
+          4.8,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "axolotl",
@@ -10730,6 +12141,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/axolotl_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.46,
+          0.12,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "axolotl",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/axolotl_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.455,
+          0.32,
+          0.496,
+          4.8,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "axolotl",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/axolotl_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -10910,6 +12357,42 @@
       "variant": "default",
       "stage": 1,
       "sprite": "assets/pets/bee_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.17,
+          0.25,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "bee",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/bee_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.482,
+          0.347,
+          0.484,
+          1.2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "bee",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/bee_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -11090,6 +12573,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/bee_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.17,
+          0.25,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "bee",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/bee_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.482,
+          0.347,
+          0.484,
+          1.2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "bee",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/bee_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -11264,6 +12783,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/neck_medal_3d.png"
+    },
+    {
+      "species": "bee",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/bee_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.17,
+          0.25,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "bee",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/bee_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.475,
+          0.398,
+          0.453,
+          1.3,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "bee",
@@ -11450,6 +13005,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/bee_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.17,
+          0.25,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "bee",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/bee_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.482,
+          0.347,
+          0.484,
+          1.2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "bee",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/bee_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -11630,6 +13221,42 @@
       "variant": "default",
       "stage": 1,
       "sprite": "assets/pets/butterfly_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.5,
+          0.18,
+          0.25,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "butterfly",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/butterfly_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.505,
+          0.355,
+          0.412,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "butterfly",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/butterfly_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -11810,6 +13437,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/butterfly_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.5,
+          0.18,
+          0.25,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "butterfly",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/butterfly_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.505,
+          0.355,
+          0.412,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "butterfly",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/butterfly_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -11984,6 +13647,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/neck_medal_3d.png"
+    },
+    {
+      "species": "butterfly",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/butterfly_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.5,
+          0.18,
+          0.25,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "butterfly",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/butterfly_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.485,
+          0.355,
+          0.37,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "butterfly",
@@ -12170,6 +13869,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/butterfly_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.5,
+          0.18,
+          0.25,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "butterfly",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/butterfly_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.505,
+          0.355,
+          0.412,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "butterfly",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/butterfly_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -12350,6 +14085,42 @@
       "variant": "default",
       "stage": 1,
       "sprite": "assets/pets/nini_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.52,
+          0.14,
+          0.22,
+          10,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "nini",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/nini_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.495,
+          0.28,
+          0.335,
+          10.6,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "nini",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/nini_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -12530,6 +14301,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/nini_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.52,
+          0.14,
+          0.22,
+          10,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "nini",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/nini_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.495,
+          0.28,
+          0.335,
+          10.6,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "nini",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/nini_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -12710,6 +14517,42 @@
       "variant": "default",
       "stage": 3,
       "sprite": "assets/pets/nini_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.52,
+          0.14,
+          0.22,
+          10,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "nini",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/nini_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.495,
+          0.28,
+          0.335,
+          10.6,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "nini",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/nini_child.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -12884,6 +14727,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/neck_medal_3d.png"
+    },
+    {
+      "species": "nini",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/nini_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.57,
+          0.14,
+          0.22,
+          10,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "nini",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/nini_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.555,
+          0.275,
+          0.295,
+          12.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "nini",
@@ -13070,6 +14949,42 @@
       "variant": "default",
       "stage": 1,
       "sprite": "assets/pets/floide_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.43,
+          0.22,
+          0.25,
+          6,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "floide",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/floide_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.415,
+          0.47,
+          0.44,
+          9,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "floide",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/floide_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -13412,6 +15327,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/floide_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.43,
+          0.22,
+          0.25,
+          6,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "floide",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/floide_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.415,
+          0.47,
+          0.44,
+          9,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "floide",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/floide_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -13754,6 +15705,42 @@
       "variant": "default",
       "stage": 3,
       "sprite": "assets/pets/floide_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.43,
+          0.22,
+          0.25,
+          6,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "floide",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/floide_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.415,
+          0.47,
+          0.44,
+          9,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "floide",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/floide_child.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -14096,6 +16083,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/floide_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.43,
+          0.22,
+          0.25,
+          6,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "floide",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/floide_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.415,
+          0.47,
+          0.44,
+          9,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "floide",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/floide_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -14432,6 +16455,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/neck_medal_3d.png"
+    },
+    {
+      "species": "tini",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/tini_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.49,
+          0.11,
+          0.27,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "tini",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/tini_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.487,
+          0.325,
+          0.567,
+          4.2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "tini",
@@ -14780,6 +16839,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/tini_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.49,
+          0.11,
+          0.27,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "tini",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/tini_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.487,
+          0.325,
+          0.567,
+          4.2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "tini",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/tini_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -15122,6 +17217,42 @@
       "variant": "default",
       "stage": 3,
       "sprite": "assets/pets/tini_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.49,
+          0.11,
+          0.27,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "tini",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/tini_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.487,
+          0.325,
+          0.567,
+          4.2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "tini",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/tini_child.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -15464,6 +17595,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/tini_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.49,
+          0.11,
+          0.27,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "tini",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/tini_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.487,
+          0.325,
+          0.567,
+          4.2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "tini",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/tini_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -15800,6 +17967,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/neck_medal_3d.png"
+    },
+    {
+      "species": "elephant",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/elephant_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.1,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "elephant",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/elephant_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.48,
+          0.27,
+          0.329,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "elephant",
@@ -16148,6 +18351,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/elephant_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.1,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "elephant",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/elephant_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.48,
+          0.27,
+          0.329,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "elephant",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/elephant_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -16484,6 +18723,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/neck_medal_3d.png"
+    },
+    {
+      "species": "elephant",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/elephant_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.1,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "elephant",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/elephant_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.48,
+          0.265,
+          0.35,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "elephant",
@@ -16832,6 +19107,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/elephant_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.1,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "elephant",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/elephant_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.48,
+          0.27,
+          0.35,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "elephant",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/elephant_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -17174,6 +19485,42 @@
       "variant": "default",
       "stage": 1,
       "sprite": "assets/pets/lion_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.47,
+          0.18,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "lion",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/lion_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.465,
+          0.42,
+          0.412,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "lion",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/lion_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -17516,6 +19863,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/lion_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.47,
+          0.18,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "lion",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/lion_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.465,
+          0.42,
+          0.412,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "lion",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/lion_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -17852,6 +20235,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/neck_medal_3d.png"
+    },
+    {
+      "species": "lion",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/lion_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.47,
+          0.18,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "lion",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/lion_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.468,
+          0.4,
+          0.36,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "lion",
@@ -18200,6 +20619,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/lion_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.47,
+          0.18,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "lion",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/lion_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.465,
+          0.385,
+          0.37,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "lion",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/lion_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -18542,6 +20997,42 @@
       "variant": "default",
       "stage": 1,
       "sprite": "assets/pets/racer_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.09,
+          0.28,
+          -2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "racer",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/racer_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.472,
+          0.278,
+          0.381,
+          1.5,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "racer",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/racer_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -18801,6 +21292,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/racer_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.09,
+          0.28,
+          -2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "racer",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/racer_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.472,
+          0.278,
+          0.381,
+          1.5,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "racer",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/racer_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -19054,6 +21581,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/tune_wheels_gold.png"
+    },
+    {
+      "species": "racer",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/racer_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.09,
+          0.28,
+          -2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "racer",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/racer_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.47,
+          0.282,
+          0.371,
+          1.6,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "racer",
@@ -19319,6 +21882,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/racer_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.09,
+          0.28,
+          -2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "racer",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/racer_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.47,
+          0.282,
+          0.35,
+          1.7,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "racer",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/racer_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -19578,6 +22177,42 @@
       "variant": "default",
       "stage": 1,
       "sprite": "assets/pets/botcar_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.5,
+          0.08,
+          0.28,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "botcar",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/botcar_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.525,
+          0.26,
+          0.453,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "botcar",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/botcar_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -19740,6 +22375,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/botcar_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.5,
+          0.08,
+          0.28,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "botcar",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/botcar_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.525,
+          0.26,
+          0.453,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "botcar",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/botcar_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -19896,6 +22567,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/tune_siren_3d.png"
+    },
+    {
+      "species": "botcar",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/botcar_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.5,
+          0.08,
+          0.28,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "botcar",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/botcar_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.487,
+          0.265,
+          0.401,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "botcar",
@@ -20064,6 +22771,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/botcar_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.5,
+          0.08,
+          0.28,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "botcar",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/botcar_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.495,
+          0.22,
+          0.37,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "botcar",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/botcar_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -20226,6 +22969,42 @@
       "variant": "default",
       "stage": 1,
       "sprite": "assets/pets/rocket_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.08,
+          0.28,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "rocket",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/rocket_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.458,
+          0.31,
+          0.566,
+          2.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "rocket",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/rocket_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -20388,6 +23167,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/rocket_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.08,
+          0.28,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "rocket",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/rocket_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.458,
+          0.31,
+          0.566,
+          2.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "rocket",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/rocket_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -20550,6 +23365,42 @@
       "variant": "default",
       "stage": 3,
       "sprite": "assets/pets/rocket_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.08,
+          0.28,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "rocket",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/rocket_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.458,
+          0.32,
+          0.566,
+          2.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "rocket",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/rocket_child.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -20712,6 +23563,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/rocket_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.08,
+          0.28,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "rocket",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/rocket_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.458,
+          0.32,
+          0.566,
+          2.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "rocket",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/rocket_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -20868,6 +23755,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/tune_siren_3d.png"
+    },
+    {
+      "species": "heli",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/heli_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.42,
+          0.2,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "heli",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/heli_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.348,
+          0.443,
+          0.443,
+          1.3,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "heli",
@@ -21036,6 +23959,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/heli_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.42,
+          0.2,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "heli",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/heli_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.348,
+          0.443,
+          0.443,
+          1.3,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "heli",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/heli_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -21198,6 +24157,42 @@
       "variant": "default",
       "stage": 3,
       "sprite": "assets/pets/heli_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.42,
+          0.2,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "heli",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/heli_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.36,
+          0.422,
+          0.473,
+          1.2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "heli",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/heli_child.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -21360,6 +24355,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/heli_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.42,
+          0.2,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "heli",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/heli_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.36,
+          0.422,
+          0.473,
+          1.2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "heli",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/heli_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -21522,6 +24553,42 @@
       "variant": "default",
       "stage": 1,
       "sprite": "assets/pets/train_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.3,
+          0.16,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "train",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/train_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.25,
+          0.495,
+          0.432,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "train",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/train_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -21684,6 +24751,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/train_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.3,
+          0.16,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "train",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/train_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.25,
+          0.495,
+          0.432,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "train",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/train_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -21846,6 +24949,42 @@
       "variant": "default",
       "stage": 3,
       "sprite": "assets/pets/train_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.3,
+          0.16,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "train",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/train_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.27,
+          0.515,
+          0.432,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "train",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/train_child.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -22008,6 +25147,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/train_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.3,
+          0.16,
+          0.26,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "train",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/train_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.27,
+          0.515,
+          0.432,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "train",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/train_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -22164,6 +25339,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/tune_siren_3d.png"
+    },
+    {
+      "species": "tractor",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/tractor_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.5,
+          0.08,
+          0.28,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "tractor",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/tractor_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.448,
+          0.275,
+          0.319,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "tractor",
@@ -22364,6 +25575,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/tractor_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.5,
+          0.08,
+          0.28,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "tractor",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/tractor_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.448,
+          0.275,
+          0.319,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "tractor",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/tractor_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -22558,6 +25805,42 @@
       "variant": "default",
       "stage": 3,
       "sprite": "assets/pets/tractor_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.08,
+          0.28,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "tractor",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/tractor_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.27,
+          0.545,
+          0.37,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "tractor",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/tractor_child.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -22752,6 +26035,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/tractor_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.08,
+          0.28,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "tractor",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/tractor_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.27,
+          0.545,
+          0.37,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "tractor",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/tractor_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -22946,6 +26265,42 @@
       "variant": "default",
       "stage": 1,
       "sprite": "assets/pets/boat_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.38,
+          0.28,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "boat",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/boat_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.425,
+          0.586,
+          0.515,
+          1.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "boat",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/boat_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -23108,6 +26463,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/boat_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.38,
+          0.28,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "boat",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/boat_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.425,
+          0.586,
+          0.515,
+          1.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "boat",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/boat_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -23270,6 +26661,42 @@
       "variant": "default",
       "stage": 3,
       "sprite": "assets/pets/boat_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.38,
+          0.28,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "boat",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/boat_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.46,
+          0.583,
+          0.535,
+          1.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "boat",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/boat_child.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -23432,6 +26859,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/boat_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.48,
+          0.38,
+          0.28,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "boat",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/boat_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.46,
+          0.583,
+          0.535,
+          1.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "boat",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/boat_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -23588,6 +27051,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/tune_siren_3d.png"
+    },
+    {
+      "species": "plane",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/plane_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.45,
+          0.14,
+          0.24,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "plane",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/plane_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.45,
+          0.292,
+          0.247,
+          2.4,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "plane",
@@ -23756,6 +27255,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/plane_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.45,
+          0.14,
+          0.24,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "plane",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/plane_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.45,
+          0.292,
+          0.247,
+          2.4,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "plane",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/plane_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -23918,6 +27453,42 @@
       "variant": "default",
       "stage": 3,
       "sprite": "assets/pets/plane_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.45,
+          0.14,
+          0.24,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "plane",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/plane_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.45,
+          0.292,
+          0.247,
+          2.4,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "plane",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/plane_child.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -24080,6 +27651,42 @@
       "variant": "default",
       "stage": 4,
       "sprite": "assets/pets/plane_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.45,
+          0.14,
+          0.24,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "plane",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/plane_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.45,
+          0.292,
+          0.247,
+          2.4,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "plane",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/plane_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -24236,6 +27843,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/tune_siren_3d.png"
+    },
+    {
+      "species": "slime",
+      "variant": "blue",
+      "stage": 1,
+      "sprite": "assets/pets/slime_blue_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.485,
+          0.139,
+          0.285,
+          1.5,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "slime",
+      "variant": "blue",
+      "stage": 1,
+      "sprite": "assets/pets/slime_blue_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.485,
+          0.348,
+          0.598,
+          3,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "slime",
@@ -24386,6 +28029,42 @@
       "variant": "blue",
       "stage": 2,
       "sprite": "assets/pets/slime_blue_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.485,
+          0.139,
+          0.285,
+          1.5,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "slime",
+      "variant": "blue",
+      "stage": 2,
+      "sprite": "assets/pets/slime_blue_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.485,
+          0.348,
+          0.598,
+          3,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "slime",
+      "variant": "blue",
+      "stage": 2,
+      "sprite": "assets/pets/slime_blue_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -24524,6 +28203,42 @@
       ],
       "visualStatus": "needs_refinement",
       "evidence": "accessories/face_glasses_gold.png"
+    },
+    {
+      "species": "slime",
+      "variant": "blue",
+      "stage": 3,
+      "sprite": "assets/pets/slime_blue_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.475,
+          0.12,
+          0.265,
+          1.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "slime",
+      "variant": "blue",
+      "stage": 3,
+      "sprite": "assets/pets/slime_blue_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.475,
+          0.315,
+          0.556,
+          2.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "slime",
@@ -24674,6 +28389,42 @@
       "variant": "blue",
       "stage": 4,
       "sprite": "assets/pets/slime_blue_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.497,
+          0.084,
+          0.25,
+          0.6,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "slime",
+      "variant": "blue",
+      "stage": 4,
+      "sprite": "assets/pets/slime_blue_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.497,
+          0.268,
+          0.525,
+          1.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "slime",
+      "variant": "blue",
+      "stage": 4,
+      "sprite": "assets/pets/slime_blue_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -24818,6 +28569,42 @@
       "variant": "green",
       "stage": 1,
       "sprite": "assets/pets/slime_green_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.472,
+          0.113,
+          0.24,
+          1.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "slime",
+      "variant": "green",
+      "stage": 1,
+      "sprite": "assets/pets/slime_green_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.472,
+          0.29,
+          0.505,
+          2.3,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "slime",
+      "variant": "green",
+      "stage": 1,
+      "sprite": "assets/pets/slime_green_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -24962,6 +28749,42 @@
       "variant": "green",
       "stage": 2,
       "sprite": "assets/pets/slime_green_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.472,
+          0.113,
+          0.24,
+          1.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "slime",
+      "variant": "green",
+      "stage": 2,
+      "sprite": "assets/pets/slime_green_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.472,
+          0.29,
+          0.505,
+          2.3,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "slime",
+      "variant": "green",
+      "stage": 2,
+      "sprite": "assets/pets/slime_green_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -25100,6 +28923,42 @@
       ],
       "visualStatus": "needs_refinement",
       "evidence": "accessories/face_glasses_gold.png"
+    },
+    {
+      "species": "slime",
+      "variant": "green",
+      "stage": 3,
+      "sprite": "assets/pets/slime_green_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.463,
+          0.128,
+          0.24,
+          1.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "slime",
+      "variant": "green",
+      "stage": 3,
+      "sprite": "assets/pets/slime_green_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.463,
+          0.305,
+          0.505,
+          2.3,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "slime",
@@ -25250,6 +29109,42 @@
       "variant": "green",
       "stage": 4,
       "sprite": "assets/pets/slime_green_adult.png",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.482,
+          0.098,
+          0.24,
+          1.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "slime",
+      "variant": "green",
+      "stage": 4,
+      "sprite": "assets/pets/slime_green_adult.png",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.482,
+          0.275,
+          0.505,
+          2.3,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "slime",
+      "variant": "green",
+      "stage": 4,
+      "sprite": "assets/pets/slime_green_adult.png",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -25394,6 +29289,42 @@
       "variant": "pink",
       "stage": 1,
       "sprite": "assets/pets/slime_pink_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.492,
+          0.173,
+          0.28,
+          1.5,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "slime",
+      "variant": "pink",
+      "stage": 1,
+      "sprite": "assets/pets/slime_pink_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.492,
+          0.378,
+          0.587,
+          3,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "slime",
+      "variant": "pink",
+      "stage": 1,
+      "sprite": "assets/pets/slime_pink_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -25538,6 +29469,42 @@
       "variant": "pink",
       "stage": 2,
       "sprite": "assets/pets/slime_pink_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.492,
+          0.173,
+          0.28,
+          1.5,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "slime",
+      "variant": "pink",
+      "stage": 2,
+      "sprite": "assets/pets/slime_pink_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.492,
+          0.378,
+          0.587,
+          3,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "slime",
+      "variant": "pink",
+      "stage": 2,
+      "sprite": "assets/pets/slime_pink_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -25676,6 +29643,42 @@
       ],
       "visualStatus": "needs_refinement",
       "evidence": "accessories/face_glasses_gold.png"
+    },
+    {
+      "species": "slime",
+      "variant": "pink",
+      "stage": 3,
+      "sprite": "assets/pets/slime_pink_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.487,
+          0.159,
+          0.27,
+          1.6,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "slime",
+      "variant": "pink",
+      "stage": 3,
+      "sprite": "assets/pets/slime_pink_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.487,
+          0.357,
+          0.567,
+          3.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "slime",
@@ -25826,6 +29829,42 @@
       "variant": "pink",
       "stage": 4,
       "sprite": "assets/pets/slime_pink_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.497,
+          0.134,
+          0.26,
+          1.1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "slime",
+      "variant": "pink",
+      "stage": 4,
+      "sprite": "assets/pets/slime_pink_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.497,
+          0.325,
+          0.546,
+          2.2,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "slime",
+      "variant": "pink",
+      "stage": 4,
+      "sprite": "assets/pets/slime_pink_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -25970,6 +30009,42 @@
       "variant": "lilac",
       "stage": 1,
       "sprite": "assets/pets/slime_lilac_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.488,
+          0.092,
+          0.299,
+          0.5,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "slime",
+      "variant": "lilac",
+      "stage": 1,
+      "sprite": "assets/pets/slime_lilac_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.488,
+          0.312,
+          0.628,
+          0.9,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "slime",
+      "variant": "lilac",
+      "stage": 1,
+      "sprite": "assets/pets/slime_lilac_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -26114,6 +30189,42 @@
       "variant": "lilac",
       "stage": 2,
       "sprite": "assets/pets/slime_lilac_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.488,
+          0.092,
+          0.299,
+          0.5,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "slime",
+      "variant": "lilac",
+      "stage": 2,
+      "sprite": "assets/pets/slime_lilac_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.488,
+          0.312,
+          0.628,
+          0.9,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "slime",
+      "variant": "lilac",
+      "stage": 2,
+      "sprite": "assets/pets/slime_lilac_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -26252,6 +30363,42 @@
       ],
       "visualStatus": "needs_refinement",
       "evidence": "accessories/face_glasses_gold.png"
+    },
+    {
+      "species": "slime",
+      "variant": "lilac",
+      "stage": 3,
+      "sprite": "assets/pets/slime_lilac_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.49,
+          0.103,
+          0.284,
+          0.5,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "slime",
+      "variant": "lilac",
+      "stage": 3,
+      "sprite": "assets/pets/slime_lilac_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.49,
+          0.312,
+          0.597,
+          1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "slime",
@@ -26402,6 +30549,42 @@
       "variant": "lilac",
       "stage": 4,
       "sprite": "assets/pets/slime_lilac_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.495,
+          0.1,
+          0.274,
+          0.5,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "slime",
+      "variant": "lilac",
+      "stage": 4,
+      "sprite": "assets/pets/slime_lilac_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.495,
+          0.302,
+          0.576,
+          1,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "slime",
+      "variant": "lilac",
+      "stage": 4,
+      "sprite": "assets/pets/slime_lilac_adult.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -26546,6 +30729,42 @@
       "variant": "default",
       "stage": 1,
       "sprite": "assets/pets/lilica_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.41,
+          0.15,
+          0.27,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "lilica",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/lilica_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.41,
+          0.355,
+          0.597,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "lilica",
+      "variant": "default",
+      "stage": 1,
+      "sprite": "assets/pets/lilica_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -26888,6 +31107,42 @@
       "variant": "default",
       "stage": 2,
       "sprite": "assets/pets/lilica_newborn.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.41,
+          0.15,
+          0.27,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "lilica",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/lilica_newborn.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.41,
+          0.355,
+          0.597,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
+    },
+    {
+      "species": "lilica",
+      "variant": "default",
+      "stage": 2,
+      "sprite": "assets/pets/lilica_newborn.webp",
       "item": "hat_bow_pink",
       "mounts": [
         [
@@ -27224,6 +31479,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/neck_medal_3d.png"
+    },
+    {
+      "species": "lilica",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/lilica_child.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.46,
+          0.15,
+          0.27,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "lilica",
+      "variant": "default",
+      "stage": 3,
+      "sprite": "assets/pets/lilica_child.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.455,
+          0.34,
+          0.576,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "lilica",
@@ -27566,6 +31857,42 @@
       ],
       "visualStatus": "calibrated_static",
       "evidence": "accessories/neck_medal_3d.png"
+    },
+    {
+      "species": "lilica",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/lilica_adult.webp",
+      "item": "intermediate_explorer",
+      "mounts": [
+        [
+          0.41,
+          0.15,
+          0.27,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_explorer.png"
+    },
+    {
+      "species": "lilica",
+      "variant": "default",
+      "stage": 4,
+      "sprite": "assets/pets/lilica_adult.webp",
+      "item": "intermediate_pilot",
+      "mounts": [
+        [
+          0.41,
+          0.355,
+          0.597,
+          0,
+          1
+        ]
+      ],
+      "visualStatus": "locked_preview",
+      "evidence": "accessories/intermediate_pilot.png"
     },
     {
       "species": "lilica",

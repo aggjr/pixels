@@ -31,7 +31,7 @@ for (const species of catalog.SPECIES.filter(s => s.ready)) {
 }
 for (const item of catalog.CLOSET_ITEMS) if (!review.groups.some(g => g.items.includes(item.id))) errors.push('Unreviewed catalog item ' + item.id);
 const captures = JSON.parse(fs.readFileSync(path.join(root, 'docs/qa/browser-capture.json'), 'utf8'));
-for (const item of catalog.CLOSET_ITEMS.filter(i => i.slot)) {
+for (const item of catalog.CLOSET_ITEMS.filter(i => i.slot && !i.locked)) {
   const expected = rows.filter(r => r.item === item.id).length;
   const capture = captures.find(c => c.id === item.id);
   if (!capture || capture.cards !== expected || capture.broken || capture.missingFits) errors.push('Incomplete browser coverage: ' + item.id);
@@ -41,6 +41,7 @@ for (const file of ['catalog.js', 'wardrobe.js', 'game.js', 'styles.css', 'looks
 const result = {
   schema: 1, date: review.date, scope: 'Static wearable fits; toys separately reviewed as inventory art',
   appearancesAndStages: 120, separateFits: rows.filter(r => r.item !== 'look_lili_complete').length,
+  lockedPreviews: catalog.CLOSET_ITEMS.filter(i => i.locked).map(i => i.id),
   completeLookFits: rows.filter(r => r.item === 'look_lili_complete').length,
   technicalErrors: errors,
   releaseReady: errors.length === 0 && review.groups.every(g => g.status === 'approved') && review.source_issues.every(i => i.status === 'closed'),

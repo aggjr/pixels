@@ -3,8 +3,14 @@ const assert = require("node:assert/strict");
 const catalog = require("../catalog");
 
 test("existing PIXELs and items credit Bia e Juju across every life stage", () => {
-  for (const creation of [...catalog.SPECIES, ...catalog.CLOSET_ITEMS]) {
+  for (const creation of [...catalog.SPECIES, ...catalog.CLOSET_ITEMS.filter(i => !i.id.startsWith("intermediate_"))]) {
     assert.equal(catalog.creatorCredit(creation), "por Bia e Juju", creation.id);
+  }
+});
+
+test("new generated intermediate artwork does not claim the children's authorship", () => {
+  for (const item of catalog.CLOSET_ITEMS.filter(i => i.id.startsWith("intermediate_"))) {
+    assert.equal(catalog.creatorCredit(item), "");
   }
 });
 

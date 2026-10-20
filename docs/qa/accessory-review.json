@@ -1,8 +1,9 @@
 {
-  "date": "2026-10-19",
+  "date": "2026-10-20",
   "overall": "not_ready_for_release",
   "method": "Static browser contact sheets for all four life stages; colour variants share byte-identical alpha masks and were also inspected in the palette gallery. Technical checks are separate from visual approval. In-game spot check of wheel mounts. This does not approve every animation or every three-piece combination.",
   "groups": [
+    { "items": ["intermediate_explorer", "intermediate_pilot", "intermediate_comet"], "status": "locked_preview", "finding": "New generated intermediate collection: visible but disabled for every species. Explorer contact sheet shows undersized crown anchors; individual fitting and motion approval remain required before unlocking. Comet is an inventory toy preview, not a wearable." },
     { "items": ["hat_bow_pink", "hat_bow_turquoise", "hat_bow_lilac"], "status": "needs_refinement", "finding": "Head accessories need individual contact/occlusion at horns, antennae and rotors. Similar anchors alone do not prove contact." },
     { "items": ["hat_cap_3d", "hat_crown_3d"], "status": "needs_refinement", "finding": "Cap reads as a flat miniature; crown/head intersections require refinement. No global artistic approval." },
     { "items": ["neck_scarf_3d"], "status": "needs_art", "finding": "Lowered below mouth, but source is a flat striped strip: needs neck wrap and folds." },
