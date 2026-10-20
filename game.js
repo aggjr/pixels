@@ -79,16 +79,8 @@
   // growthMs: tempo base por fase (já mais lento para a criança aproveitar)
   const SPECIES = window.PixelsCatalog.SPECIES;
 
-  const BASE_RATES = {
-    hunger: 0.38 / PACE,
-    thirst: 0.42 / PACE,
-    hygiene: 0.18 / PACE,
-    love: 0.3 / PACE,
-    energy: 0.24 / PACE,
-    health: 0.16 / PACE,
-  };
-  // Energia sobe ao dormir (valor negativo em decayRates); +35% vs base 5
-  const SLEEP_ENERGY_GAIN = 6.75 / PACE;
+  // Slow needs independently of growth, sleep recovery and the day/night clock.
+  const NEED_DRAIN_FACTOR = window.PixelsCatalog.NEED_DRAIN_FACTOR;
 
   const SPECIES_ANCHORS = window.PixelsCatalog.SPECIES_ANCHORS;
 
@@ -1436,6 +1428,7 @@
       const s = sleepArt(sp, state.stage);
       if (s) return s;
     }
+    if (state.pose === "drink" && sp.drinkArt) return sp.drinkArt[sp.stages[state.stage]];
     if (state.pose && hasPose(state.pose)) return `${ART}${ak}_${state.pose}.webp`;
     const expr = expressionPose();
     if (expr) return `${ART}${ak}_${expr}.webp`;
@@ -1450,7 +1443,8 @@
       const list = [1, 2, 3, 4].map((s) => baseArt(sp, s))
         .concat(sp.poses.map((p) => `${ART}${ak}_${p}.webp`))
         .concat((sp.sleepStages || []).map((k) => `${ART}${ak}_${k}_sleep.webp`))
-        .concat(Object.values(sp.sleepArt || {}));
+        .concat(Object.values(sp.sleepArt || {}))
+        .concat(Object.values(sp.drinkArt || {}));
       list.forEach((src) => { const i = new Image(); i.src = src; });
       state.variant = prev;
     });
@@ -1670,7 +1664,8 @@
       credit.hidden = !credit.textContent;
     }
     el.stage?.classList.toggle("bat-roost", state.phase === "pet" && state.species?.id === "bat" && state.sleeping);
-    el.stage?.classList.toggle("integrated-drink", window.PixelsLooks.active(state.species?.id, state.outfit) && state.pose === "drink");
+    el.stage?.classList.toggle("integrated-drink", (window.PixelsLooks.active(state.species?.id, state.outfit) || !!state.species?.drinkArt) && state.pose === "drink");
+    el.stage?.classList.toggle("seal-drinking", state.species?.id === "seal" && state.pose === "drink" && !state.sleeping);
     el.stage?.classList.toggle("integrated-meal", window.PixelsLooks.active(state.species?.id, state.outfit) && state.pose === "eat");
     if (state.phase === "egg" || state.phase === "hatching") {
       el.actorImg.style.scale = "1";
@@ -1905,7 +1900,7 @@
       if (isLion()) {
         return setGuide(`${p} quer um pouco de carinho e atenção! 🦁💗`, "5", "💗", true);
       }
-      return setGuide(`${p} está nervoso! Olha a carinha dele — cuida agora! 💢`, null, "😤", true);
+      return setGuide(`${p} precisa de um pouco de atenção e carinho.`, "5", "💗", true);
     }
     if (state.mood === "sick" || state.needs.health < 40) {
       return setGuide(isMachine() ? `${p} precisa de um mecânico!` : `${p} precisa de um veterinário!`, "H", "💊", true);
@@ -2361,20 +2356,8 @@
     state.nextSkit = performance.now() + 5000;
   }
 
-  const stageNeedMult = () => 0.75 + state.stage * 0.3;
-
   function decayRates() {
-    const stage = stageNeedMult();
-    const pr = state.species?.profile || {};
-    const b = state.boosts || {};
-    return {
-      hunger: BASE_RATES.hunger * stage * (pr.hunger || 1) * (b.hunger || 1),
-      thirst: BASE_RATES.thirst * stage * (pr.thirst || 1) * (b.thirst || 1),
-      hygiene: BASE_RATES.hygiene * stage * (pr.hygiene || 1) * (b.hygiene || 1),
-      love: BASE_RATES.love * stage * (pr.love || 1) * (b.love || 1),
-      energy: state.sleeping ? -SLEEP_ENERGY_GAIN : BASE_RATES.energy * stage * (pr.energy || 1) * (b.energy || 1),
-      health: state.sleeping ? 0 : BASE_RATES.health * stage * (pr.health || 1) * (b.health || 1),
-    };
+    return window.PixelsCatalog.needDecayRates(state.stage, state.species?.profile, state.boosts, state.sleeping, PACE);
   }
 
   function speciesGrowthMs(sp = state.species) {
@@ -2420,6 +2403,7 @@
     }
     syncToyUI();
     if (state.playing) {
+      sootheFrustration();
       say(`Pega o brinquedo! ${toyEmoji()}`, 2200);
       setMood("happy", 1800);
     } else {
@@ -2470,9 +2454,9 @@
       state.comboTimer = 2.8;
       const bonus = Math.min(6, state.combo);
       state.needs.love = clamp(state.needs.love + 8 + bonus, 0, 100);
-      state.needs.hunger = clamp(state.needs.hunger - 4, 0, 100);
-      state.needs.thirst = clamp(state.needs.thirst - 5, 0, 100);
-      state.needs.energy = clamp(state.needs.energy - 6, 0, 100);
+      state.needs.hunger = clamp(state.needs.hunger - 4 * NEED_DRAIN_FACTOR, 0, 100);
+      state.needs.thirst = clamp(state.needs.thirst - 5 * NEED_DRAIN_FACTOR, 0, 100);
+      state.needs.energy = clamp(state.needs.energy - 6 * NEED_DRAIN_FACTOR, 0, 100);
       placeToyNearPet(20);
       rain([toyEmoji(), "✨", "💗"], 5 + Math.min(4, state.combo));
       showCombo(state.combo);
@@ -2485,9 +2469,9 @@
     state.actorOff = { x: cur.x + (dx / dist) * step, y: cur.y + (dy / dist) * step };
     el.actorMove.style.transform = `translate(${state.actorOff.x}px, ${state.actorOff.y}px)`;
     // Correr cansa um pouquinho contínuo
-    state.needs.energy = clamp(state.needs.energy - 1.8 * dt, 0, 100);
-    state.needs.thirst = clamp(state.needs.thirst - 1.2 * dt, 0, 100);
-    state.needs.hunger = clamp(state.needs.hunger - 0.9 * dt, 0, 100);
+    state.needs.energy = clamp(state.needs.energy - 1.8 * dt * NEED_DRAIN_FACTOR, 0, 100);
+    state.needs.thirst = clamp(state.needs.thirst - 1.2 * dt * NEED_DRAIN_FACTOR, 0, 100);
+    state.needs.hunger = clamp(state.needs.hunger - 0.9 * dt * NEED_DRAIN_FACTOR, 0, 100);
   }
 
   function foodBowlTypeForSpecies(sp = state.species) {
@@ -2502,6 +2486,7 @@
   }
 
   function applyBowlCrouchTransform() {
+    if (state.pose === "drink" && state.species?.drinkArt) return;
     if (!el.stage || !el.actorMove) return;
     if (window.PixelsLooks.active(state.species?.id, state.outfit)) return;
     const stageRect = el.stage.getBoundingClientRect();
@@ -2592,9 +2577,8 @@
         say(key === "love" ? "Adorei o carinho! Vamos brincar um pouquinho? 💛" : "Já estou satisfeito! Obrigado por cuidar de mim! 💛", 2000);
         return true;
       }
-      state.over[key]++;
-      setMood("mad", 1800);
-      rain(["💢", "😤"], 3);
+      state.over[key] = Math.min(6, state.over[key] + 1);
+      if (!isSick()) setMood("neutral", 900);
       say(msg, 2000);
       return true;
     };
@@ -2602,7 +2586,7 @@
 
     if (kind === "feed") {
       if (refuseBecauseSick("feed")) return;
-      if (tooMuch("hunger", 92, isMachine() ? "Já tenho peças demais! 🔧" : "Minha barriguinha tá cheia! 😣")) return;
+      if (tooMuch("hunger", 92, isMachine() ? "Já estou abastecido, obrigado! 🔧" : "Minha barriguinha está cheia. Obrigado!")) return;
       window.PixelAudio?.cue("feed", state.species?.id);
       state.busy = true;
       state.actorOff = { x: 0, y: 0 };
@@ -2656,7 +2640,7 @@
       state.careFrame = null;
       state.busy = false;
     } else if (kind === "drink") {
-      if (tooMuch("thirst", 92, isMachine() ? "Tanque cheio! ⛽" : "Chega de água! 💦")) return;
+      if (tooMuch("thirst", 92, isMachine() ? "Tanque cheio, obrigado! ⛽" : "Já matei a sede, obrigado! 💧")) return;
       window.PixelAudio?.cue("drink", state.species?.id);
       state.busy = true;
       state.actorOff = { x: 0, y: 0 };
@@ -2690,7 +2674,7 @@
             state.careFrame = "lap"; renderActor();
             setTimeout(() => { if (state.pose === "drink" && state.busy) { state.careFrame = "sip"; renderActor(); } }, 240);
           }
-          pulseBowlChomp();
+          if (!state.species?.drinkArt) pulseBowlChomp();
           if (idx === 1 && !machine && el.groundBowlImg) {
             el.groundBowlImg.src = "assets/care/drink-water-bowl-low.png";
           }
@@ -2772,6 +2756,7 @@
       state.busy = false;
     } else if (kind === "pet") {
       if (n.love >= 95) {
+        sootheFrustration();
         say("Eu te amo! Você me faz muito feliz! 💖", 2800);
         window.PixelAudio?.words("Eu te amo! Você me faz muito feliz!");
         metric("care_success", { action: kind });
@@ -2779,7 +2764,7 @@
       }
       // Tyton ACEITA muito carinho — é assim que ele melhora
       const loveCap = isLion() ? 98 : 94;
-      if (tooMuch("love", loveCap, isLion() ? "Adorei seu carinho! 🦁💛" : "Ai, chega de apertar! 😤")) return;
+      if (tooMuch("love", loveCap, "Adorei o carinho! Vamos descansar um pouquinho? 💗")) return;
       window.PixelAudio?.cue("pet", state.species?.id);
       n.love = clamp(n.love + boost + (isLion() ? 2 : 0), 0, 100);
       if (n.love >= 90) window.PixelAudio?.words("Eu te amo! Obrigado por cuidar de mim!");
@@ -2860,6 +2845,7 @@
       state.moodLock = 0;
       evaluateMood(performance.now() + 1);
     } else {
+      sootheFrustration();
       setMood("happy", 1600);
     }
     state.lackMs = Math.max(0, state.lackMs - 4000);
@@ -2870,28 +2856,17 @@
     applyRequestedSleep();
   }
 
+  function sootheFrustration() {
+    state.lackMs = Math.max(0, state.lackMs - 15000);
+    for (const key of Object.keys(state.over)) state.over[key] = Math.max(0, state.over[key] - 2);
+  }
+
   function evaluateMood(now) {
     if (now < state.moodLock || state.busy) return;
     if (state.sleeping) return setMood("sleep");
     const n = state.needs;
     if (isLion()) return setMood(window.PixelsCatalog.lionMood(n, state.lackMs));
-    if (n.health < 28) return setMood("sick");
-    if (Object.values(state.over).some((v) => v > 2)) return setMood("mad");
-
-    const lows = ["hunger", "thirst", "hygiene", "love", "energy"].filter((k) => n[k] < 35);
-    const crits = ["hunger", "thirst", "hygiene", "love", "energy"].filter((k) => n[k] < 18);
-
-    if (crits.length >= 1 || lows.length >= 2 || state.lackMs > 12_000) {
-      return setMood("mad");
-    }
-    if (n.health < 45) return setMood("sad");
-    if (lows.length >= 1 || n.hunger < 28 || n.thirst < 28 || n.love < 25 || n.energy < 22 || n.hygiene < 22) {
-      return setMood("sad");
-    }
-
-    if (state.playing) return setMood("happy");
-    if (n.hunger > 60 && n.thirst > 60 && n.love > 55 && n.hygiene > 50 && n.health > 55) return setMood("happy");
-    setMood("neutral");
+    setMood(window.PixelsCatalog.careMood(n, state.over, state.lackMs, state.playing));
   }
 
   function updateClock() {
@@ -2948,15 +2923,15 @@
       if (!state.preview) {
         const rates = decayRates();
         for (const [k, r] of Object.entries(rates)) state.needs[k] = clamp(state.needs[k] - r * dt, 0, 100);
-        for (const k of Object.keys(state.over)) state.over[k] = Math.max(0, state.over[k] - (0.15 / PACE) * dt);
+        for (const k of Object.keys(state.over)) state.over[k] = Math.max(0, state.over[k] - (0.3 / PACE) * dt);
 
         // Saúde: acelera perda quando há necessidades baixas ou negligência (cura requer carinho/remédio)
         const n = state.needs;
         const lowCount = ["hunger", "thirst", "hygiene", "love", "energy"].filter((k) => n[k] < 45).length;
         const critCount = ["hunger", "thirst", "hygiene", "love", "energy"].filter((k) => n[k] < 25).length;
         let hDelta = 0;
-        if (critCount >= 1 || lowCount >= 2) hDelta = (-3.2 / PACE) * dt;
-        else if (lowCount >= 1) hDelta = (-1.5 / PACE) * dt;
+        if (critCount >= 1 || lowCount >= 2) hDelta = (-3.2 / PACE) * dt * NEED_DRAIN_FACTOR;
+        else if (lowCount >= 1) hDelta = (-1.5 / PACE) * dt * NEED_DRAIN_FACTOR;
         n.health = clamp(n.health + hDelta, 0, 100);
 
         const lacking = Object.values(state.needs).some((v) => v < 35);
@@ -3026,7 +3001,7 @@
         if (state.mood === "mad") {
           fx("float", "💨", { x: 30, y: 40, dx: -40 });
           fx("float", "💢", { x: 65, y: 35, dx: 20 });
-          if (Math.random() < 0.12) say(pick(["Humpf!", "Estou nervoso!", "Não aguento mais!", "Cuida de mim! 💢"]), 1800);
+          if (Math.random() < 0.05) say(pick(["Preciso de um abraço…", "Vamos cuidar de mim?", "Fica um pouquinho comigo? 💗"]), 1800);
         }
         if (state.mood === "sleep") fx("zzz", "Z", { x: 58, y: 45, font: `${1.4 + Math.random()}rem` });
         if (state.playing && Math.random() < 0.5) {

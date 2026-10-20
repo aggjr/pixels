@@ -68,6 +68,7 @@
     },
     {
       id: "seal", audience: "girl", ready: true, name: "Foquinha", he: "ela", names: ["Flokinha"],
+      drinkArt: { newborn:"assets/pets/seal-drink-newborn.png", child:"assets/pets/seal-drink-child.png", adult:"assets/pets/seal-drink-adult.png" },
       food: "🐟", foodName: "peixinho", glow: "rgba(180,220,255,.65)",
       stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
       poses: ["plead", "eat", "sleep", "fall", "splash", "mad", "sad", "scratch", "sleepy"],
@@ -385,6 +386,27 @@ function lionMood(n, lackMs = 0) {
   if (n.health < 45 || levels.some(v => v < 25)) return "sad";
   return lionContent(n) ? "happy" : "neutral";
 }
+const NEED_DRAIN_FACTOR = 0.25;
+function needDecayRates(stage, profile = {}, boosts = {}, sleeping = false, pace = 2.1) {
+  const base = { hunger:0.38, thirst:0.42, hygiene:0.18, love:0.3, energy:0.24, health:0.16 };
+  const rates = Object.fromEntries(Object.entries(base).map(([key, value]) => [key,
+    value / pace * (0.75 + stage * 0.3) * (profile[key] || 1) * (boosts[key] || 1) * NEED_DRAIN_FACTOR]));
+  if (sleeping) { rates.energy = -6.75 / pace; rates.health = 0; }
+  return rates;
+}
+function careMood(n, over = {}, lackMs = 0, playing = false) {
+  if (n.health < 28) return "sick";
+  if (n.health < 45) return "sad";
+  const levels = [n.hunger, n.thirst, n.hygiene, n.love, n.energy];
+  const lows = levels.filter(v => v < 35).length;
+  const critical = levels.filter(v => v < 18).length;
+  // Ask for care first; anger needs sustained distress, never just one empty meter.
+  if ((critical >= 2 && lackMs > 60000)
+    || (Object.values(over).some(v => v >= 6) && lows >= 1 && lackMs > 30000)) return "mad";
+  if (lows >= 1) return "sad";
+  if (playing || (n.hunger > 60 && n.thirst > 60 && n.love > 55 && n.hygiene > 50 && n.health > 55)) return "happy";
+  return "neutral";
+}
 const spriteOverrides = { slime_green_adult: "assets/pets/slime_green_adult.png" };
 const sharedSleepArt = new Set([
   "axolotl", "bee", "butterfly", "nini", "floide", "tini", "elephant", "lion", "slime", "lilica",
@@ -447,5 +469,5 @@ function creatorCredit(creation) {
   const creator = CREATORS[creation?.creatorId];
   return creator?.displayName ? `por ${creator.displayName}` : "";
 }
-return { SPECIES, SPECIES_ANCHORS, CLOSET_ITEMS, CLOSET_TABS, CREATORS, creatorCredit, lionContent, lionMood, spriteOverrides, spriteArt, sleepSprite, actionArt };
+return { SPECIES, SPECIES_ANCHORS, CLOSET_ITEMS, CLOSET_TABS, CREATORS, creatorCredit, lionContent, lionMood, careMood, NEED_DRAIN_FACTOR, needDecayRates, spriteOverrides, spriteArt, sleepSprite, actionArt };
 });

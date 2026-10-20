@@ -1835,6 +1835,9 @@ html[data-sound="off"] .mute-btn { opacity: 0.85; }
 .stage.integrated-drink .stage-ground-prop { visibility: hidden; }
 .stage.integrated-drink .actor { clip-path: none; }
 .stage.integrated-drink .actor-move.drink-ground-laps { animation: meal-nibbles .64s ease-in-out 4; }
+.stage.seal-drinking .actor-move.drink-ground-laps { animation: seal-sipping .59s ease-in-out 4; }
+.stage.seal-drinking .wear { visibility: hidden; }
+@keyframes seal-sipping { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(2px); } }
 .stage.integrated-meal .actor { clip-path: none; }
 .stage.integrated-meal .actor-move.eat-ground-bobs { animation: meal-nibbles .64s ease-in-out 4; }
 @keyframes meal-nibbles { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(3px) rotate(-1deg); } }
