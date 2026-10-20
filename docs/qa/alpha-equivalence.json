@@ -1,0 +1,131 @@
+[
+  {
+    "identicalAlpha": true,
+    "files": [
+      {
+        "file": "assets/accessories/kitty-bow.png",
+        "size": [
+          1312,
+          1199
+        ],
+        "alphaSha256": "380c6dfd934d03e5bcc9d20248430d85727ce149a834b9c82c57c03d79195775"
+      },
+      {
+        "file": "assets/accessories/acc-bow-turquoise.png",
+        "size": [
+          1312,
+          1199
+        ],
+        "alphaSha256": "380c6dfd934d03e5bcc9d20248430d85727ce149a834b9c82c57c03d79195775"
+      },
+      {
+        "file": "assets/accessories/acc-bow-lilac.png",
+        "size": [
+          1312,
+          1199
+        ],
+        "alphaSha256": "380c6dfd934d03e5bcc9d20248430d85727ce149a834b9c82c57c03d79195775"
+      }
+    ]
+  },
+  {
+    "identicalAlpha": true,
+    "files": [
+      {
+        "file": "assets/accessories/kitty-glasses.png",
+        "size": [
+          1536,
+          1024
+        ],
+        "alphaSha256": "bf96fc28f12b94b4b55d358e47c3bb7a4ac26ab22fd3c5b0ae51ec7073a0b48b"
+      },
+      {
+        "file": "assets/accessories/acc-glasses-pink.png",
+        "size": [
+          1536,
+          1024
+        ],
+        "alphaSha256": "bf96fc28f12b94b4b55d358e47c3bb7a4ac26ab22fd3c5b0ae51ec7073a0b48b"
+      },
+      {
+        "file": "assets/accessories/acc-glasses-gold.png",
+        "size": [
+          1536,
+          1024
+        ],
+        "alphaSha256": "bf96fc28f12b94b4b55d358e47c3bb7a4ac26ab22fd3c5b0ae51ec7073a0b48b"
+      }
+    ]
+  },
+  {
+    "identicalAlpha": true,
+    "files": [
+      {
+        "file": "assets/accessories/kitty-bag.png",
+        "size": [
+          1254,
+          1254
+        ],
+        "alphaSha256": "45d2833ac96966ffc0b0fd86cb623ae2c6b15ce878bcfffb7def6d2434c81ca2"
+      },
+      {
+        "file": "assets/accessories/acc-bag-mint.png",
+        "size": [
+          1254,
+          1254
+        ],
+        "alphaSha256": "45d2833ac96966ffc0b0fd86cb623ae2c6b15ce878bcfffb7def6d2434c81ca2"
+      },
+      {
+        "file": "assets/accessories/acc-bag-berry.png",
+        "size": [
+          1254,
+          1254
+        ],
+        "alphaSha256": "45d2833ac96966ffc0b0fd86cb623ae2c6b15ce878bcfffb7def6d2434c81ca2"
+      }
+    ]
+  },
+  {
+    "identicalAlpha": true,
+    "files": [
+      {
+        "file": "assets/accessories/acc-dress-lilac.png",
+        "size": [
+          520,
+          388
+        ],
+        "alphaSha256": "1ef0e8fe8c4d0b837c8d3835996ccb4a379e1de276120e1c6b1396e6efed0413"
+      },
+      {
+        "file": "assets/accessories/acc-dress-sky.png",
+        "size": [
+          520,
+          388
+        ],
+        "alphaSha256": "1ef0e8fe8c4d0b837c8d3835996ccb4a379e1de276120e1c6b1396e6efed0413"
+      }
+    ]
+  },
+  {
+    "identicalAlpha": true,
+    "files": [
+      {
+        "file": "assets/accessories/acc-paw-shoes.png",
+        "size": [
+          420,
+          238
+        ],
+        "alphaSha256": "9b1388f5ad7483c9d807a3a6ee3a065b537164bf417c8aaf516fc0036f9609a5"
+      },
+      {
+        "file": "assets/accessories/acc-sneakers.png",
+        "size": [
+          420,
+          238
+        ],
+        "alphaSha256": "9b1388f5ad7483c9d807a3a6ee3a065b537164bf417c8aaf516fc0036f9609a5"
+      }
+    ]
+  }
+]

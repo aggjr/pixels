@@ -1,10 +1,25 @@
 /* Service worker — PIXELS PWA */
-const CACHE = "bichinho-v0.1.64";
+const CACHE = "bichinho-v0.2.9";
 const PRECACHE = [
   "./",
   "./index.html",
   "./styles.css",
   "./game.js",
+  "./looks.js",
+  "./catalog.js",
+  "./assets/pets/bat-roost-newborn.png",
+  "./assets/pets/bat-roost-child.png",
+  "./assets/pets/bat-roost-adult.png",
+  "./assets/pets/slime_green_adult.png",
+  "./wardrobe.js",
+  "./assets/pets/lili-dressed-photo.png",
+  "./assets/pets/lili-dressed-sleep.png",
+  "./assets/pets/lili-dressed-sad.png",
+  "./assets/pets/lili-dressed-eat.png",
+  "./assets/pets/lili-dressed-drink.png",
+  "./assets/pets/lili-dressed-sip.png",
+  "./assets/pets/lili-dressed-chew.png",
+  "./assets/accessories/toy-star-ball.png",
   "./player.js",
   "./telemetry.js",
   "./audio.js",

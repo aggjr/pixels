@@ -2,7 +2,7 @@ FROM node:24-alpine
 
 WORKDIR /app
 ENV NODE_ENV=production PORT=3000 DB_PATH=/data/pixels.sqlite
-COPY --chown=node:node server.js package.json index.html styles.css game.js player.js telemetry.js audio.js sw.js manifest.webmanifest admin.html admin.js admin.css ./
+COPY --chown=node:node server.js package.json index.html styles.css game.js catalog.js wardrobe.js looks.js player.js telemetry.js audio.js sw.js manifest.webmanifest admin.html admin.js admin.css ./
 COPY --chown=node:node assets/ ./assets/
 RUN mkdir -p /data && chown node:node /data
 USER node

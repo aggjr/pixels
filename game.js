@@ -77,309 +77,7 @@
 
   // focus: necessidades candidatas a serem dobradas (1 ou 2 sorteadas ao nascer)
   // growthMs: tempo base por fase (já mais lento para a criança aproveitar)
-  const SPECIES = [
-    {
-      id: "unicorn", audience: "girl", ready: true, name: "Unicórnio", he: "ela", names: ["Luna"],
-      food: "🍓", foodName: "morango", glow: "rgba(230,180,255,.6)",
-      stages: { 1: "newborn", 2: "baby", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "mad", "sad", "scratch", "sleepy"], skit: "wobble", adultSkit: "rear",
-      sleepStages: ["child", "adult"],
-      focus: ["love", "energy"],
-      profile: { hunger: 0.9, thirst: 0.9, hygiene: 0.75, love: 1.2, energy: 1.05, growthMs: 80_000 },
-    },
-    {
-      id: "dino", audience: "both", ready: true, name: "Dinossauro", he: "ele", names: ["Freely"],
-      food: "🍉", foodName: "melancia", glow: "rgba(170,255,190,.55)",
-      stages: { 1: "newborn", 2: "baby", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "fly", "mad", "sad", "scratch", "sleepy"], skit: "fly", childSkit: "fly",
-      sleepStages: ["child", "adult"],
-      focus: ["hunger", "thirst"],
-      profile: { hunger: 1.15, thirst: 1.05, hygiene: 1.0, love: 0.95, energy: 1.0, growthMs: 70_000 },
-    },
-    {
-      id: "kitty", audience: "both", ready: true, name: "Gatinho", he: "ele", names: ["Flofy"],
-      food: "🐟", foodName: "peixinho", glow: "rgba(255,190,120,.6)",
-      stages: { 1: "newborn", 2: "baby", 3: "child", 4: "child" },
-      poses: ["plead", "eat", "sleep", "fall", "bed", "mad", "sad", "scratch", "sleepy"], skit: "bed",
-      sleepStages: ["child"],
-      focus: ["love", "energy"],
-      profile: { hunger: 0.95, thirst: 0.9, hygiene: 0.85, love: 1.15, energy: 1.1, growthMs: 75_000 },
-    },
-    {
-      id: "duck", audience: "both", ready: true, name: "Patinho", he: "ele", names: ["Tobi"],
-      food: "🌽", foodName: "milhinho", glow: "rgba(255,230,100,.65)",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "fly", "mad", "sad", "scratch", "sleepy"], skit: "fly", childSkit: "fly",
-      sleepStages: ["child", "adult"],
-      focus: ["thirst", "hygiene"],
-      profile: { hunger: 1.0, thirst: 1.15, hygiene: 1.1, love: 1.0, energy: 0.95, growthMs: 72_000 },
-    },
-    {
-      id: "pig", audience: "both", ready: true, name: "Porquinho", he: "ele", names: ["Pigma"],
-      food: "🍎", foodName: "maçã", glow: "rgba(255,190,170,.65)",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "mud", "mad", "sad", "scratch", "sleepy"], skit: "mud",
-      sleepStages: ["child", "adult"],
-      focus: ["hygiene", "hunger"],
-      profile: { hunger: 1.1, thirst: 1.0, hygiene: 1.2, love: 1.0, energy: 0.9, growthMs: 74_000 },
-    },
-    {
-      id: "mole", audience: "both", ready: true, name: "Toupeira", he: "ela", names: ["Toty"],
-      food: "🍄", foodName: "cogumelinho", glow: "rgba(210,170,120,.6)",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "dig", "mad", "sad", "scratch", "sleepy"], skit: "dig",
-      sleepStages: ["child", "adult"],
-      focus: ["hygiene", "love"],
-      profile: { hunger: 1.05, thirst: 1.0, hygiene: 1.15, love: 1.05, energy: 1.0, growthMs: 76_000 },
-    },
-    {
-      id: "bat", audience: "both", ready: true, name: "Morceguinho", he: "ele", names: ["Smytyi"],
-      food: "🫐", foodName: "mirtilinho", glow: "rgba(160,140,220,.65)",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "fly", "mad", "sad", "scratch", "sleepy"],
-      skit: "fly", childSkit: "fly", adultSkit: "fly",
-      sleepStages: ["child", "adult"],
-      focus: ["energy", "love"],
-      profile: { hunger: 1.05, thirst: 1.0, hygiene: 0.95, love: 1.15, energy: 1.2, growthMs: 76_000 },
-    },
-    {
-      id: "seal", audience: "girl", ready: true, name: "Foquinha", he: "ela", names: ["Flokinha"],
-      food: "🐟", foodName: "peixinho", glow: "rgba(180,220,255,.65)",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "splash", "mad", "sad", "scratch", "sleepy"],
-      skit: "splash", childSkit: "splash", adultSkit: "splash",
-      sleepStages: ["child", "adult"],
-      focus: ["love", "hygiene"],
-      profile: { hunger: 1.1, thirst: 1.05, hygiene: 1.1, love: 1.2, energy: 0.95, growthMs: 74_000 },
-    },
-    {
-      id: "monkey", audience: "both", ready: true, name: "Macaquinho", he: "ele", names: ["Rabi"],
-      food: "🍌", foodName: "bananinha", glow: "rgba(255,180,100,.65)",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "swing", "mad", "sad", "scratch", "sleepy"],
-      skit: "swing", childSkit: "swing", adultSkit: "swing",
-      focus: ["hunger", "energy"],
-      profile: { hunger: 1.15, thirst: 1.05, hygiene: 1.1, love: 1.05, energy: 1.15, growthMs: 74_000 },
-    },
-    {
-      id: "axolotl", audience: "both", ready: true, name: "Axolote", he: "ela", names: ["Gotinha"],
-      food: "🦐", foodName: "camarãozinho", glow: "rgba(120,220,210,.65)",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "swim", "mad", "sad", "scratch", "sleepy"],
-      skit: "swim", childSkit: "swim", adultSkit: "swim",
-      focus: ["thirst", "love"],
-      profile: { hunger: 1.05, thirst: 1.2, hygiene: 0.9, love: 1.15, energy: 1.0, growthMs: 76_000 },
-    },
-    {
-      id: "bee", audience: "both", ready: true, name: "Abelhinha", he: "ela", names: ["Biz"],
-      food: "🍯", foodName: "melzinho", glow: "rgba(255,210,80,.65)",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "fly", "mad", "sad", "scratch", "sleepy"],
-      skit: "fly", childSkit: "fly", adultSkit: "fly",
-      focus: ["energy", "hunger"],
-      profile: { hunger: 1.1, thirst: 1.05, hygiene: 0.95, love: 1.0, energy: 1.25, growthMs: 70_000 },
-    },
-    {
-      id: "butterfly", audience: "girl", ready: true, name: "Joaninha", he: "ela", names: ["Ciça"],
-      food: "🍃", foodName: "folhinha", glow: "rgba(255,90,90,.65)",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "fly", "mad", "sad", "scratch", "sleepy"],
-      skit: "fly", childSkit: "fly", adultSkit: "fly",
-      focus: ["love", "energy"],
-      profile: { hunger: 0.95, thirst: 1.0, hygiene: 0.85, love: 1.15, energy: 1.1, growthMs: 78_000 },
-    },
-    {
-      id: "nini", audience: "girl", ready: true, name: "Borboletinha", he: "ela", names: ["Nini"],
-      food: "🌺", foodName: "florzinha", glow: "rgba(255,180,100,.65)",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "fly", "mad", "sad", "scratch", "sleepy"],
-      skit: "zip", childSkit: "zip", adultSkit: "zip",
-      focus: ["energy", "love"],
-      profile: { hunger: 1.05, thirst: 1.0, hygiene: 0.9, love: 1.1, energy: 1.35, growthMs: 68_000 },
-    },
-    {
-      id: "floide", audience: "both", ready: true, name: "Gatinho", he: "ele", names: ["Floide"],
-      food: "🐟", foodName: "peixinho", glow: "rgba(255,200,150,.65)",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "yarn", "mad", "sad", "scratch", "sleepy"],
-      skit: "yarn", childSkit: "yarn", adultSkit: "yarn",
-      focus: ["love", "energy"],
-      profile: { hunger: 1.05, thirst: 0.95, hygiene: 1.05, love: 1.1, energy: 1.25, growthMs: 72_000 },
-    },
-    {
-      id: "tini", audience: "both", ready: true, name: "Cachorrinha", he: "ela", names: ["Tini"],
-      food: "🦴", foodName: "ossinho", glow: "rgba(255,210,140,.65)",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "hide", "mad", "sad", "scratch", "sleepy"],
-      skit: "hide", childSkit: "hide", adultSkit: "hide",
-      focus: ["love", "hygiene"],
-      profile: { hunger: 1.0, thirst: 1.0, hygiene: 1.05, love: 1.25, energy: 0.95, growthMs: 76_000 },
-    },
-    {
-      id: "elephant", audience: "both", ready: true, name: "Elefantinha", he: "ela", names: ["Eli"],
-      food: "🍉", foodName: "melancia", glow: "rgba(180,180,190,.65)",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "stomp", "mad", "sad", "scratch", "sleepy"],
-      skit: "stomp", childSkit: "stomp", adultSkit: "stomp",
-      focus: ["hunger", "energy"],
-      profile: { hunger: 1.25, thirst: 1.15, hygiene: 1.1, love: 1.05, energy: 1.1, growthMs: 82_000 },
-    },
-    {
-      id: "lion", audience: "boy", ready: true, name: "Leãozinho", he: "ele", names: ["Tyton"],
-      food: "🥩", foodName: "carnezinha", glow: "rgba(255,160,80,.65)",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "roar", "mad", "sad", "scratch", "sleepy", "happy"],
-      skit: "roar", childSkit: "roar", adultSkit: "roar",
-      focus: ["love", "hunger"],
-      profile: { hunger: 1.15, thirst: 1.05, hygiene: 1.0, love: 1.25, energy: 1.1, growthMs: 78_000 },
-      temperament: "grumpy",
-    },
-    {
-      id: "racer", audience: "boy", ready: true, name: "Carrinho", he: "ele", names: ["Turbo"],
-      food: "🔧", foodName: "peçinhas", glow: "rgba(255,120,100,.65)",
-      diet: "machine",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "turbo", "mad", "sad", "scratch", "sleepy"], skit: "turbo", childSkit: "turbo", adultSkit: "turbo",
-      sleepStages: ["child", "adult"],
-      focus: ["hunger", "thirst"],
-      profile: { hunger: 1.2, thirst: 1.25, hygiene: 1.1, love: 1.0, energy: 1.05, growthMs: 78_000 },
-    },
-    {
-      id: "botcar", audience: "boy", ready: true, name: "Transformers", he: "ele", names: ["Bolt"],
-      food: "🔩", foodName: "parafusos", glow: "rgba(120,180,255,.65)",
-      diet: "machine",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "car", "mad", "sad", "scratch", "sleepy"], skit: "transform", childSkit: "transform", adultSkit: "transform",
-      sleepStages: ["child", "adult"],
-      focus: ["hunger", "energy"],
-      profile: { hunger: 1.15, thirst: 1.2, hygiene: 0.85, love: 0.95, energy: 1.15, growthMs: 82_000 },
-    },
-    {
-      id: "rocket", audience: "boy", ready: true, name: "Foguete", he: "ele", names: ["Foguinho"],
-      food: "🔧", foodName: "peçinhas", glow: "rgba(255,140,100,.65)",
-      diet: "machine",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "launch", "mad", "sad", "scratch", "sleepy"], skit: "launch", childSkit: "launch", adultSkit: "launch",
-      sleepStages: ["adult"],
-      focus: ["hunger", "energy"],
-      profile: { hunger: 1.15, thirst: 1.2, hygiene: 0.9, love: 1.0, energy: 1.2, growthMs: 80_000 },
-    },
-    {
-      id: "heli", audience: "boy", ready: true, name: "Helicóptero", he: "ele", names: ["Hélio"],
-      food: "🔩", foodName: "parafusos", glow: "rgba(100,180,255,.65)",
-      diet: "machine",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "hover", "mad", "sad", "scratch", "sleepy"], skit: "hover", childSkit: "hover", adultSkit: "hover",
-      sleepStages: ["adult"],
-      focus: ["thirst", "energy"],
-      profile: { hunger: 1.1, thirst: 1.2, hygiene: 1.0, love: 1.0, energy: 1.15, growthMs: 78_000 },
-    },
-    {
-      id: "train", audience: "boy", ready: true, name: "Trem", he: "ele", names: ["Chuflinho"],
-      food: "🔧", foodName: "peçinhas", glow: "rgba(255,100,100,.65)",
-      diet: "machine",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "chug", "mad", "sad", "scratch", "sleepy"], skit: "chug", childSkit: "chug", adultSkit: "chug",
-      sleepStages: ["adult"],
-      focus: ["hunger", "thirst"],
-      profile: { hunger: 1.2, thirst: 1.15, hygiene: 1.05, love: 0.95, energy: 1.1, growthMs: 82_000 },
-    },
-    {
-      id: "tractor", audience: "boy", ready: true, name: "Trator", he: "ele", names: ["Toto"],
-      food: "🔩", foodName: "parafusos", glow: "rgba(255,180,80,.65)",
-      diet: "machine",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "plough", "mad", "sad", "scratch", "sleepy"], skit: "plough", childSkit: "plough", adultSkit: "plough",
-      sleepStages: ["adult"],
-      focus: ["hygiene", "hunger"],
-      profile: { hunger: 1.15, thirst: 1.15, hygiene: 1.25, love: 1.0, energy: 1.05, growthMs: 80_000 },
-    },
-    {
-      id: "boat", audience: "boy", ready: true, name: "Barco", he: "ele", names: ["Marinho"],
-      food: "🔧", foodName: "peçinhas", glow: "rgba(80,200,200,.65)",
-      diet: "machine",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "sail", "mad", "sad", "scratch", "sleepy"], skit: "sail", childSkit: "sail", adultSkit: "sail",
-      sleepStages: ["adult"],
-      focus: ["thirst", "hygiene"],
-      profile: { hunger: 1.05, thirst: 1.2, hygiene: 1.15, love: 1.05, energy: 1.0, growthMs: 76_000 },
-    },
-    {
-      id: "plane", audience: "boy", ready: true, name: "Avião", he: "ele", names: ["Asinha"],
-      food: "🔩", foodName: "parafusos", glow: "rgba(120,190,255,.65)",
-      diet: "machine",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "loop", "mad", "sad", "scratch", "sleepy"], skit: "loop", childSkit: "loop", adultSkit: "loop",
-      sleepStages: ["adult"],
-      focus: ["energy", "hunger"],
-      profile: { hunger: 1.1, thirst: 1.15, hygiene: 0.95, love: 1.0, energy: 1.2, growthMs: 78_000 },
-    },
-    {
-      id: "slime", audience: "both", ready: true, name: "Slime", he: "ele", names: ["Goo"],
-      food: "🍮", foodName: "geleinha", glow: "rgba(120,200,255,.65)",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "bounce", "mad", "sad", "scratch", "sleepy"], skit: "bounce", childSkit: "bounce", adultSkit: "bounce",
-      focus: ["hunger", "love"],
-      profile: { hunger: 1.2, thirst: 1.1, hygiene: 0.7, love: 1.15, energy: 1.05, growthMs: 74_000 },
-      variants: {
-        blue: { he: "ele", names: ["Azulito", "Goo"], glow: "rgba(100,180,255,.65)", audience: "boy" },
-        green: { he: "ele", names: ["Verde", "Blob"], glow: "rgba(90,210,120,.65)", audience: "boy" },
-        pink: { he: "ela", names: ["Rosa", "Melly"], glow: "rgba(255,150,200,.65)", audience: "girl" },
-        lilac: { he: "ela", names: ["Lila", "Puff"], glow: "rgba(200,160,255,.65)", audience: "girl" },
-      },
-    },
-    {
-      id: "lilica", audience: "girl", ready: true, name: "Coelhinha", he: "ela", names: ["Lilica"],
-      food: "🥕", foodName: "cenourinha", glow: "rgba(255,210,230,.6)",
-      stages: { 1: "newborn", 2: "newborn", 3: "child", 4: "adult" },
-      poses: ["plead", "eat", "sleep", "fall", "hop", "dig", "mad", "sad", "scratch", "sleepy"],
-      skit: "hop", childSkit: "dig", adultSkit: "hop",
-      focus: ["hunger", "energy"],
-      profile: { hunger: 1.2, thirst: 1.0, hygiene: 1.15, love: 1.1, energy: 1.3, growthMs: 70_000 },
-    },
-    {
-      id: "robot", audience: "boy", name: "Robôzinho", he: "ele", names: ["Bip", "Chip"],
-      food: "🔋", foodName: "bateria", glow: "rgba(120,240,255,.6)",
-      stages: { 1: "baby", 2: "baby", 3: "child", 4: "adult" }, poses: [],
-      focus: ["hunger", "energy"],
-      profile: { hunger: 1.2, thirst: 0.5, hygiene: 0.4, love: 0.9, energy: 1.15, growthMs: 78_000 },
-    },
-    {
-      id: "hamster", audience: "both", name: "Hamster", he: "ele", names: ["Bolinha", "Paçoca"],
-      food: "🌻", foodName: "semente", glow: "rgba(255,210,140,.6)",
-      stages: { 1: "baby", 2: "baby", 3: "child", 4: "adult" }, poses: [],
-      focus: ["hunger", "energy"],
-      profile: { hunger: 1.2, thirst: 1.05, hygiene: 1.0, love: 1.05, energy: 1.1, growthMs: 68_000 },
-    },
-    {
-      id: "panda", audience: "both", name: "Panda", he: "ele", names: ["Mochi", "Bambu"],
-      food: "🎋", foodName: "bambu", glow: "rgba(255,255,255,.6)",
-      stages: { 1: "baby", 2: "baby", 3: "child", 4: "child" }, poses: [],
-      focus: ["hunger", "energy"],
-      profile: { hunger: 1.2, thirst: 1.0, hygiene: 0.9, love: 1.0, energy: 1.1, growthMs: 90_000 },
-    },
-    {
-      id: "puppy", audience: "both", name: "Cachorrinho", he: "ele", names: ["Mel", "Toby"],
-      food: "🦴", foodName: "ossinho", glow: "rgba(255,210,150,.6)",
-      stages: { 1: "baby", 2: "baby", 3: "child", 4: "child" }, poses: [],
-      focus: ["love", "energy"],
-      profile: { hunger: 1.05, thirst: 1.05, hygiene: 1.05, love: 1.2, energy: 1.1, growthMs: 72_000 },
-    },
-    {
-      id: "dragon", audience: "boy", name: "Dragãozinho", he: "ele", names: ["Faísca", "Draco"],
-      food: "🌶️", foodName: "pimentinha", glow: "rgba(255,150,120,.6)",
-      stages: { 1: "baby", 2: "baby", 3: "child", 4: "child" }, poses: [],
-      focus: ["hunger", "thirst"],
-      profile: { hunger: 1.25, thirst: 1.2, hygiene: 1.0, love: 1.0, energy: 1.05, growthMs: 85_000 },
-    },
-    {
-      id: "fox", audience: "girl", name: "Raposinha", he: "ela", names: ["Canela", "Floco"],
-      food: "🫐", foodName: "frutinha", glow: "rgba(255,170,90,.6)",
-      stages: { 1: "baby", 2: "baby", 3: "child", 4: "child" }, poses: [],
-      focus: ["energy", "hunger"],
-      profile: { hunger: 1.05, thirst: 1.0, hygiene: 0.95, love: 0.9, energy: 1.15, growthMs: 74_000 },
-    },
-  ];
+  const SPECIES = window.PixelsCatalog.SPECIES;
 
   const BASE_RATES = {
     hunger: 0.38 / PACE,
@@ -392,71 +90,11 @@
   // Energia sobe ao dormir (valor negativo em decayRates); +35% vs base 5
   const SLEEP_ENERGY_GAIN = 6.75 / PACE;
 
-  const SPECIES_ANCHORS = {"axolotl_adult":{"hat":[0.6,0.14,0.25,12],"crown":[0.46,0.12,0.26,0],"spoiler":[0.455,0.147,0.24,2.4],"face":[0.455,0.32,0.496,4.8],"neck":[0.455,0.525,0.3,0],"body":[0.46,0.71,0.68,0],"saddle":[0.395,0.66,0.32,-4],"held":[0.695,0.7,0.28,-8],"feet":[0.46,0.9,0.48,0],"wings":[0.46,0.54,0.88,0]},"axolotl_child":{"hat":[0.6,0.14,0.25,12],"crown":[0.46,0.12,0.26,0],"spoiler":[0.455,0.147,0.24,2.4],"face":[0.455,0.32,0.496,4.8],"neck":[0.455,0.525,0.3,0],"body":[0.46,0.71,0.68,0],"saddle":[0.395,0.66,0.32,-4],"held":[0.695,0.7,0.28,-8],"feet":[0.46,0.9,0.48,0],"wings":[0.46,0.54,0.88,0]},"axolotl_newborn":{"hat":[0.6,0.14,0.25,12],"crown":[0.46,0.12,0.26,0],"spoiler":[0.458,0.148,0.241,2.4],"face":[0.458,0.325,0.506,4.7],"neck":[0.458,0.534,0.3,0],"body":[0.46,0.71,0.68,0],"saddle":[0.398,0.66,0.32,-4],"held":[0.698,0.7,0.28,-8],"feet":[0.46,0.9,0.48,0],"wings":[0.46,0.54,0.88,0]},"bat_adult":{"hat":[0.64,0.18,0.24,14],"crown":[0.48,0.18,0.25,0],"spoiler":[0.485,0.249,0.24,0.7],"face":[0.485,0.393,0.412,1.4],"neck":[0.485,0.563,0.3,0],"body":[0.49,0.73,0.58,0],"saddle":[0.425,0.66,0.32,-4],"held":[0.725,0.7,0.28,-8],"feet":[0.49,0.91,0.42,0],"wings":[0.49,0.55,0.88,0]},"bat_child":{"hat":[0.64,0.18,0.24,14],"crown":[0.48,0.18,0.25,0],"spoiler":[0.482,0.25,0.24,0.7],"face":[0.482,0.398,0.422,1.4],"neck":[0.482,0.572,0.3,0],"body":[0.49,0.73,0.58,0],"saddle":[0.422,0.66,0.32,-4],"held":[0.722,0.7,0.28,-8],"feet":[0.49,0.91,0.42,0],"wings":[0.49,0.55,0.88,0]},"bat_newborn":{"hat":[0.64,0.18,0.24,14],"crown":[0.48,0.18,0.25,0],"spoiler":[0.482,0.219,0.24,0.7],"face":[0.482,0.367,0.422,1.4],"neck":[0.482,0.541,0.3,0],"body":[0.49,0.73,0.58,0],"saddle":[0.422,0.66,0.32,-4],"held":[0.722,0.7,0.28,-8],"feet":[0.49,0.91,0.42,0],"wings":[0.49,0.55,0.88,0]},"bee_adult":{"hat":[0.62,0.18,0.24,14],"crown":[0.48,0.17,0.25,0],"spoiler":[0.482,0.178,0.24,0.6],"face":[0.482,0.347,0.484,1.2],"neck":[0.482,0.547,0.3,0],"body":[0.48,0.72,0.6,0],"saddle":[0.422,0.66,0.32,-4],"held":[0.722,0.7,0.28,-8],"feet":[0.49,0.91,0.42,0],"wings":[0.48,0.54,0.88,0]},"bee_child":{"hat":[0.62,0.18,0.24,14],"crown":[0.48,0.17,0.25,0],"spoiler":[0.475,0.24,0.24,0.7],"face":[0.475,0.398,0.453,1.3],"neck":[0.475,0.585,0.3,0],"body":[0.48,0.72,0.6,0],"saddle":[0.415,0.66,0.32,-4],"held":[0.715,0.7,0.28,-8],"feet":[0.49,0.91,0.42,0],"wings":[0.48,0.54,0.88,0]},"bee_newborn":{"hat":[0.62,0.18,0.24,14],"crown":[0.48,0.17,0.25,0],"spoiler":[0.482,0.178,0.24,0.6],"face":[0.482,0.347,0.484,1.2],"neck":[0.482,0.547,0.3,0],"body":[0.48,0.72,0.6,0],"saddle":[0.422,0.66,0.32,-4],"held":[0.722,0.7,0.28,-8],"feet":[0.49,0.91,0.42,0],"wings":[0.48,0.54,0.88,0]},"boat_adult":{"hat":[0.48,0.38,0.28,0],"crown":[0.48,0.38,0.28,0],"spoiler":[0.52,0.38,0.34,0],"face":[0.46,0.583,0.535,1.1],"neck":[0.46,0.76,0.28,0],"body":[0.48,0.8,0.44,0],"saddle":[0.48,0.74,0.3,0],"held":[0.8,0.76,0.28,8],"feet":[0.48,0.9,0.28,0],"wings":[0.5,0.58,0.88,0]},"boat_child":{"hat":[0.48,0.38,0.28,0],"crown":[0.48,0.38,0.28,0],"spoiler":[0.52,0.38,0.34,0],"face":[0.46,0.583,0.535,1.1],"neck":[0.46,0.76,0.28,0],"body":[0.48,0.8,0.44,0],"saddle":[0.48,0.74,0.3,0],"held":[0.8,0.76,0.28,8],"feet":[0.48,0.9,0.28,0],"wings":[0.5,0.58,0.88,0]},"boat_newborn":{"hat":[0.48,0.38,0.28,0],"crown":[0.48,0.38,0.28,0],"spoiler":[0.52,0.38,0.34,0],"face":[0.425,0.683,0.515,1.1],"neck":[0.46,0.76,0.28,0],"body":[0.48,0.8,0.44,0],"saddle":[0.48,0.74,0.3,0],"held":[0.8,0.76,0.28,8],"feet":[0.48,0.9,0.28,0],"wings":[0.5,0.58,0.88,0]},"botcar_adult":{"hat":[0.5,0.09,0.32,0],"crown":[0.5,0.08,0.28,0],"spoiler":[0.5,0.09,0.38,0],"face":[0.495,0.22,0.37,0.0],"neck":[0.5,0.42,0.28,0],"body":[0.5,0.52,0.42,0],"saddle":[0.5,0.46,0.3,0],"held":[0.82,0.58,0.26,8],"feet":[0.56,0.88,0.42,0],"wings":[0.5,0.4,0.9,0]},"botcar_child":{"hat":[0.5,0.09,0.32,0],"crown":[0.5,0.08,0.28,0],"spoiler":[0.5,0.09,0.38,0],"face":[0.487,0.265,0.401,0.0],"neck":[0.5,0.42,0.28,0],"body":[0.5,0.52,0.42,0],"saddle":[0.5,0.46,0.3,0],"held":[0.82,0.58,0.26,8],"feet":[0.56,0.88,0.42,0],"wings":[0.5,0.4,0.9,0]},"botcar_newborn":{"hat":[0.5,0.09,0.32,0],"crown":[0.5,0.08,0.28,0],"spoiler":[0.5,0.09,0.38,0],"face":[0.525,0.26,0.453,0.0],"neck":[0.5,0.42,0.28,0],"body":[0.5,0.52,0.42,0],"saddle":[0.5,0.46,0.3,0],"held":[0.82,0.58,0.26,8],"feet":[0.56,0.88,0.42,0],"wings":[0.5,0.4,0.9,0]},"bunny_adult":{"hat":[0.5,0.13,0.28,8],"crown":[0.46,0.11,0.28,0],"spoiler":[0.46,0.11,0.28,0],"face":[0.46,0.33,0.46,0],"neck":[0.38,0.54,0.34,0],"body":[0.38,0.71,0.68,0],"saddle":[0.38,0.67,0.32,0],"held":[0.73,0.68,0.28,-8],"feet":[0.48,0.9,0.46,0],"wings":[0.38,0.5,0.88,0]},"bunny_baby":{"hat":[0.52,0.13,0.28,8],"crown":[0.48,0.11,0.28,0],"spoiler":[0.48,0.11,0.28,0],"face":[0.48,0.33,0.46,0],"neck":[0.53,0.54,0.34,0],"body":[0.53,0.71,0.68,0],"saddle":[0.53,0.67,0.32,0],"held":[0.73,0.67,0.28,-8],"feet":[0.55,0.9,0.46,0],"wings":[0.53,0.5,0.88,0]},"bunny_child":{"hat":[0.51,0.13,0.28,8],"crown":[0.47,0.11,0.28,0],"spoiler":[0.47,0.11,0.28,0],"face":[0.47,0.33,0.46,0],"neck":[0.51,0.54,0.34,0],"body":[0.51,0.71,0.68,0],"saddle":[0.51,0.67,0.32,0],"held":[0.73,0.67,0.28,-8],"feet":[0.51,0.9,0.46,0],"wings":[0.51,0.5,0.88,0]},"butterfly_adult":{"hat":[0.62,0.19,0.24,14],"crown":[0.5,0.18,0.25,0],"spoiler":[0.505,0.211,0.24,0.0],"face":[0.505,0.355,0.412,0.0],"neck":[0.505,0.525,0.3,0],"body":[0.5,0.69,0.58,0],"saddle":[0.445,0.66,0.32,-4],"held":[0.745,0.7,0.28,-8],"feet":[0.5,0.86,0.42,0],"wings":[0.5,0.54,0.88,0]},"butterfly_child":{"hat":[0.62,0.19,0.24,14],"crown":[0.5,0.18,0.25,0],"spoiler":[0.485,0.225,0.24,0.0],"face":[0.485,0.355,0.37,0.0],"neck":[0.485,0.508,0.3,0],"body":[0.5,0.69,0.58,0],"saddle":[0.425,0.66,0.32,-4],"held":[0.725,0.7,0.28,-8],"feet":[0.5,0.86,0.42,0],"wings":[0.5,0.54,0.88,0]},"butterfly_newborn":{"hat":[0.62,0.19,0.24,14],"crown":[0.5,0.18,0.25,0],"spoiler":[0.505,0.211,0.24,0.0],"face":[0.505,0.355,0.412,0.0],"neck":[0.505,0.525,0.3,0],"body":[0.5,0.69,0.58,0],"saddle":[0.445,0.66,0.32,-4],"held":[0.745,0.7,0.28,-8],"feet":[0.5,0.86,0.42,0],"wings":[0.5,0.54,0.88,0]},"dino_adult":{"hat":[0.45,0.08,0.25,12],"crown":[0.3,0.07,0.26,0],"spoiler":[0.26,0.08,0.284,1.0],"face":[0.26,0.21,0.597,2.0],"neck":[0.26,0.457,0.334,0],"body":[0.36,0.69,0.62,0],"saddle":[0.55,0.64,0.3,8],"held":[0.5,0.7,0.28,-8],"feet":[0.36,0.9,0.5,0],"wings":[0.42,0.52,0.86,0]},"dino_baby":{"hat":[0.45,0.08,0.25,12],"crown":[0.3,0.07,0.26,0],"spoiler":[0.268,0.08,0.299,0.9],"face":[0.268,0.22,0.628,1.9],"neck":[0.268,0.479,0.351,0],"body":[0.36,0.69,0.62,0],"saddle":[0.55,0.64,0.3,8],"held":[0.508,0.7,0.28,-8],"feet":[0.36,0.9,0.5,0],"wings":[0.42,0.52,0.86,0]},"dino_child":{"hat":[0.45,0.08,0.25,12],"crown":[0.3,0.07,0.26,0],"spoiler":[0.28,0.08,0.304,0.9],"face":[0.28,0.22,0.638,1.8],"neck":[0.28,0.484,0.357,0],"body":[0.36,0.69,0.62,0],"saddle":[0.55,0.64,0.3,8],"held":[0.52,0.7,0.28,-8],"feet":[0.36,0.9,0.5,0],"wings":[0.42,0.52,0.86,0]},"dino_newborn":{"hat":[0.5,0.11,0.27,12],"crown":[0.32,0.09,0.27,0],"spoiler":[0.302,0.094,0.328,0.8],"face":[0.302,0.335,0.69,1.7],"neck":[0.302,0.62,0.385,0],"body":[0.36,0.73,0.64,0],"saddle":[0.56,0.68,0.28,8],"held":[0.542,0.7,0.28,-8],"feet":[0.34,0.9,0.5,0],"wings":[0.42,0.55,0.86,0]},"dragon_baby":{"hat":[0.46,0.13,0.28,8],"crown":[0.42,0.11,0.28,0],"spoiler":[0.42,0.11,0.28,0],"face":[0.42,0.33,0.46,0],"neck":[0.49,0.54,0.34,0],"body":[0.49,0.71,0.68,0],"saddle":[0.49,0.67,0.32,0],"held":[0.73,0.67,0.28,-8],"feet":[0.54,0.9,0.46,0],"wings":[0.49,0.5,0.88,0]},"dragon_child":{"hat":[0.49,0.13,0.28,8],"crown":[0.45,0.11,0.28,0],"spoiler":[0.45,0.11,0.28,0],"face":[0.45,0.33,0.46,0],"neck":[0.48,0.54,0.34,0],"body":[0.48,0.71,0.68,0],"saddle":[0.48,0.67,0.32,0],"held":[0.73,0.67,0.28,-8],"feet":[0.6,0.9,0.46,0],"wings":[0.48,0.5,0.88,0]},"duck_adult":{"hat":[0.675,0.092,0.24,12],"crown":[0.532,0.08,0.24,3.3],"spoiler":[0.532,0.08,0.24,3.3],"face":[0.532,0.222,0.445,6.6],"neck":[0.532,0.406,0.3,0],"body":[0.48,0.7,0.66,0],"saddle":[0.472,0.66,0.32,-4],"held":[0.772,0.7,0.28,-8],"feet":[0.46,0.9,0.48,0],"wings":[0.48,0.54,0.86,0]},"duck_child":{"hat":[0.694,0.08,0.255,12],"crown":[0.512,0.08,0.271,3.1],"spoiler":[0.512,0.08,0.271,3.1],"face":[0.512,0.24,0.569,6.2],"neck":[0.512,0.475,0.318,0],"body":[0.48,0.7,0.66,0],"saddle":[0.452,0.66,0.32,-4],"held":[0.752,0.7,0.28,-8],"feet":[0.46,0.9,0.48,0],"wings":[0.48,0.54,0.86,0]},"duck_newborn":{"hat":[0.728,0.113,0.275,12],"crown":[0.532,0.08,0.292,4.3],"spoiler":[0.532,0.08,0.292,4.3],"face":[0.532,0.287,0.614,8.7],"neck":[0.532,0.541,0.343,0],"body":[0.48,0.7,0.66,0],"saddle":[0.472,0.66,0.32,-4],"held":[0.772,0.7,0.28,-8],"feet":[0.46,0.9,0.48,0],"wings":[0.48,0.54,0.86,0]},"elephant_adult":{"hat":[0.6,0.12,0.25,12],"crown":[0.48,0.1,0.26,0],"spoiler":[0.48,0.148,0.24,0.0],"face":[0.48,0.27,0.35,0.0],"neck":[0.48,0.414,0.3,0],"body":[0.49,0.73,0.64,0],"saddle":[0.56,0.64,0.3,-4],"held":[0.72,0.7,0.28,-8],"feet":[0.49,0.91,0.48,0],"wings":[0.49,0.52,0.88,0]},"elephant_child":{"hat":[0.6,0.12,0.25,12],"crown":[0.48,0.1,0.26,0],"spoiler":[0.48,0.143,0.24,0.0],"face":[0.48,0.265,0.35,0.0],"neck":[0.48,0.409,0.3,0],"body":[0.49,0.73,0.64,0],"saddle":[0.56,0.64,0.3,-4],"held":[0.72,0.7,0.28,-8],"feet":[0.49,0.91,0.48,0],"wings":[0.49,0.52,0.88,0]},"elephant_newborn":{"hat":[0.6,0.12,0.25,12],"crown":[0.48,0.1,0.26,0],"spoiler":[0.48,0.155,0.24,0.0],"face":[0.48,0.27,0.329,0.0],"neck":[0.48,0.406,0.3,0],"body":[0.49,0.73,0.64,0],"saddle":[0.56,0.64,0.3,-4],"held":[0.72,0.7,0.28,-8],"feet":[0.49,0.91,0.48,0],"wings":[0.49,0.52,0.88,0]},"floide_adult":{"hat":[0.55,0.25,0.25,12],"crown":[0.43,0.22,0.25,6],"spoiler":[0.415,0.339,0.24,4.8],"face":[0.415,0.47,0.44,9],"neck":[0.44,0.61,0.3,4],"body":[0.47,0.73,0.58,0],"saddle":[0.54,0.65,0.3,-4],"held":[0.22,0.72,0.26,-15],"feet":[0.47,0.9,0.44,0],"wings":[0.46,0.58,0.84,4]},"floide_child":{"hat":[0.55,0.25,0.25,12],"crown":[0.43,0.22,0.25,6],"spoiler":[0.415,0.339,0.24,4.8],"face":[0.415,0.47,0.44,9],"neck":[0.44,0.61,0.3,4],"body":[0.47,0.73,0.58,0],"saddle":[0.54,0.65,0.3,-4],"held":[0.22,0.72,0.26,-15],"feet":[0.47,0.9,0.44,0],"wings":[0.46,0.58,0.84,4]},"floide_newborn":{"hat":[0.55,0.25,0.25,12],"crown":[0.43,0.22,0.25,6],"spoiler":[0.415,0.339,0.24,4.8],"face":[0.415,0.47,0.44,9],"neck":[0.44,0.61,0.3,4],"body":[0.47,0.73,0.58,0],"saddle":[0.54,0.65,0.3,-4],"held":[0.22,0.72,0.26,-15],"feet":[0.47,0.9,0.44,0],"wings":[0.46,0.58,0.84,4]},"fox_baby":{"hat":[0.41,0.13,0.28,8],"crown":[0.37,0.11,0.28,0],"spoiler":[0.37,0.11,0.28,0],"face":[0.37,0.33,0.46,0],"neck":[0.39,0.54,0.34,0],"body":[0.39,0.71,0.68,0],"saddle":[0.39,0.67,0.32,0],"held":[0.73,0.68,0.28,-8],"feet":[0.56,0.9,0.46,0],"wings":[0.39,0.5,0.88,0]},"fox_child":{"hat":[0.37,0.13,0.28,8],"crown":[0.33,0.11,0.28,0],"spoiler":[0.33,0.11,0.28,0],"face":[0.33,0.33,0.46,0],"neck":[0.48,0.54,0.34,0],"body":[0.48,0.71,0.68,0],"saddle":[0.48,0.67,0.32,0],"held":[0.73,0.67,0.28,-8],"feet":[0.42,0.9,0.46,0],"wings":[0.48,0.5,0.88,0]},"hamster_adult":{"hat":[0.52,0.13,0.28,8],"crown":[0.48,0.11,0.28,0],"spoiler":[0.48,0.11,0.28,0],"face":[0.48,0.33,0.46,0],"neck":[0.48,0.54,0.34,0],"body":[0.48,0.71,0.68,0],"saddle":[0.48,0.67,0.32,0],"held":[0.73,0.68,0.28,-8],"feet":[0.52,0.9,0.46,0],"wings":[0.48,0.5,0.88,0]},"hamster_baby":{"hat":[0.52,0.13,0.28,8],"crown":[0.48,0.11,0.28,0],"spoiler":[0.48,0.11,0.28,0],"face":[0.48,0.33,0.46,0],"neck":[0.49,0.54,0.34,0],"body":[0.49,0.71,0.68,0],"saddle":[0.49,0.67,0.32,0],"held":[0.73,0.67,0.28,-8],"feet":[0.52,0.9,0.46,0],"wings":[0.49,0.5,0.88,0]},"hamster_child":{"hat":[0.54,0.13,0.28,8],"crown":[0.49,0.11,0.28,0],"spoiler":[0.49,0.11,0.28,0],"face":[0.49,0.33,0.46,0],"neck":[0.5,0.54,0.34,0],"body":[0.5,0.71,0.68,0],"saddle":[0.5,0.67,0.32,0],"held":[0.73,0.67,0.28,-8],"feet":[0.54,0.9,0.46,0],"wings":[0.5,0.5,0.88,0]},"heli_adult":{"hat":[0.42,0.2,0.26,0],"crown":[0.42,0.2,0.26,0],"spoiler":[0.48,0.08,0.34,0],"face":[0.36,0.422,0.473,1.2],"neck":[0.4,0.64,0.28,0],"body":[0.42,0.72,0.42,0],"saddle":[0.42,0.66,0.3,0],"held":[0.76,0.68,0.28,8],"feet":[0.45,0.88,0.3,0],"wings":[0.48,0.52,0.88,0]},"heli_child":{"hat":[0.42,0.2,0.26,0],"crown":[0.42,0.2,0.26,0],"spoiler":[0.48,0.08,0.34,0],"face":[0.36,0.422,0.473,1.2],"neck":[0.4,0.64,0.28,0],"body":[0.42,0.72,0.42,0],"saddle":[0.42,0.66,0.3,0],"held":[0.76,0.68,0.28,8],"feet":[0.45,0.88,0.3,0],"wings":[0.48,0.52,0.88,0]},"heli_newborn":{"hat":[0.42,0.2,0.26,0],"crown":[0.42,0.2,0.26,0],"spoiler":[0.48,0.08,0.34,0],"face":[0.348,0.443,0.443,1.3],"neck":[0.4,0.64,0.28,0],"body":[0.42,0.72,0.42,0],"saddle":[0.42,0.66,0.3,0],"held":[0.76,0.68,0.28,8],"feet":[0.45,0.88,0.3,0],"wings":[0.48,0.52,0.88,0]},"kitty_baby":{"hat":[0.55,0.11,0.29,12],"crown":[0.42,0.09,0.27,6],"spoiler":[0.398,0.115,0.24,5.4],"face":[0.4,0.29,0.56,11],"neck":[0.44,0.54,0.34,4],"body":[0.46,0.71,0.72,0],"saddle":[0.46,0.66,0.34,0],"held":[0.7,0.71,0.28,-8],"feet":[0.47,0.9,0.48,0],"wings":[0.46,0.55,0.88,4]},"kitty_child":{"hat":[0.62,0.17,0.27,18],"crown":[0.52,0.12,0.26,10],"spoiler":[0.497,0.179,0.24,8.4],"face":[0.495,0.3,0.46,15],"neck":[0.48,0.52,0.32,6],"body":[0.49,0.69,0.68,0],"saddle":[0.52,0.64,0.32,0],"held":[0.69,0.7,0.27,-8],"feet":[0.51,0.9,0.48,0],"wings":[0.49,0.54,0.88,6]},"kitty_newborn":{"hat":[0.62,0.12,0.3,15],"crown":[0.48,0.1,0.28,8],"spoiler":[0.455,0.158,0.261,6.5],"face":[0.46,0.34,0.62,13],"neck":[0.46,0.56,0.34,5],"body":[0.48,0.72,0.72,0],"saddle":[0.48,0.68,0.34,0],"held":[0.76,0.73,0.28,-8],"feet":[0.5,0.9,0.48,0],"wings":[0.48,0.56,0.88,5]},"lilica_adult":{"hat":[0.6,0.16,0.27,12],"crown":[0.41,0.15,0.27,0],"spoiler":[0.41,0.146,0.284,0.0],"face":[0.41,0.355,0.597,0.0],"neck":[0.41,0.602,0.334,0],"body":[0.43,0.73,0.72,0],"saddle":[0.35,0.66,0.32,-4],"held":[0.65,0.7,0.28,-8],"feet":[0.43,0.91,0.5,0],"wings":[0.43,0.56,0.88,0]},"lilica_child":{"hat":[0.64,0.16,0.27,12],"crown":[0.46,0.15,0.27,0],"spoiler":[0.455,0.138,0.274,0.0],"face":[0.455,0.34,0.576,0.0],"neck":[0.455,0.578,0.322,0],"body":[0.47,0.72,0.7,0],"saddle":[0.395,0.66,0.32,-4],"held":[0.695,0.7,0.28,-8],"feet":[0.47,0.91,0.5,0],"wings":[0.47,0.56,0.88,0]},"lilica_newborn":{"hat":[0.6,0.16,0.27,12],"crown":[0.41,0.15,0.27,0],"spoiler":[0.41,0.146,0.284,0.0],"face":[0.41,0.355,0.597,0.0],"neck":[0.41,0.602,0.334,0],"body":[0.43,0.73,0.72,0],"saddle":[0.35,0.66,0.32,-4],"held":[0.65,0.7,0.28,-8],"feet":[0.43,0.91,0.5,0],"wings":[0.43,0.56,0.88,0]},"lion_adult":{"hat":[0.61,0.21,0.24,14],"crown":[0.47,0.18,0.26,0],"spoiler":[0.465,0.255,0.24,0.0],"face":[0.465,0.385,0.37,0.0],"neck":[0.465,0.538,0.3,0],"body":[0.48,0.75,0.58,0],"saddle":[0.58,0.68,0.28,-5],"held":[0.705,0.7,0.28,-8],"feet":[0.48,0.91,0.48,0],"wings":[0.48,0.56,0.88,0]},"lion_child":{"hat":[0.61,0.21,0.24,14],"crown":[0.47,0.18,0.26,0],"spoiler":[0.468,0.274,0.24,0.0],"face":[0.468,0.4,0.36,0.0],"neck":[0.468,0.549,0.3,0],"body":[0.48,0.75,0.58,0],"saddle":[0.58,0.68,0.28,-5],"held":[0.708,0.7,0.28,-8],"feet":[0.48,0.91,0.48,0],"wings":[0.48,0.56,0.88,0]},"lion_newborn":{"hat":[0.61,0.21,0.24,14],"crown":[0.47,0.18,0.26,0],"spoiler":[0.465,0.276,0.24,0.0],"face":[0.465,0.42,0.412,0.0],"neck":[0.465,0.59,0.3,0],"body":[0.48,0.75,0.58,0],"saddle":[0.58,0.68,0.28,-5],"held":[0.705,0.7,0.28,-8],"feet":[0.48,0.91,0.48,0],"wings":[0.48,0.56,0.88,0]},"mole_adult":{"hat":[0.62,0.1,0.26,12],"crown":[0.45,0.08,0.27,0],"spoiler":[0.44,0.08,0.285,1.5],"face":[0.44,0.258,0.598,3.0],"neck":[0.44,0.505,0.334,0],"body":[0.46,0.72,0.72,0],"saddle":[0.38,0.66,0.32,-4],"held":[0.68,0.7,0.28,-8],"feet":[0.46,0.91,0.5,0],"wings":[0.46,0.54,0.88,0]},"mole_child":{"hat":[0.62,0.1,0.26,12],"crown":[0.45,0.08,0.27,0],"spoiler":[0.49,0.08,0.255,1.6],"face":[0.49,0.232,0.536,3.3],"neck":[0.49,0.453,0.3,0],"body":[0.46,0.72,0.72,0],"saddle":[0.43,0.66,0.32,-4],"held":[0.73,0.7,0.28,-8],"feet":[0.46,0.91,0.5,0],"wings":[0.46,0.54,0.88,0]},"mole_newborn":{"hat":[0.62,0.1,0.26,12],"crown":[0.45,0.08,0.27,0],"spoiler":[0.438,0.08,0.289,1.4],"face":[0.438,0.268,0.608,2.9],"neck":[0.438,0.519,0.34,0],"body":[0.46,0.72,0.72,0],"saddle":[0.378,0.66,0.32,-4],"held":[0.678,0.7,0.28,-8],"feet":[0.46,0.91,0.5,0],"wings":[0.46,0.54,0.88,0]},"monkey_adult":{"hat":[0.68,0.1,0.25,14],"crown":[0.55,0.08,0.26,0],"spoiler":[0.575,0.08,0.24,0.0],"face":[0.575,0.205,0.37,0.0],"neck":[0.575,0.358,0.3,0],"body":[0.54,0.68,0.66,0],"saddle":[0.515,0.66,0.32,-4],"held":[0.815,0.7,0.28,-8],"feet":[0.54,0.9,0.48,0],"wings":[0.54,0.52,0.88,0]},"monkey_child":{"hat":[0.68,0.1,0.25,14],"crown":[0.55,0.08,0.26,0],"spoiler":[0.545,0.092,0.24,0.6],"face":[0.545,0.258,0.473,1.2],"neck":[0.545,0.454,0.3,0],"body":[0.54,0.68,0.66,0],"saddle":[0.485,0.66,0.32,-4],"held":[0.785,0.7,0.28,-8],"feet":[0.54,0.9,0.48,0],"wings":[0.54,0.52,0.88,0]},"monkey_newborn":{"hat":[0.68,0.1,0.25,14],"crown":[0.55,0.08,0.26,0],"spoiler":[0.545,0.092,0.24,0.6],"face":[0.545,0.258,0.473,1.2],"neck":[0.545,0.454,0.3,0],"body":[0.54,0.68,0.66,0],"saddle":[0.485,0.66,0.32,-4],"held":[0.785,0.7,0.28,-8],"feet":[0.54,0.9,0.48,0],"wings":[0.54,0.52,0.88,0]},"nini_adult":{"hat":[0.65,0.15,0.22,16],"crown":[0.57,0.14,0.22,10],"spoiler":[0.555,0.172,0.24,6.0],"face":[0.555,0.275,0.295,12.1],"neck":[0.53,0.41,0.26,12],"body":[0.51,0.53,0.44,16],"saddle":[0.495,0.66,0.32,-4],"held":[0.795,0.7,0.28,-8],"feet":[0.48,0.69,0.34,14],"wings":[0.52,0.47,0.84,12]},"nini_child":{"hat":[0.6,0.15,0.22,16],"crown":[0.52,0.14,0.22,10],"spoiler":[0.495,0.163,0.24,5.3],"face":[0.495,0.28,0.335,10.6],"neck":[0.48,0.42,0.26,12],"body":[0.46,0.54,0.44,16],"saddle":[0.435,0.66,0.32,-4],"held":[0.735,0.7,0.28,-8],"feet":[0.43,0.7,0.34,14],"wings":[0.48,0.48,0.84,12]},"nini_newborn":{"hat":[0.6,0.15,0.22,16],"crown":[0.52,0.14,0.22,10],"spoiler":[0.495,0.163,0.24,5.3],"face":[0.495,0.28,0.335,10.6],"neck":[0.48,0.42,0.26,12],"body":[0.46,0.54,0.44,16],"saddle":[0.435,0.66,0.32,-4],"held":[0.735,0.7,0.28,-8],"feet":[0.43,0.7,0.34,14],"wings":[0.48,0.48,0.84,12]},"panda_baby":{"hat":[0.59,0.13,0.28,8],"crown":[0.55,0.11,0.28,0],"spoiler":[0.55,0.11,0.28,0],"face":[0.55,0.33,0.46,0],"neck":[0.54,0.54,0.34,0],"body":[0.54,0.71,0.68,0],"saddle":[0.54,0.67,0.32,0],"held":[0.73,0.68,0.28,-8],"feet":[0.52,0.9,0.46,0],"wings":[0.54,0.5,0.88,0]},"panda_child":{"hat":[0.58,0.13,0.28,8],"crown":[0.54,0.11,0.28,0],"spoiler":[0.54,0.11,0.28,0],"face":[0.54,0.33,0.46,0],"neck":[0.54,0.54,0.34,0],"body":[0.54,0.71,0.68,0],"saddle":[0.54,0.67,0.32,0],"held":[0.73,0.68,0.28,-8],"feet":[0.6,0.9,0.46,0],"wings":[0.54,0.5,0.88,0]},"pig_adult":{"hat":[0.558,0.116,0.249,12],"crown":[0.38,0.09,0.265,2.1],"spoiler":[0.38,0.09,0.265,2.1],"face":[0.38,0.285,0.557,4.2],"neck":[0.38,0.515,0.311,0],"body":[0.46,0.72,0.68,0],"saddle":[0.58,0.58,0.3,0],"held":[0.62,0.7,0.28,-8],"feet":[0.44,0.9,0.48,0],"wings":[0.48,0.54,0.88,0]},"pig_child":{"hat":[0.668,0.09,0.244,12],"crown":[0.492,0.08,0.26,2.1],"spoiler":[0.492,0.08,0.26,2.1],"face":[0.492,0.255,0.547,4.3],"neck":[0.492,0.481,0.306,0],"body":[0.46,0.72,0.68,0],"saddle":[0.58,0.58,0.3,0],"held":[0.732,0.7,0.28,-8],"feet":[0.44,0.9,0.48,0],"wings":[0.48,0.54,0.88,0]},"pig_newborn":{"hat":[0.635,0.129,0.287,12],"crown":[0.43,0.096,0.305,2.8],"spoiler":[0.43,0.096,0.305,2.8],"face":[0.43,0.32,0.641,5.5],"neck":[0.43,0.585,0.358,0],"body":[0.46,0.72,0.68,0],"saddle":[0.58,0.58,0.3,0],"held":[0.67,0.7,0.28,-8],"feet":[0.44,0.9,0.48,0],"wings":[0.48,0.54,0.88,0]},"plane_adult":{"hat":[0.45,0.14,0.24,0],"crown":[0.45,0.14,0.24,0],"spoiler":[0.68,0.2,0.32,0],"face":[0.45,0.292,0.247,2.4],"neck":[0.44,0.52,0.26,0],"body":[0.46,0.6,0.38,0],"saddle":[0.46,0.54,0.28,0],"held":[0.76,0.68,0.26,8],"feet":[0.48,0.88,0.28,0],"wings":[0.48,0.48,0.88,0]},"plane_child":{"hat":[0.45,0.14,0.24,0],"crown":[0.45,0.14,0.24,0],"spoiler":[0.68,0.2,0.32,0],"face":[0.45,0.292,0.247,2.4],"neck":[0.44,0.52,0.26,0],"body":[0.46,0.6,0.38,0],"saddle":[0.46,0.54,0.28,0],"held":[0.76,0.68,0.26,8],"feet":[0.48,0.88,0.28,0],"wings":[0.48,0.48,0.88,0]},"plane_newborn":{"hat":[0.45,0.14,0.24,0],"crown":[0.45,0.14,0.24,0],"spoiler":[0.68,0.2,0.32,0],"face":[0.45,0.292,0.247,2.4],"neck":[0.44,0.52,0.26,0],"body":[0.46,0.6,0.38,0],"saddle":[0.46,0.54,0.28,0],"held":[0.76,0.68,0.26,8],"feet":[0.48,0.88,0.28,0],"wings":[0.48,0.48,0.88,0]},"puppy_baby":{"hat":[0.49,0.13,0.28,8],"crown":[0.45,0.11,0.28,0],"spoiler":[0.45,0.11,0.28,0],"face":[0.45,0.33,0.46,0],"neck":[0.51,0.54,0.34,0],"body":[0.51,0.71,0.68,0],"saddle":[0.51,0.67,0.32,0],"held":[0.73,0.68,0.28,-8],"feet":[0.57,0.9,0.46,0],"wings":[0.51,0.5,0.88,0]},"puppy_child":{"hat":[0.44,0.13,0.28,8],"crown":[0.4,0.11,0.28,0],"spoiler":[0.4,0.11,0.28,0],"face":[0.4,0.33,0.46,0],"neck":[0.51,0.54,0.34,0],"body":[0.51,0.71,0.68,0],"saddle":[0.51,0.67,0.32,0],"held":[0.73,0.68,0.28,-8],"feet":[0.51,0.9,0.46,0],"wings":[0.51,0.5,0.88,0]},"racer_adult":{"hat":[0.82,0.23,0.34,8],"crown":[0.48,0.09,0.28,-2],"spoiler":[0.82,0.23,0.34,8],"face":[0.47,0.282,0.35,1.7],"neck":[0.38,0.5,0.28,0],"body":[0.4,0.58,0.38,0],"saddle":[0.48,0.12,0.3,0],"held":[0.78,0.78,0.3,10],"feet":[0.58,0.83,0.25,0],"wings":[0.52,0.42,0.86,0]},"racer_child":{"hat":[0.82,0.23,0.34,8],"crown":[0.48,0.09,0.28,-2],"spoiler":[0.82,0.23,0.34,8],"face":[0.47,0.282,0.371,1.6],"neck":[0.38,0.5,0.28,0],"body":[0.4,0.58,0.38,0],"saddle":[0.48,0.12,0.3,0],"held":[0.78,0.78,0.3,10],"feet":[0.58,0.83,0.25,0],"wings":[0.52,0.42,0.86,0]},"racer_newborn":{"hat":[0.82,0.23,0.34,8],"crown":[0.48,0.09,0.28,-2],"spoiler":[0.82,0.23,0.34,8],"face":[0.472,0.278,0.381,1.5],"neck":[0.38,0.5,0.28,0],"body":[0.4,0.58,0.38,0],"saddle":[0.48,0.12,0.3,0],"held":[0.78,0.78,0.3,10],"feet":[0.58,0.83,0.25,0],"wings":[0.52,0.42,0.86,0]},"robot_adult":{"hat":[0.56,0.13,0.28,8],"crown":[0.52,0.11,0.28,0],"spoiler":[0.52,0.11,0.28,0],"face":[0.52,0.33,0.46,0],"neck":[0.55,0.54,0.34,0],"body":[0.55,0.71,0.68,0],"saddle":[0.55,0.67,0.32,0],"held":[0.72,0.67,0.28,-8],"feet":[0.44,0.9,0.46,0],"wings":[0.55,0.5,0.88,0]},"robot_baby":{"hat":[0.51,0.13,0.28,8],"crown":[0.47,0.11,0.28,0],"spoiler":[0.47,0.11,0.28,0],"face":[0.47,0.33,0.46,0],"neck":[0.49,0.54,0.34,0],"body":[0.49,0.71,0.68,0],"saddle":[0.49,0.67,0.32,0],"held":[0.73,0.68,0.28,-8],"feet":[0.5,0.9,0.46,0],"wings":[0.49,0.5,0.88,0]},"robot_child":{"hat":[0.58,0.13,0.28,8],"crown":[0.54,0.11,0.28,0],"spoiler":[0.54,0.11,0.28,0],"face":[0.54,0.33,0.46,0],"neck":[0.54,0.54,0.34,0],"body":[0.54,0.71,0.68,0],"saddle":[0.54,0.67,0.32,0],"held":[0.73,0.67,0.28,-8],"feet":[0.64,0.9,0.46,0],"wings":[0.54,0.5,0.88,0]},"rocket_adult":{"hat":[0.48,0.08,0.28,0],"crown":[0.48,0.08,0.28,0],"spoiler":[0.48,0.08,0.32,0],"face":[0.458,0.32,0.566,2.1],"neck":[0.46,0.5,0.28,0],"body":[0.46,0.62,0.44,0],"saddle":[0.46,0.56,0.3,0],"held":[0.78,0.7,0.28,8],"feet":[0.48,0.86,0.28,0],"wings":[0.48,0.48,0.88,0]},"rocket_child":{"hat":[0.48,0.08,0.28,0],"crown":[0.48,0.08,0.28,0],"spoiler":[0.48,0.08,0.32,0],"face":[0.458,0.32,0.566,2.1],"neck":[0.46,0.5,0.28,0],"body":[0.46,0.62,0.44,0],"saddle":[0.46,0.56,0.3,0],"held":[0.78,0.7,0.28,8],"feet":[0.48,0.86,0.28,0],"wings":[0.48,0.48,0.88,0]},"rocket_newborn":{"hat":[0.48,0.08,0.28,0],"crown":[0.48,0.08,0.28,0],"spoiler":[0.48,0.08,0.32,0],"face":[0.458,0.31,0.566,2.1],"neck":[0.46,0.5,0.28,0],"body":[0.46,0.62,0.44,0],"saddle":[0.46,0.56,0.3,0],"held":[0.78,0.7,0.28,8],"feet":[0.48,0.86,0.28,0],"wings":[0.48,0.48,0.88,0]},"seal_adult":{"hat":[0.618,0.08,0.24,12],"crown":[0.502,0.08,0.24,0.8],"spoiler":[0.502,0.08,0.24,0.8],"face":[0.502,0.107,0.36,1.6],"neck":[0.49,0.36,0.34,0],"body":[0.49,0.68,0.68,0],"saddle":[0.442,0.66,0.32,-4],"held":[0.742,0.7,0.28,-8],"feet":[0.49,0.9,0.5,0],"wings":[0.49,0.5,0.88,0]},"seal_child":{"hat":[0.672,0.08,0.244,12],"crown":[0.497,0.08,0.26,0.6],"spoiler":[0.497,0.08,0.26,0.6],"face":[0.497,0.147,0.545,1.1],"neck":[0.49,0.36,0.34,0],"body":[0.49,0.68,0.68,0],"saddle":[0.437,0.66,0.32,-4],"held":[0.737,0.7,0.28,-8],"feet":[0.49,0.9,0.5,0],"wings":[0.49,0.5,0.88,0]},"seal_newborn":{"hat":[0.675,0.08,0.258,12],"crown":[0.49,0.08,0.274,0.5],"spoiler":[0.49,0.08,0.274,0.5],"face":[0.49,0.143,0.576,1.0],"neck":[0.49,0.36,0.34,0],"body":[0.49,0.68,0.68,0],"saddle":[0.43,0.66,0.32,-4],"held":[0.73,0.7,0.28,-8],"feet":[0.49,0.9,0.5,0],"wings":[0.49,0.5,0.88,0]},"slime_blue_adult":{"hat":[0.666,0.102,0.24,12],"crown":[0.497,0.084,0.25,0.6],"spoiler":[0.497,0.084,0.25,0.6],"face":[0.497,0.268,0.525,1.1],"neck":[0.497,0.485,0.3,0],"body":[0.5,0.72,0.72,0],"saddle":[0.437,0.66,0.32,-4],"held":[0.737,0.7,0.28,-8],"feet":[0.5,0.9,0.5,0],"wings":[0.5,0.54,0.88,0]},"slime_blue_child":{"hat":[0.653,0.142,0.249,12],"crown":[0.475,0.12,0.265,1.1],"spoiler":[0.475,0.12,0.265,1.1],"face":[0.475,0.315,0.556,2.1],"neck":[0.475,0.545,0.311,0],"body":[0.5,0.72,0.72,0],"saddle":[0.415,0.66,0.32,-4],"held":[0.715,0.7,0.28,-8],"feet":[0.5,0.9,0.5,0],"wings":[0.5,0.54,0.88,0]},"slime_blue_newborn":{"hat":[0.676,0.163,0.267,12],"crown":[0.485,0.139,0.285,1.5],"spoiler":[0.485,0.139,0.285,1.5],"face":[0.485,0.348,0.598,3.0],"neck":[0.485,0.595,0.334,0],"body":[0.5,0.72,0.72,0],"saddle":[0.425,0.66,0.32,-4],"held":[0.725,0.7,0.28,-8],"feet":[0.5,0.9,0.5,0],"wings":[0.5,0.54,0.88,0]},"slime_green_adult":{"hat":[0.644,0.118,0.24,12],"crown":[0.482,0.098,0.24,1.1],"spoiler":[0.482,0.098,0.24,1.1],"face":[0.482,0.275,0.505,2.3],"neck":[0.482,0.483,0.3,0],"body":[0.5,0.72,0.72,0],"saddle":[0.422,0.66,0.32,-4],"held":[0.722,0.7,0.28,-8],"feet":[0.5,0.9,0.5,0],"wings":[0.5,0.54,0.88,0]},"slime_green_child":{"hat":[0.624,0.148,0.24,12],"crown":[0.463,0.128,0.24,1.1],"spoiler":[0.463,0.128,0.24,1.1],"face":[0.463,0.305,0.505,2.3],"neck":[0.463,0.513,0.3,0],"body":[0.5,0.72,0.72,0],"saddle":[0.403,0.66,0.32,-4],"held":[0.703,0.7,0.28,-8],"feet":[0.5,0.9,0.5,0],"wings":[0.5,0.54,0.88,0]},"slime_green_newborn":{"hat":[0.634,0.133,0.24,12],"crown":[0.472,0.113,0.24,1.1],"spoiler":[0.472,0.113,0.24,1.1],"face":[0.472,0.29,0.505,2.3],"neck":[0.472,0.498,0.3,0],"body":[0.5,0.72,0.72,0],"saddle":[0.412,0.66,0.32,-4],"held":[0.712,0.7,0.28,-8],"feet":[0.5,0.9,0.5,0],"wings":[0.5,0.54,0.88,0]},"slime_lilac_adult":{"hat":[0.68,0.12,0.258,12],"crown":[0.495,0.1,0.274,0.5],"spoiler":[0.495,0.1,0.274,0.5],"face":[0.495,0.302,0.576,1.0],"neck":[0.495,0.54,0.322,0],"body":[0.5,0.72,0.72,0],"saddle":[0.435,0.66,0.32,-4],"held":[0.735,0.7,0.28,-8],"feet":[0.5,0.9,0.5,0],"wings":[0.5,0.54,0.88,0]},"slime_lilac_child":{"hat":[0.681,0.124,0.267,12],"crown":[0.49,0.103,0.284,0.5],"spoiler":[0.49,0.103,0.284,0.5],"face":[0.49,0.312,0.597,1.0],"neck":[0.49,0.559,0.334,0],"body":[0.5,0.72,0.72,0],"saddle":[0.43,0.66,0.32,-4],"held":[0.73,0.7,0.28,-8],"feet":[0.5,0.9,0.5,0],"wings":[0.5,0.54,0.88,0]},"slime_lilac_newborn":{"hat":[0.689,0.114,0.281,12],"crown":[0.488,0.092,0.299,0.5],"spoiler":[0.488,0.092,0.299,0.5],"face":[0.488,0.312,0.628,0.9],"neck":[0.488,0.571,0.351,0],"body":[0.5,0.72,0.72,0],"saddle":[0.428,0.66,0.32,-4],"held":[0.728,0.7,0.28,-8],"feet":[0.5,0.9,0.5,0],"wings":[0.5,0.54,0.88,0]},"slime_pink_adult":{"hat":[0.672,0.155,0.244,12],"crown":[0.497,0.134,0.26,1.1],"spoiler":[0.497,0.134,0.26,1.1],"face":[0.497,0.325,0.546,2.2],"neck":[0.497,0.55,0.305,0],"body":[0.5,0.72,0.72,0],"saddle":[0.437,0.66,0.32,-4],"held":[0.737,0.7,0.28,-8],"feet":[0.5,0.9,0.5,0],"wings":[0.5,0.54,0.88,0]},"slime_pink_child":{"hat":[0.669,0.183,0.253,12],"crown":[0.487,0.159,0.27,1.6],"spoiler":[0.487,0.159,0.27,1.6],"face":[0.487,0.357,0.567,3.1],"neck":[0.487,0.591,0.317,0],"body":[0.5,0.72,0.72,0],"saddle":[0.427,0.66,0.32,-4],"held":[0.727,0.7,0.28,-8],"feet":[0.5,0.9,0.5,0],"wings":[0.5,0.54,0.88,0]},"slime_pink_newborn":{"hat":[0.681,0.197,0.263,12],"crown":[0.492,0.173,0.28,1.5],"spoiler":[0.492,0.173,0.28,1.5],"face":[0.492,0.378,0.587,3.0],"neck":[0.492,0.621,0.328,0],"body":[0.5,0.72,0.72,0],"saddle":[0.432,0.66,0.32,-4],"held":[0.732,0.7,0.28,-8],"feet":[0.5,0.9,0.5,0],"wings":[0.5,0.54,0.88,0]},"tini_adult":{"hat":[0.67,0.14,0.26,14],"crown":[0.49,0.11,0.27,0],"spoiler":[0.487,0.126,0.27,2.1],"face":[0.487,0.325,0.567,4.2],"neck":[0.487,0.559,0.317,0],"body":[0.49,0.73,0.72,0],"saddle":[0.427,0.66,0.32,-4],"held":[0.727,0.7,0.28,-8],"feet":[0.49,0.91,0.5,0],"wings":[0.49,0.55,0.88,0]},"tini_child":{"hat":[0.67,0.14,0.26,14],"crown":[0.49,0.11,0.27,0],"spoiler":[0.487,0.126,0.27,2.1],"face":[0.487,0.325,0.567,4.2],"neck":[0.487,0.559,0.317,0],"body":[0.49,0.73,0.72,0],"saddle":[0.427,0.66,0.32,-4],"held":[0.727,0.7,0.28,-8],"feet":[0.49,0.91,0.5,0],"wings":[0.49,0.55,0.88,0]},"tini_newborn":{"hat":[0.67,0.14,0.26,14],"crown":[0.49,0.11,0.27,0],"spoiler":[0.487,0.126,0.27,2.1],"face":[0.487,0.325,0.567,4.2],"neck":[0.487,0.559,0.317,0],"body":[0.49,0.73,0.72,0],"saddle":[0.427,0.66,0.32,-4],"held":[0.727,0.7,0.28,-8],"feet":[0.49,0.91,0.5,0],"wings":[0.49,0.55,0.88,0]},"tractor_adult":{"hat":[0.48,0.08,0.28,0],"crown":[0.48,0.08,0.28,0],"spoiler":[0.5,0.08,0.34,0],"face":[0.27,0.545,0.37,0.0],"neck":[0.28,0.7,0.26,0],"body":[0.35,0.68,0.38,0],"saddle":[0.48,0.48,0.28,0],"held":[0.8,0.72,0.28,8],"feet":[0.48,0.86,0.26,0],"wings":[0.5,0.48,0.88,0]},"tractor_child":{"hat":[0.48,0.08,0.28,0],"crown":[0.48,0.08,0.28,0],"spoiler":[0.5,0.08,0.34,0],"face":[0.27,0.545,0.37,0.0],"neck":[0.28,0.7,0.26,0],"body":[0.35,0.68,0.38,0],"saddle":[0.48,0.48,0.28,0],"held":[0.8,0.72,0.28,8],"feet":[0.48,0.86,0.26,0],"wings":[0.5,0.48,0.88,0]},"tractor_newborn":{"hat":[0.5,0.08,0.28,0],"crown":[0.5,0.08,0.28,0],"spoiler":[0.52,0.08,0.34,0],"face":[0.448,0.275,0.319,0.0],"neck":[0.44,0.52,0.28,0],"body":[0.46,0.62,0.38,0],"saddle":[0.48,0.52,0.28,0],"held":[0.8,0.72,0.28,8],"feet":[0.52,0.86,0.26,0],"wings":[0.52,0.48,0.88,0]},"train_adult":{"hat":[0.3,0.16,0.26,0],"crown":[0.3,0.16,0.26,0],"spoiler":[0.68,0.32,0.36,0],"face":[0.27,0.515,0.432,0.0],"neck":[0.28,0.72,0.28,0],"body":[0.45,0.68,0.42,0],"saddle":[0.62,0.36,0.3,0],"held":[0.8,0.72,0.28,8],"feet":[0.62,0.85,0.26,0],"wings":[0.52,0.52,0.88,0]},"train_child":{"hat":[0.3,0.16,0.26,0],"crown":[0.3,0.16,0.26,0],"spoiler":[0.68,0.32,0.36,0],"face":[0.27,0.515,0.432,0.0],"neck":[0.28,0.72,0.28,0],"body":[0.45,0.68,0.42,0],"saddle":[0.62,0.36,0.3,0],"held":[0.8,0.72,0.28,8],"feet":[0.62,0.85,0.26,0],"wings":[0.52,0.52,0.88,0]},"train_newborn":{"hat":[0.3,0.16,0.26,0],"crown":[0.3,0.16,0.26,0],"spoiler":[0.68,0.32,0.36,0],"face":[0.25,0.495,0.432,0.0],"neck":[0.28,0.72,0.28,0],"body":[0.45,0.68,0.42,0],"saddle":[0.62,0.36,0.3,0],"held":[0.8,0.72,0.28,8],"feet":[0.62,0.85,0.26,0],"wings":[0.52,0.52,0.88,0]},"unicorn_adult":{"hat":[0.83,0.115,0.2,12],"crown":[0.73,0.09,0.21,0],"spoiler":[0.762,0.149,0.24,-1.0],"face":[0.762,0.275,0.36,-2.0],"neck":[0.68,0.46,0.26,0],"body":[0.61,0.62,0.44,0],"saddle":[0.47,0.57,0.34,-5],"held":[0.82,0.64,0.25,-8],"feet":[0.58,0.92,0.44,0],"wings":[0.54,0.43,0.94,-6]},"unicorn_baby":{"hat":[0.76,0.12,0.24,10],"crown":[0.63,0.1,0.25,-4],"spoiler":[0.66,0.129,0.305,-2.3],"face":[0.66,0.353,0.64,-4.6],"neck":[0.62,0.56,0.28,-2],"body":[0.58,0.71,0.5,0],"saddle":[0.38,0.65,0.28,-10],"held":[0.78,0.7,0.26,-8],"feet":[0.55,0.91,0.44,0],"wings":[0.48,0.53,0.86,-5]},"unicorn_child":{"hat":[0.74,0.12,0.24,12],"crown":[0.62,0.095,0.25,-2],"spoiler":[0.688,0.114,0.27,-1.6],"face":[0.688,0.312,0.567,-3.1],"neck":[0.6,0.54,0.28,0],"body":[0.56,0.67,0.46,0],"saddle":[0.43,0.62,0.3,-5],"held":[0.78,0.68,0.26,-8],"feet":[0.56,0.91,0.44,0],"wings":[0.52,0.49,0.9,-5]},"unicorn_newborn":{"hat":[0.64,0.115,0.25,10],"crown":[0.5,0.095,0.26,-5],"spoiler":[0.57,0.08,0.345,-3.2],"face":[0.57,0.305,0.725,-6.5],"neck":[0.51,0.54,0.28,-4],"body":[0.49,0.66,0.46,-3],"saddle":[0.38,0.59,0.27,-6],"held":[0.73,0.66,0.26,-8],"feet":[0.54,0.91,0.44,0],"wings":[0.46,0.47,0.86,-7]}};
+  const SPECIES_ANCHORS = window.PixelsCatalog.SPECIES_ANCHORS;
 
   // Armário 3D: Acessórios e brinquedos 100% calibrados para todos os 28 PIXELs
-  const CLOSET_ITEMS = [
-    // --- ROUPAS & LAÇOS 3D ---
-    { id: "hat_bow_pink", tab: "clothes", slot: "hat", tier: "basic", price: "Grátis", emoji: "🎀", name: "Laço Estrelinha Rosa", art: "assets/accessories/kitty-bow.png" },
-    { id: "hat_bow_turquoise", tab: "clothes", slot: "hat", tier: "basic", price: "Grátis", emoji: "🎀", name: "Laço Estrelinha Turquesa", art: "assets/accessories/acc-bow-turquoise.png" },
-    { id: "hat_bow_lilac", tab: "clothes", slot: "hat", tier: "fashion", price: "R$ 1,99", emoji: "🎀", name: "Laço Real Lilás", art: "assets/accessories/acc-bow-lilac.png" },
-    { id: "hat_cap_3d", tab: "clothes", slot: "hat", tier: "basic", price: "Grátis", emoji: "🧢", name: "Boné Estrela 3D", art: "assets/accessories/acc-cap.png" },
-    { id: "neck_scarf_3d", tab: "clothes", slot: "neck", tier: "basic", price: "Grátis", emoji: "🧣", name: "Cachecol Tricô 3D", art: "assets/accessories/acc-scarf.png" },
-    { id: "body_dress_lilac", tab: "clothes", slot: "body", tier: "fashion", price: "R$ 2,99", emoji: "👗", name: "Vestido Tule Estrelar", art: "assets/accessories/acc-dress-lilac.png" },
-    { id: "body_dress_sky", tab: "clothes", slot: "body", tier: "grife", price: "R$ 4,99", emoji: "👗", name: "Vestido Gala Celeste", art: "assets/accessories/acc-dress-sky.png" },
-    { id: "hat_crown_3d", tab: "clothes", slot: "hat", tier: "grife", price: "R$ 4,99", emoji: "👑", name: "Coroa Imperial 3D", art: "assets/accessories/acc-crown.png" },
-
-    // --- BOLSAS & ÓCULOS 3D ---
-    { id: "face_glasses_ocean", tab: "bags", slot: "face", tier: "basic", price: "Grátis", emoji: "🕶️", name: "Óculos Oceano 3D", art: "assets/accessories/kitty-glasses.png" },
-    { id: "face_glasses_pink", tab: "bags", slot: "face", tier: "fashion", price: "R$ 1,99", emoji: "🕶️", name: "Óculos Sunset Rosa", art: "assets/accessories/acc-glasses-pink.png" },
-    { id: "face_glasses_gold", tab: "bags", slot: "face", tier: "grife", price: "R$ 4,99", emoji: "🕶️", name: "Óculos Ouro Imperial", art: "assets/accessories/acc-glasses-gold.png" },
-    { id: "bag_lavender_3d", tab: "bags", slot: "held", tier: "basic", price: "Grátis", emoji: "👜", name: "Bolsa Lavanda 3D", art: "assets/accessories/kitty-bag.png" },
-    { id: "bag_mint_3d", tab: "bags", slot: "held", tier: "fashion", price: "R$ 1,99", emoji: "👜", name: "Bolsa Menta Tiffany", art: "assets/accessories/acc-bag-mint.png" },
-    { id: "bag_berry_3d", tab: "bags", slot: "held", tier: "grife", price: "R$ 4,99", emoji: "👜", name: "Bolsa Couture Rubi", art: "assets/accessories/acc-bag-berry.png" },
-
-    // --- TÊNIS & ESPORTE 3D (raquetes, calçados) ---
-    { id: "feet_paw_shoes", tab: "sports", slot: "feet", tier: "basic", price: "Grátis", emoji: "👟", name: "Sapatinhos Patinha 3D", art: "assets/accessories/acc-paw-shoes.png" },
-    { id: "feet_sneakers_3d", tab: "sports", slot: "feet", tier: "fashion", price: "R$ 2,99", emoji: "👟", name: "Tênis Turbo Azul 3D", art: "assets/accessories/acc-sneakers.png" },
-    { id: "sport_tennis_3d", tab: "sports", slot: "held", tier: "fashion", price: "R$ 1,99", emoji: "🎾", name: "Raquete Campeã 3D", art: "assets/accessories/acc-tennis-racket.png" },
-    { id: "sport_bat_3d", tab: "sports", slot: "held", tier: "fashion", price: "R$ 2,49", emoji: "🏏", name: "Taco Slugger 3D", art: "assets/accessories/acc-bat.png" },
-    { id: "neck_medal_3d", tab: "sports", slot: "neck", tier: "grife", price: "R$ 3,99", emoji: "🏅", name: "Medalha de Ouro 3D", art: "assets/accessories/acc-medal.png" },
-
-    // --- UNICÓRNIO, GRIFE & PODERES ESPECIAIS 3D ---
-    { id: "unicorn_saddle_3d", tab: "powers", slot: "body", tier: "grife", price: "R$ 5,99", emoji: "🦄", name: "Sela Real de Veludo", art: "assets/accessories/acc-unicorn-saddle.png" },
-    { id: "unicorn_wings_3d", tab: "powers", slot: "wings", tier: "grife", price: "R$ 7,99", emoji: "🪽", name: "Asas de Pégaso (Voo!)", art: "assets/accessories/acc-unicorn-wings.png", effect: "fly" },
-    { id: "power_lightning_3d", tab: "powers", slot: "neck", tier: "grife", price: "R$ 6,99", emoji: "⚡", name: "Poder Geração de Raios", art: "assets/accessories/acc-power-lightning.png", effect: "lightning" },
-    { id: "power_beauty_elixir", tab: "powers", slot: "held", tier: "grife", price: "R$ 6,99", emoji: "💖", name: "Líquido da Beleza Total", art: "assets/accessories/acc-beauty-elixir.png", effect: "beauty" },
-
-    // --- OFICINA / TUNING 3D (para veículos) ---
-    { id: "tune_spoiler_gt", tab: "tuning", slot: "hat", tier: "fashion", price: "R$ 2,99", emoji: "🏎️", name: "Aerofólio GT Carbono", art: "assets/accessories/acc-spoiler-gt.png" },
-    { id: "tune_spoiler_neon", tab: "tuning", slot: "hat", tier: "grife", price: "R$ 4,99", emoji: "🛸", name: "Aerofólio Cyber Neon", art: "assets/accessories/acc-spoiler-neon.png" },
-    { id: "tune_siren_3d", tab: "tuning", slot: "hat", tier: "basic", price: "Grátis", emoji: "🚨", name: "Giroflex Sirene 3D", art: "assets/accessories/acc-siren.png" },
-    { id: "tune_exhaust_flame", tab: "tuning", slot: "held", tier: "grife", price: "R$ 4,99", emoji: "🔥", name: "Escapamento Duplo Fogo", art: "assets/accessories/acc-exhaust-flame.png" },
-    { id: "tune_nitro_3d", tab: "tuning", slot: "held", tier: "fashion", price: "R$ 2,99", emoji: "⚡", name: "Duplo Tanque Nitro NOS", art: "assets/accessories/acc-nitro.png" },
-    { id: "tune_wheels_gold", tab: "tuning", slot: "feet", tier: "grife", price: "R$ 4,99", emoji: "🛞", name: "Rodas Estrela de Ouro", art: "assets/accessories/acc-wheel-gold.png" },
-
-    // --- BRINQUEDOS (livres para correr atrás no palco) ---
-    { id: "toy_ball", tab: "toys", tier: "basic", price: "Grátis", emoji: "🎾", name: "Bolinha" },
-    { id: "toy_yarn", tab: "toys", tier: "basic", price: "Grátis", emoji: "🧶", name: "Novelo" },
-    { id: "toy_bone", tab: "toys", tier: "basic", price: "Grátis", emoji: "🦴", name: "Ossinho" },
-    { id: "toy_carrot", tab: "toys", tier: "basic", price: "Grátis", emoji: "🥕", name: "Cenoura" },
-    { id: "toy_star", tab: "toys", tier: "basic", price: "Grátis", emoji: "⭐", name: "Estrelinha" },
-    { id: "toy_balloon", tab: "toys", tier: "basic", price: "Grátis", emoji: "🎈", name: "Balão" },
-    { id: "toy_frisbee", tab: "toys", tier: "basic", price: "Grátis", emoji: "🥏", name: "Disco" },
-    { id: "toy_robot", tab: "toys", tier: "basic", price: "Grátis", emoji: "🤖", name: "Robôzinho" },
-    { id: "toy_rocket", tab: "toys", tier: "basic", price: "Grátis", emoji: "🚀", name: "Foguetinho" },
-    { id: "toy_fish", tab: "toys", tier: "basic", price: "Grátis", emoji: "🐟", name: "Peixinho" },
-    { id: "toy_pudding", tab: "toys", tier: "basic", price: "Grátis", emoji: "🍮", name: "Pudim" },
-    { id: "toy_flag", tab: "toys", tier: "basic", price: "Grátis", emoji: "🏁", name: "Bandeirinha" },
-  ];
-  const CLOSET_TABS = [
-    { id: "clothes", label: "👗 Roupas" },
-    { id: "bags", label: "👜 Óculos & Bolsas" },
-    { id: "sports", label: "👟 Calçados & Tênis" },
-    { id: "powers", label: "👑 Grife & Poderes" },
-    { id: "tuning", label: "🏎️ Oficina" },
-    { id: "toys", label: "🧶 Brinquedos" },
-  ];
+  const CLOSET_ITEMS = window.PixelsCatalog.CLOSET_ITEMS;
+  const CLOSET_TABS = window.PixelsCatalog.CLOSET_TABS;
   const SAVE_KEY = "bichinho-collection-v1";
   const emptyOutfit = () => ({ hat: null, face: null, neck: null, body: null, held: null, feet: null, wings: null });
 
@@ -519,7 +157,14 @@
   function syncToyUI() {
     const emoji = toyEmoji();
     if (el.btnPlayIcon) el.btnPlayIcon.textContent = emoji;
-    if (el.toy) el.toy.textContent = emoji;
+    if (el.toy) {
+      if (state.activeToyId === "toy_ball") {
+        if (!el.toy.querySelector("img")) {
+          const image = document.createElement("img"); image.src = "assets/accessories/toy-star-ball.png"; image.alt = "Bolinha de estrelinha"; image.draggable = false;
+          el.toy.replaceChildren(image);
+        }
+      } else el.toy.textContent = emoji;
+    }
     if (el.wish && !el.wish.hidden && el.wishIcon && state.playing) {
       el.wishIcon.textContent = emoji;
     }
@@ -726,11 +371,8 @@
     return sp?.id === "lion" || sp?.temperament === "grumpy";
   }
 
-  /** Tyton fica contente e ronrona quando bem cuidado. */
   function lionPamperedEnough() {
-    const n = state.needs;
-    return n.love >= 68 && n.hunger >= 62 && n.thirst >= 58
-      && n.hygiene >= 55 && n.energy >= 50 && n.health >= 60;
+    return window.PixelsCatalog.lionContent(state.needs);
   }
 
   function hasPose(pose) {
@@ -744,10 +386,11 @@
     return sp.id;
   }
   function baseArt(sp, stage) {
-    return `${ART}${artKey(sp)}_${sp.stages[stage]}.webp`;
+    return window.PixelsCatalog.spriteArt(sp, stage, state.variant);
   }
   function sleepArt(sp, stage) {
     const key = sp.stages[stage];
+    if (sp.sleepArt?.[key]) return sp.sleepArt[key];
     const ak = artKey(sp);
     const staged = sp.sleepStages || [];
     if (canUsePacifier()) {
@@ -771,11 +414,13 @@
     const n = state.needs;
     const has = (p) => state.species.poses.includes(p);
     if ((state.mood === "sick" || n.health < 35) && has("sad")) return "sad";
-    // Tyton: cara fechada (mad) até estar MUITO bem cuidado; sorriso só no happy
+    // The expression follows the actual mood, including a calm neutral face.
     if (isLion()) {
       if (state.mood === "happy" && lionPamperedEnough() && has("happy")) return "happy";
       if (state.mood === "sad" && has("sad")) return "sad";
-      if (has("mad")) return "mad";
+      if (state.mood === "mad" && has("mad")) return "mad";
+      // Base lion sprites already show anger; use the friendly pose for neutral mood.
+      return has("happy") ? "happy" : null;
     }
     if (state.mood === "mad" && has("mad")) return "mad";
     const order = ["health", "hygiene", "energy", "love", "hunger", "thirst"];
@@ -830,6 +475,7 @@
       speciesId: state.species.id,
       variant: state.variant,
       name: state.name,
+      nameChosen: state.nameChosen !== false,
       pronoun: state.pronoun || state.species.he,
       stage: state.stage,
       needs: { ...state.needs },
@@ -876,13 +522,14 @@
       petId: snap.id,
       species,
       name: snap.name || pick(species.names),
+      nameChosen: snap.nameChosen !== false,
       pronoun: snap.pronoun || species.he,
       stage: clamp(snap.stage || 1, 1, 4),
       needs: { hunger: 80, thirst: 80, hygiene: 85, love: 75, energy: 90, health: 100, ...(snap.needs || {}) },
       sleeping: !!snap.sleeping,
       boosts: snap.boosts || { hunger: 1, thirst: 1, hygiene: 1, love: 1, energy: 1, health: 1 },
       strongTraits: snap.strongTraits || [],
-      outfit: { ...emptyOutfit(), ...(snap.outfit || {}) },
+      outfit: { ...emptyOutfit(), ...window.PixelsWardrobe.sanitize(snap.speciesId, window.PixelsLooks.migrate(snap.outfit || {}), CLOSET_ITEMS) },
       activeToyId: snap.activeToyId || null,
       hatchAt: snap.hatchAt || Date.now(),
       growthIntervalMs: snap.growthIntervalMs || speciesGrowthMs(species),
@@ -910,7 +557,11 @@
     el.btn1Text.textContent = "Acordar";
     renderActor(); renderOutfit(); renderHeader(); renderNeeds(); renderGrowth();
     setMood(snap.sleeping ? "sleep" : (snap.mood || "happy"), 1200);
-    say(snap.frozen ? `${state.name} acordou do pausado! 💖` : `Oi de novo! Eu sou ${state.name}! 💖`, 2400);
+    if (state.nameChosen === false) {
+      state.naming = true;
+      say("Oi! Ainda estou esperando meu nome 💛", 2000);
+      setTimeout(choosePetName, 900);
+    } else say(snap.frozen ? `${state.name} acordou do pausado! 💖` : `Oi de novo! Eu sou ${state.name}! 💖`, 2400);
   }
   function tryResumeSavedPet() {
     if (state.preview) return false;
@@ -994,9 +645,7 @@
     try { localStorage.setItem(ECO_KEY, JSON.stringify(eco)); } catch (_) {}
   }
   function isItemUnlocked(item) {
-    if (!item || item.tab === "toys" || !item.tier || item.tier === "basic") return true;
-    const eco = loadEco();
-    return Array.isArray(eco.unlockedItems) && eco.unlockedItems.includes(item.id);
+    return true;
   }
   function unlockClosetItem(itemId) {
     const eco = loadEco();
@@ -1006,38 +655,21 @@
     }
   }
 
-  function equippedItemsList(outfit = state.outfit) {
+  function equippedItemsList(outfit = state.outfit, speciesId = state.species?.id) {
     const order = ["wings", "hat", "face", "neck", "body", "held", "feet"];
     return order
       .map((slot) => outfit?.[slot] && CLOSET_ITEMS.find((i) => i.id === outfit[slot]))
-      .filter(Boolean);
+      .filter(item => item && window.PixelsWardrobe.compatible(speciesId, item));
   }
 
   function getSpriteAnchors(srcOverride, speciesIdOverride, stageOverride) {
-    const src = srcOverride ?? (el.actorImg?.getAttribute("src") || "");
-    const m = src.match(/\/([a-z0-9_]+)\.webp/i);
-    const spId = speciesIdOverride || state.species?.id || "kitty";
-    const stKey = stageOverride || state.species?.stages?.[state.stage] || "child";
-    const spriteKey = m ? m[1] : `${spId}_${stKey}`;
-    if (SPECIES_ANCHORS[spriteKey]) return SPECIES_ANCHORS[spriteKey];
-    const fallbackKey = `${spId}_child`;
-    return SPECIES_ANCHORS[fallbackKey] || SPECIES_ANCHORS.kitty_child;
+    const species = speciesIdOverride ? SPECIES.find(s => s.id === speciesIdOverride) : state.species;
+    if (!species) return null;
+    const stage = stageOverride ? Object.keys(species.stages).find(n => species.stages[n] === stageOverride) : state.stage;
+    return window.PixelsWardrobe.anchorsFor({ src: srcOverride ?? el.actorImg?.getAttribute("src"), species, variant: state.variant, stage }, SPECIES_ANCHORS);
   }
-
   function resolveAnchorForItem(anchors, slot, item) {
-    let a = anchors?.[slot] || [0.5, 0.5, 0.32, 0];
-    if (!item || !anchors) return a;
-    if (slot === "hat") {
-      if (item.id === "tune_spoiler_gt" || item.id === "tune_spoiler_neon") {
-        a = anchors.spoiler || anchors.crown || anchors.hat || a;
-      } else if (item.id === "hat_crown_3d" || item.id === "hat_cap_3d" || item.id === "tune_siren_3d") {
-        a = anchors.crown || anchors.hat || a;
-        if (item.id === "hat_cap_3d") a = [a[0], a[1] + 0.01, a[2] * 1.24, a[3]];
-      }
-    } else if (slot === "body" && item.id === "unicorn_saddle_3d") {
-      a = anchors.saddle || [a[0], a[1] - 0.04, a[2] * 0.52, a[3]];
-    }
-    return a;
+    return window.PixelsWardrobe.fit(anchors, item);
   }
 
   function renderOutfit() {
@@ -1047,9 +679,9 @@
     const fitted = items.some((i) => i.art);
     const img = el.actorImg;
     const src = img?.getAttribute("src") || "";
-    const coreArt = /_(newborn|baby|child|adult)\.webp(?:$|\?)/i.test(src);
+    const coreArt = /_(newborn|baby|child|adult)\.(?:webp|png)(?:$|\?)/i.test(src);
     const bathActive = !!(el.bathFoamLayer && !el.bathFoamLayer.hidden);
-    const canShowOverlays = fitted && !state.sleeping && coreArt && img.naturalWidth > 0 && img.clientWidth > 0;
+    const canShowOverlays = !!getSpriteAnchors(src) && fitted && !state.sleeping && coreArt && img.naturalWidth > 0 && img.clientWidth > 0;
     const useSharedFrame = (canShowOverlays || bathActive) && !state.sleeping && img.naturalWidth > 0 && img.clientWidth > 0;
 
     el.actor.classList.toggle("has-accessories", useSharedFrame);
@@ -1085,26 +717,36 @@
       if (!node) continue;
       const id = state.outfit?.[slot];
       const item = id && CLOSET_ITEMS.find((i) => i.id === id);
-      if (!item || !canShowOverlays) {
+      if (!item || item.completeLook || !window.PixelsWardrobe.compatible(state.species?.id, item) || !canShowOverlays) {
         node.hidden = true;
         continue;
       }
       node.hidden = false;
       node.classList.toggle("wear-art", !!item?.art);
       if (item?.art) {
-        if (node.dataset.item !== item.id) {
-          const art = document.createElement("img");
-          art.src = item.art;
-          art.alt = item.name;
-          art.draggable = false;
-          node.replaceChildren(art);
-          node.dataset.item = item.id;
+        const mounts = window.PixelsWardrobe.mounts(state.species, state.stage, anchors, item);
+        const multi = item.id === "tune_wheels_gold";
+        node.classList.toggle("wear-multiple", multi);
+        const cacheKey = item.id + ":" + mounts.length;
+        if (node.dataset.item !== cacheKey) {
+          node.replaceChildren(...mounts.map(() => {
+            const art = document.createElement("img");
+            art.src = item.art; art.alt = item.name; art.draggable = false;
+            return art;
+          }));
+          node.dataset.item = cacheKey;
         }
-        const a = resolveAnchorForItem(anchors, slot, item);
-        node.style.left = `${left + w * a[0]}px`;
-        node.style.top = `${top + h * a[1]}px`;
-        node.style.width = `${w * a[2]}px`;
-        node.style.rotate = `${a[3]}deg`;
+        if (multi) {
+          Object.assign(node.style, { left: left + "px", top: top + "px", width: w + "px", height: h + "px", rotate: "0deg" });
+          mounts.forEach((a, i) => Object.assign(node.children[i].style, {
+            position: "absolute", left: w*a[0]+"px", top: h*a[1]+"px", width: w*a[2]+"px",
+            transform: "translate(-50%,-50%) scaleX("+a[4]+")", rotate: a[3]+"deg"
+          }));
+        } else {
+          const a = mounts[0];
+          if (!a) { node.hidden = true; continue; }
+          Object.assign(node.style, { left: left+w*a[0]+"px", top: top+h*a[1]+"px", width: w*a[2]+"px", height: "auto", rotate: a[3]+"deg" });
+        }
       } else {
         node.removeAttribute("style");
         node.dataset.item = "";
@@ -1112,7 +754,7 @@
       }
     }
 
-    if (bathActive && img.naturalWidth > 0 && img.clientWidth > 0) {
+    if (bathActive && anchors && img.naturalWidth > 0 && img.clientWidth > 0) {
       const [, fy] = anchors.face || [0.5, 0.35];
       const [bx] = anchors.body || [0.5, 0.65];
       const [cx] = anchors.crown || [0.5, 0.14];
@@ -1136,6 +778,7 @@
   }
 
   function defaultClosetTab() {
+    if (state.species?.id === "kitty") return "looks";
     if (state.species?.id === "unicorn") return "powers";
     if (isMachine()) return "tuning";
     return "clothes";
@@ -1152,8 +795,8 @@
   function openCloset(tab) {
     metric("closet_open");
     if (state.phase !== "pet") return;
-    const validTabs = CLOSET_TABS.filter((t) => !t.species || t.species === state.species?.id).map((t) => t.id);
-    const wanted = tab || state.closetTab;
+    const validTabs = window.PixelsWardrobe.tabs(state.species?.id, CLOSET_TABS, CLOSET_ITEMS).map(t => t.id);
+    const wanted = tab || (state.species?.id === "kitty" ? "looks" : state.closetTab);
     state.closetTab = validTabs.includes(wanted) ? wanted : defaultClosetTab();
     closeAllSheets();
     if (el.closetPanel) el.closetPanel.hidden = false;
@@ -1161,8 +804,10 @@
   }
   function closeCloset() {
     if (el.closetPanel) el.closetPanel.hidden = true;
+    state.nextSkit = performance.now() + 8000;
   }
   function tierBadgeMarkup(item) {
+    return ""; // No prices or future reward systems in the current wardrobe.
     if (item.tab === "toys") return "";
     if (item.tier === "grife") {
       return `<span class="tier-badge tier-grife">👑 Grife · ${isItemUnlocked(item) ? "Liberado" : item.price}</span>`;
@@ -1176,10 +821,12 @@
     if (!el.closetTabs || !el.closetGrid) return;
     const equippedList = equippedItemsList();
     const count = equippedList.length;
+    const completeLook = window.PixelsLooks.active(state.species?.id, state.outfit);
 
     if (el.closetTray) {
       el.closetTray.innerHTML = "";
       for (let idx = 0; idx < 3; idx++) {
+        if (completeLook && idx > 0) continue;
         const eq = equippedList[idx];
         const slotBtn = document.createElement("button");
         slotBtn.type = "button";
@@ -1211,7 +858,8 @@
     }
 
     el.closetTabs.innerHTML = "";
-    const tabs = [...CLOSET_TABS.filter((t) => !t.species || t.species === state.species?.id)];
+    const tabs = window.PixelsWardrobe.tabs(state.species?.id, CLOSET_TABS, CLOSET_ITEMS);
+    if (!tabs.some(t => t.id === state.closetTab)) state.closetTab = tabs[0]?.id;
     if (isMachine()) {
       tabs.sort((a, b) => (a.id === "tuning" ? -1 : b.id === "tuning" ? 1 : 0));
     } else if (state.species?.id === "unicorn") {
@@ -1228,12 +876,13 @@
     el.closetGrid.innerHTML = "";
     const statusEl = document.getElementById("closetStatus");
     if (statusEl) {
-      const eco = loadEco();
-      statusEl.innerHTML = count >= 3
-        ? `<b>3/3 peças equipadas</b> · toque numa peça acima para devolver e trocar! · 😇 Bondade: <b>${eco.angelPoints} pts</b>`
-        : `<b>${count}/3 peças no PIXEL</b> · combine até 3 peças 3D (Básico Grátis, Fashion ou Grife/Poderes · 😇 Bondade: <b>${eco.angelPoints} pts</b>)`;
+      statusEl.innerHTML = completeLook
+        ? "<b>Conjunto completo</b> · vestido, bolsa e acessórios combinando. Escolher uma peça avulsa troca este visual."
+        : count >= 3
+        ? `<b>3/3 peças equipadas</b> · toque numa peça acima para devolver e trocar!`
+        : `<b>${count}/3 peças no PIXEL</b> · experimente, combine e guarde suas favoritas.`;
     }
-    CLOSET_ITEMS.filter((i) => i.tab === state.closetTab && (!i.species || i.species === state.species?.id)).forEach((item) => {
+    CLOSET_ITEMS.filter((i) => i.tab === state.closetTab && window.PixelsWardrobe.compatible(state.species?.id, i)).forEach((item) => {
       const b = document.createElement("button");
       b.type = "button";
       b.className = "closet-item";
@@ -1255,6 +904,17 @@
   }
 
   function equipItem(item) {
+    if (!window.PixelsWardrobe.compatible(state.species?.id, item)) return;
+    if (item.completeLook) {
+      const removing = state.outfit.body === item.id;
+      state.outfit = { ...emptyOutfit(), body: removing ? null : item.id };
+      renderActor(); saveActivePet(); renderCloset();
+      metric("equip", { action: item.id });
+      say(removing ? "Guardei o conjunto com carinho! ✨" : "Vestido, bolsinha e tudo combinando! 💖", 2400);
+      return;
+    }
+    // Separate accessories replace the integrated outfit, rather than floating over it.
+    if (item.tab !== "toys" && window.PixelsLooks.active(state.species?.id, state.outfit)) state.outfit = emptyOutfit();
     if (item.tab === "toys") {
       state.activeToyId = state.activeToyId === item.id ? null : item.id;
       syncToyUI();
@@ -1338,6 +998,7 @@
   }
 
   function openContest() {
+    return; // Future feature, outside the current care game.
     if (state.phase !== "pet") return;
     contestAgeTab = clamp(state.stage || 3, 1, 4);
     closeAllSheets();
@@ -1437,6 +1098,7 @@
   ];
 
   function openHospital() {
+    return; // Future feature, outside the current care game.
     if (state.phase !== "pet") return;
     closeAllSheets();
     if (el.hospitalPanel) el.hospitalPanel.hidden = false;
@@ -1585,6 +1247,7 @@
   let activeStickerStoryId = "titanic";
 
   function openAlbum() {
+    return; // Future feature, outside the current care game.
     if (state.phase !== "pet") return;
     closeAllSheets();
     if (el.albumPanel) el.albumPanel.hidden = false;
@@ -1698,7 +1361,7 @@
       if (sp && p.variant) state.variant = p.variant;
       const thumb = sp ? baseArt(sp, clamp(p.stage || 1, 1, 4)) : "";
       state.variant = prevV;
-      const bits = equippedItemsList(p.outfit).map((i) => i.emoji || "✨").join("");
+      const bits = equippedItemsList(p.outfit, p.speciesId).map((i) => i.emoji || "✨").join("");
       const badge = p.frozen ? `<span class="pause-badge">⏸ pausado</span>` : (isActive ? `<span class="pause-badge live">agora</span>` : "");
       card.innerHTML = `<span class="thumb" style="background-image:url(${thumb})"></span><span class="meta"><b></b><i>${sp?.name || ""} · ${STAGE_LABELS[p.stage] || ""}</i>${badge}</span><span class="bits">${bits}</span>`;
       card.querySelector("b").textContent = p.name || sp?.name || "PIXEL";
@@ -1751,13 +1414,12 @@
   }
   function currentArt() {
     const sp = state.species;
+    const integratedArt = window.PixelsLooks.chooseArt(state);
+    if (integratedArt) return integratedArt;
     const ak = artKey(sp);
     if (state.sleeping) {
       const s = sleepArt(sp, state.stage);
       if (s) return s;
-    }
-    if (equippedItemsList().some((i) => i.art)) {
-      return baseArt(sp, state.stage);
     }
     if (state.pose && hasPose(state.pose)) return `${ART}${ak}_${state.pose}.webp`;
     const expr = expressionPose();
@@ -1772,7 +1434,8 @@
       const ak = artKey(sp);
       const list = [1, 2, 3, 4].map((s) => baseArt(sp, s))
         .concat(sp.poses.map((p) => `${ART}${ak}_${p}.webp`))
-        .concat((sp.sleepStages || []).map((k) => `${ART}${ak}_${k}_sleep.webp`));
+        .concat((sp.sleepStages || []).map((k) => `${ART}${ak}_${k}_sleep.webp`))
+        .concat(Object.values(sp.sleepArt || {}));
       list.forEach((src) => { const i = new Image(); i.src = src; });
       state.variant = prev;
     });
@@ -1976,6 +1639,9 @@
     el.actor.style.setProperty("--egg-veil", veil.toFixed(3));
   }
   function renderActor() {
+    el.stage?.classList.toggle("bat-roost", state.phase === "pet" && state.species?.id === "bat" && state.sleeping);
+    el.stage?.classList.toggle("integrated-drink", window.PixelsLooks.active(state.species?.id, state.outfit) && state.pose === "drink");
+    el.stage?.classList.toggle("integrated-meal", window.PixelsLooks.active(state.species?.id, state.outfit) && state.pose === "eat");
     if (state.phase === "egg" || state.phase === "hatching") {
       el.actorImg.style.scale = "1";
       syncEggPeekLayers();
@@ -1999,15 +1665,15 @@
   }
   function renderChosenEggHeader(sp) {
     if (!sp) return;
-    el.avatar.style.backgroundImage = `url(${baseArt(sp, 1)})`;
-    el.petName.textContent = pick(sp.names);
-    el.petStage.textContent = `${sp.name} · ovo escolhido`;
+    el.avatar.style.backgroundImage = `url(${ART}egg.webp)`;
+    el.petName.textContent = "Quem será que vem aí?";
+    el.petStage.textContent = "Aqueça o ovo para descobrir";
     syncBiome();
   }
   function renderHeader() {
     if (!state.species) return;
     el.avatar.style.backgroundImage = `url(${baseArt(state.species, 1)})`;
-    el.petName.textContent = state.name;
+    el.petName.textContent = state.nameChosen === false ? "Um novo amigo!" : state.name;
     const label = state.species.id === "kitty" && isFemalePixel() ? "Gatinha" : state.species.name;
     el.petStage.textContent = `${label} · ${STAGE_LABELS[state.stage]}`;
     applyDietUI();
@@ -2021,7 +1687,7 @@
   const isFemalePixel = () => (state.pronoun || state.species?.he) === "ela";
   function genderedText(text) {
     if (!isFemalePixel()) return text;
-    const forms = { nervoso: "nervosa", cansadinho: "cansadinha", sujinho: "sujinha", limpinho: "limpinha", cheirosinho: "cheirosinha", Cheirosinho: "Cheirosinha", acordado: "acordada", novinho: "novinha", Quebrado: "Quebrada", Consertado: "Consertada", Abastecido: "Abastecida", dele: "dela", molhado: "molhada", pausada: "pausada" };
+    const forms = { nervoso: "nervosa", cansadinho: "cansadinha", sujinho: "sujinha", limpinho: "limpinha", cheirosinho: "cheirosinha", Cheirosinho: "Cheirosinha", acordado: "acordada", novinho: "novinha", Quebrado: "Quebrada", Consertado: "Consertada", Abastecido: "Abastecida", dele: "dela", molhado: "molhada", pausado: "pausada" };
     return text.replace(/\b(nervoso|cansadinho|sujinho|limpinho|cheirosinho|Cheirosinho|acordado|novinho|Quebrado|Consertado|Abastecido|dele|molhado|pausado)\b/g, word => forms[word]);
   }
   function choosePetName() {
@@ -2031,18 +1697,21 @@
     const pronounSelect = document.getElementById("petPronoun");
     if (pronounSelect) pronounSelect.value = state.pronoun || state.species.he;
     if (namingInput) {
-      namingInput.value = namingSuggestion;
+      namingInput.value = state.nameChosen === false ? "" : namingSuggestion;
+      namingInput.placeholder = "Escreva um nome para mim…";
       namingInput.setCustomValidity("");
     }
     const hintEl = document.getElementById("petNamingHint");
-    if (hintEl) hintEl.textContent = `${state.species.name}: pode manter ${namingSuggestion} ou inventar um nome só seu.`;
+    if (hintEl) hintEl.textContent = state.nameChosen === false ? "Oi! Acabei de nascer 💛 Que nome você quer me dar?" : "Sou eu! Quer escolher outro nome para mim? 💛";
+    const chatAvatar = document.getElementById("namingChatAvatar");
+    if (chatAvatar) chatAvatar.src = currentArt();
+    const suggestionButton = document.getElementById("petNameSuggestion");
+    if (suggestionButton) suggestionButton.textContent = `Que tal ${namingSuggestion}?`;
     state.naming = true;
     state.rubbing = false;
-    namingDialog.showModal();
-    if (namingInput) {
-      namingInput.focus();
-      namingInput.select();
-    }
+    namingDialog.show();
+    el.app.classList.add("naming-chat-open");
+    hintEl?.focus({ preventScroll: true });
   }
   function finishPetName(value) {
     const name = value.replace(/[\u0000-\u001f\u007f-\u009f]/g, "").replace(/\s+/g, " ").trim();
@@ -2054,12 +1723,15 @@
       return;
     }
     state.name = name;
+    state.nameChosen = true;
+    state.nextSkit = performance.now() + 12000;
     const pronounSelect = document.getElementById("petPronoun");
     if (pronounSelect) state.pronoun = pronounSelect.value;
     state.naming = false;
     // Naming time does not count toward growth or decay.
     state.lastGrowth += performance.now() - namingStarted;
     namingDialog.close();
+    el.app.classList.remove("naming-chat-open");
     renderHeader();
     saveActivePet();
     say(`Oi! Eu sou ${state.name}! 💖`, 3000);
@@ -2160,6 +1832,9 @@
   }
 
   function updateGuide() {
+    if (state.phase === "pet" && state.nameChosen === false) {
+      return setGuide("Seu novo amigo chegou! Vamos escolher um nome? 💛");
+    }
     if (state.phase === "egg") {
       if (!state.audience) return setGuide("Primeiro escolhe: menina, menino ou tanto faz! ✨");
       const t = state.temp;
@@ -2247,8 +1922,8 @@
     if (night) return setGuide(`Está de noite… hora de nanar? 🌙`, "6", "🌙");
     if (isLion() && !lionPamperedEnough()) {
       const nL = state.needs;
-      if (nL.love < 68) return setGuide(`${p} quer um chamego… Dá carinho! 💗`, "5", "💗", false);
-      if (nL.hunger < 62) return setGuide(`${p} quer um petisco… Dá ${state.species.foodName}! 🥩`, "2", state.species.food, false);
+      if (nL.love < 30) return setGuide(`${p} quer um chamego… Dá carinho! 💗`, "5", "💗", false);
+      if (nL.hunger < 30) return setGuide(`${p} quer um petisco… Dá ${state.species.foodName}! 🥩`, "2", state.species.food, false);
       return setGuide(`${p} quer brincar com você! ${toyEmoji()}`, "P", toyEmoji(), false);
     }
     if (n.energy > 40 && n.love < 85 && Math.random() < 0.002) {
@@ -2265,6 +1940,10 @@
 
   // ---------- Clumsy baby skits ----------
   async function skit(kind) {
+    if (window.PixelsLooks.active(state.species?.id, state.outfit)) {
+      state.nextSkit = performance.now() + 20000;
+      return;
+    }
     if (state.busy || state.sleeping || state.playing || state.phase !== "pet") return;
     state.busy = true;
     const p = state.name;
@@ -2483,8 +2162,8 @@
         renderActor();
         say("GRRRRAWR! 🦁", 1400);
         await playMove("rear", 1200);
-        rain(["💢", "💨", "✨"], 8);
-        say("Não me faça carinho agora!", 1800);
+        rain(["🦁", "💛", "✨"], 8);
+        say("Esse é meu rugido de brincadeira! Vem brincar comigo! 🦁💛", 1800);
         await wait(1600);
       } else if (kind === "hop") {
         state.pose = state.species.poses.includes("hop") ? "hop" : null;
@@ -2581,7 +2260,7 @@
 
     const knewSpecies = wasChosenEgg;
     Object.assign(state, {
-      phase: "pet", stage: 1, species, pronoun: species.he, name: pick((state.variant && species.variants?.[state.variant]?.names) || species.names),
+      phase: "pet", stage: 1, species, pronoun: species.he, nameChosen: false, name: pick((state.variant && species.variants?.[state.variant]?.names) || species.names),
       lastGrowth: performance.now(), eggCrack: 0, pose: null, lackMs: 0,
       boosts: rolled.boosts,
       strongTraits: rolled.strongTraits,
@@ -2607,14 +2286,14 @@
     el.btn1Text.textContent = "Acordar";
     if (isLion(species)) {
       Object.assign(state.needs, { hunger: 70, thirst: 72, hygiene: 75, love: 58, energy: 72, health: 95 });
-      setMood("neutral", 1400);
+      setMood("happy", 1400);
       rain(["✨", "🦁", "⭐"], 10);
-      say(`Sou ${state.name}! 🦁 Um leãozinho nobre e curioso!`, 3000);
+      say("Oi… acabei de chegar! 🦁", 2200);
       if (window.PixelAudio) window.PixelAudio.speak("lion", "neutral", { force: true });
     } else {
       setMood("happy", 2000);
       rain(["✨", "💖", "⭐"], 10);
-      say(knewSpecies ? `Sou eu, ${state.name}! 💖` : `Surpresa! Eu sou ${state.name}! 💖`, 2600);
+      say("Surpresa! Olha quem chegou! 💖", 2200);
       if (window.PixelAudio && species) window.PixelAudio.speak(species.id, "happy", { force: true });
       // Bebê recém-nascido: soluço (e às vezes pum / escapamento) é normal
       setTimeout(() => {
@@ -2632,7 +2311,9 @@
     state.nextSkit = performance.now() + 3200;
     saveActivePet();
     metric("hatched");
-    choosePetName();
+    updateGuide();
+    state.naming = true;
+    setTimeout(choosePetName, 1600);
   }
 
   function grow() {
@@ -2785,13 +2466,14 @@
 
   function applyBowlCrouchTransform() {
     if (!el.stage || !el.actorMove) return;
+    if (window.PixelsLooks.active(state.species?.id, state.outfit)) return;
     const stageRect = el.stage.getBoundingClientRect();
     const stageH = stageRect.height || 440;
     const stageW = stageRect.width || 380;
     const s = STAGE_SCALE[state.stage] || 1;
     const anchors = getSpriteAnchors(el.actorImg?.getAttribute("src") || "", state.species?.id);
-    const [nx, ny] = anchors.neck || [0.5, 0.52];
-    const [fx0] = anchors.face || [0.5, 0.36];
+    const [nx, ny] = anchors?.neck || [0.5, 0.52];
+    const [fx0] = anchors?.face || [0.5, 0.36];
     const mouthStageY = stageH * 0.87 - (1 - ny) * s * stageH * 0.68;
     const bowlH = el.stageGroundProp?.offsetHeight || stageH * 0.22;
     const bowlRimY = stageH * 0.995 - bowlH * 0.68;
@@ -2856,12 +2538,14 @@
     }
     const n = state.needs;
     // Tyton responde bem ao carinho
-    const boost = isLion()
-      ? (10 + state.stage * 3)
-      : (12 + state.stage * 4);
+    const boost = 12 + state.stage * 4;
     const tooMuch = (key, limit, msg) => {
       if (n[key] <= limit) return false;
       metric("care_blocked", { action: kind, reason: "already_full" });
+      if (isLion()) {
+        say(key === "love" ? "Adorei o carinho! Vamos brincar um pouquinho? 💛" : "Já estou satisfeito! Obrigado por cuidar de mim! 💛", 2000);
+        return true;
+      }
       state.over[key]++;
       setMood("mad", 1800);
       rain(["💢", "😤"], 3);
@@ -2882,11 +2566,12 @@
       if (el.stageGroundProp) el.stageGroundProp.hidden = false;
 
       await throwToGroundBowl("2", state.species.food, 480);
-      n.hunger = clamp(n.hunger + boost + (isLion() ? 4 : 8), 0, 100);
+      n.hunger = clamp(n.hunger + boost + 8, 0, 100);
       relieve("hunger");
       renderNeeds();
 
       state.pose = "eat";
+      state.careFrame = "bite";
       renderActor();
       el.actor.dataset.mood = "neutral";
       applyBowlCrouchTransform();
@@ -2898,6 +2583,10 @@
       biteTimes.forEach((ms, idx) => {
         setTimeout(() => {
           if (!state.busy) return;
+          if (window.PixelsLooks.active(state.species?.id, state.outfit)) {
+            state.careFrame = idx % 2 === 0 ? "chew" : "bite";
+            renderActor();
+          }
           pulseBowlChomp();
           if (idx === 1 && el.groundBowlImg) {
             el.groundBowlImg.src = `assets/care/food-bowl-${bowlType}-half.png`;
@@ -2917,6 +2606,7 @@
       await wait(2550);
       clearStageCareProps();
       state.pose = null;
+      state.careFrame = null;
       state.busy = false;
     } else if (kind === "drink") {
       if (tooMuch("thirst", 92, isMachine() ? "Tanque cheio! ⛽" : "Chega de água! 💦")) return;
@@ -2924,6 +2614,9 @@
       state.actorOff = { x: 0, y: 0 };
       el.actorMove.style.transform = "";
       const machine = isMachine();
+      state.pose = "drink";
+      state.careFrame = "lap";
+      renderActor();
       if (el.groundBowlImg) {
         el.groundBowlImg.src = machine ? "assets/care/drink-fuel-bowl.png" : "assets/care/drink-water-bowl.png";
       }
@@ -2931,7 +2624,7 @@
       if (el.stageGroundProp) el.stageGroundProp.hidden = false;
 
       await throwToGroundBowl("3", machine ? "⛽" : (canUsePacifier() ? "🍼" : "💧"), 460);
-      n.thirst = clamp(n.thirst + boost + (isLion() ? 5 : 10), 0, 100);
+      n.thirst = clamp(n.thirst + boost + 10, 0, 100);
       relieve("thirst");
       renderNeeds();
 
@@ -2944,6 +2637,11 @@
       lapTimes.forEach((ms, idx) => {
         setTimeout(() => {
           if (!state.busy) return;
+          if (state.pose !== "drink") return;
+          if (window.PixelsLooks.active(state.species?.id, state.outfit)) {
+            state.careFrame = "lap"; renderActor();
+            setTimeout(() => { if (state.pose === "drink" && state.busy) { state.careFrame = "sip"; renderActor(); } }, 240);
+          }
           pulseBowlChomp();
           if (idx === 1 && !machine && el.groundBowlImg) {
             el.groundBowlImg.src = "assets/care/drink-water-bowl-low.png";
@@ -2953,12 +2651,7 @@
             ring.className = "water-ripple-ring";
             el.groundBowlFx.appendChild(ring);
             setTimeout(() => ring.remove(), 550);
-            if (!machine) {
-              const tongue = document.createElement("span");
-              tongue.className = "lapping-tongue";
-              el.groundBowlFx.appendChild(tongue);
-              setTimeout(() => tongue.remove(), 440);
-            }
+
           }
           fx("float", pick(machine ? ["⛽", "✨", "⚡"] : ["💧", "💦", "🫧", "✨"]), {
             x: 44 + Math.random() * 12,
@@ -2970,13 +2663,15 @@
 
       await wait(2350);
       clearStageCareProps();
+      state.pose = null;
+      state.careFrame = null;
       state.busy = false;
     } else if (kind === "bath") {
       if (tooMuch("hygiene", 90, "Já estou limpinho!")) return;
       state.busy = true;
       state.actorOff = { x: 0, y: 0 };
       el.actorMove.style.transform = "";
-      n.hygiene = clamp(n.hygiene + (isLion() ? 18 : 35), 0, 100);
+      n.hygiene = clamp(n.hygiene + 35, 0, 100);
       relieve("hygiene");
       renderNeeds();
 
@@ -3000,7 +2695,7 @@
         }), i * 80);
       }
       playMove("wobble", 1500);
-      say(isLion() ? "Grr… quanta espuma pelo corpo todo! 🫧" : "Espuminha cheirosa pelo corpo todo! Hihihi 🫧🛁", 1550);
+      say(isLion() ? "Olha minha juba de espuma! 🦁🫧" : "Espuminha cheirosa pelo corpo todo! Hihihi 🫧🛁", 1550);
       await wait(1550);
 
       // Fase 2: Chuveirinho 3D com jatos de água morna enxaguando a espuma!
@@ -3015,7 +2710,7 @@
         el.stageCareOverlay.innerHTML = `${streams}<img class="care-shower-prop" src="assets/care/bath-showerhead.png" alt="" />`;
       }
       rain(["💧", "🫧", "✨"], 6);
-      say(isLion() ? "Água morninha… humf. 🚿" : "Chuveirinho quentinho! Splash splash! 🚿💧", 1250);
+      say(isLion() ? "Que água gostosa! Splash! 🚿💛" : "Chuveirinho quentinho! Splash splash! 🚿💧", 1250);
       await wait(1250);
 
       // Fase 3: Sacudida pra secar e ficar brilhando!
@@ -3029,7 +2724,7 @@
     } else if (kind === "pet") {
       // Tyton ACEITA muito carinho — é assim que ele melhora
       const loveCap = isLion() ? 98 : 94;
-      if (tooMuch("love", loveCap, isLion() ? "Grr! Agora chega um pouquinho… 🦁" : "Ai, chega de apertar! 😤")) return;
+      if (tooMuch("love", loveCap, isLion() ? "Adorei seu carinho! 🦁💛" : "Ai, chega de apertar! 😤")) return;
       n.love = clamp(n.love + boost + (isLion() ? 2 : 0), 0, 100);
       relieve("love");
       if (el.stageCareOverlay) {
@@ -3045,7 +2740,7 @@
       playMove("pet-nuzzle", 1200);
       rain(["💖", "💗", "💕", "🥰"], isLion() ? 4 : 7);
       say(isLion()
-        ? pick(["…humf.", "Grr… mais um?", "Tá… só mais um carinho.", "Rrr… talvez eu goste."])
+        ? pick(["Adoro seu carinho! 🦁💛", "Mais um abraço! 💖", "Você é meu melhor amigo!", "Minha juba ama esse cafuné! 🥰"])
         : pick(["Hihihi!", "Te amo! 💖", "Mais um abraço!", "Rrrrrr… 😊"]));
     } else if (kind === "sleep") {
       if (!state.sleeping) {
@@ -3064,13 +2759,13 @@
       if (!state.sleeping) { metric("care_blocked", { action: kind, reason: "already_awake" }); say("Já estou acordado!", 1400); return; }
       state.sleeping = false;
       rain(["☀️", "✨"], 4);
-      say(isLion() ? "Grr… dia. 🦁" : "Bom dia!! ☀️", 2000);
+      say(isLion() ? "Bom dia! Vamos brincar? 🦁☀️" : "Bom dia!! ☀️", 2000);
     } else if (kind === "heal") {
       if (n.health > 92) { metric("care_blocked", { action: kind, reason: "healthy" }); say(isMachine() ? "Já estou novinho! 🛠️" : "Já estou saudável! 💚", 1600); return; }
       state.busy = true;
       rain(isMachine() ? ["🛠️", "🔩", "✨"] : ["💊", "💚", "✨"], 10);
       playMove("wobble", 1200);
-      n.health = clamp(n.health + (isLion() ? 22 : 38), 0, 100);
+      n.health = clamp(n.health + 38, 0, 100);
       n.hygiene = clamp(n.hygiene + 6, 0, 100);
       say(isMachine() ? "Consertado! Vruum! 🛠️" : "Já estou melhor! 💚", 2200);
       await wait(1400);
@@ -3082,8 +2777,10 @@
       if (n.energy < 12) { metric("care_blocked", { action: kind, reason: "tired" }); say("Estou cansadinho demais… 😴", 1800); return; }
       setPlaying(!state.playing);
       if (state.playing && isLion()) {
+        state.lackMs = 0;
+        state.moodLock = 0;
         n.love = clamp(n.love + 3, 0, 100);
-        say(pick(["Grr… brincar?", "…tudo bem. Vamos.", "Roar! Só um pouco."]), 1800);
+        say(pick(["Oba! Vamos brincar! 🦁💛", "Vem correr comigo!", "Meu rugido é de alegria! 🦁✨"]), 1800);
       }
       renderNeeds();
       evaluateMood(performance.now() + 1);
@@ -3092,14 +2789,16 @@
       metric("care_success", { action: kind });
       return;
     }
-    // Não força "feliz" no Tyton — ele só sorri se estiver bem cuidado
+    // Successful care clears accumulated frustration before reassessing needs.
     if (isLion()) {
+      state.lackMs = 0;
+      for (const key of Object.keys(state.over)) state.over[key] = 0;
       state.moodLock = 0;
       evaluateMood(performance.now() + 1);
     } else {
       setMood("happy", 1600);
     }
-    state.lackMs = Math.max(0, state.lackMs - (isLion() ? 1500 : 4000));
+    state.lackMs = Math.max(0, state.lackMs - 4000);
     renderActor();
     renderNeeds();
     saveActivePet();
@@ -3110,6 +2809,7 @@
     if (now < state.moodLock || state.busy) return;
     if (state.sleeping) return setMood("sleep");
     const n = state.needs;
+    if (isLion()) return setMood(window.PixelsCatalog.lionMood(n, state.lackMs));
     if (n.health < 28) return setMood("sick");
     if (Object.values(state.over).some((v) => v > 2)) return setMood("mad");
 
@@ -3122,13 +2822,6 @@
     if (n.health < 45) return setMood("sad");
     if (lows.length >= 1 || n.hunger < 28 || n.thirst < 28 || n.love < 25 || n.energy < 22 || n.hygiene < 22) {
       return setMood("sad");
-    }
-
-    // Tyton: nobre e carinhoso quando bem cuidado, só fica bravo se negligenciado
-    if (isLion()) {
-      if (lionPamperedEnough() && (state.playing || n.love >= 72)) return setMood("happy");
-      if (n.love < 40 || n.hunger < 38 || n.energy < 30) return setMood("mad");
-      return setMood("neutral");
     }
 
     if (state.playing) return setMood("happy");
@@ -3152,6 +2845,12 @@
   function tick(now) {
     const dt = Math.min(0.1, (now - state.last) / 1000);
     state.last = now;
+    const browsing = (el.closetPanel && !el.closetPanel.hidden) || (el.collectionPanel && !el.collectionPanel.hidden);
+    if (browsing) {
+      state.lastGrowth += dt * 1000;
+      requestAnimationFrame(tick);
+      return;
+    }
     if (state.naming) {
       requestAnimationFrame(tick);
       return;
@@ -3465,6 +3164,7 @@
     Object.assign(state, { phase: "pet", species: sp || SPECIES[0], stage: clamp(Number(q.get("stage")) || 1, 1, 4) });
     applyVariant(state.species, pickVariant(state.species));
     state.name = q.get("name") || pick((state.variant && state.species.variants?.[state.variant]?.names) || state.species.names);
+    state.nameChosen = true;
     state.pronoun = q.get("pronoun") === "ela" ? "ela" : q.get("pronoun") === "ele" ? "ele" : state.species.he;
     const rolled = rollStrongTraits(state.species);
     if (q.get("trait")) {
@@ -3485,6 +3185,15 @@
     el.btn1Text.textContent = "Acordar";
     Object.assign(state.needs, { hunger: Number(q.get("hunger") ?? 70), thirst: 62, hygiene: 80, love: 70, energy: 64, health: Number(q.get("health") ?? 100) });
     state.pose = q.get("pose");
+    if (q.get("outfit")) {
+      const outfit = emptyOutfit();
+      q.get("outfit").split(",").slice(0,3).forEach(id => {
+        const item = CLOSET_ITEMS.find(i => i.id === id);
+        if (item?.slot && window.PixelsWardrobe.compatible(state.species.id, item)) outfit[item.slot] = id;
+      });
+      state.outfit = outfit;
+    }
+    if (state.pose === "drink") state.careFrame = q.get("frame") === "sip" ? "sip" : "lap";
     if (state.pose === "sleep") { state.sleeping = true; state.pose = null; }
     state.petId = state.petId || `preview-${Date.now()}`;
     if (q.get("photo") === "1" && state.species.id === "kitty") {
@@ -3581,7 +3290,7 @@
   if (state.phase === "pet" && !state.preview) {
     /* retomado — já falou oi */
   } else if (!state.preview && state.forceSpecies) {
-    say(`Ovo escolhido! Aquece pra ver ${pick(state.forceSpecies.names)}… 🥚`, 3200);
+    say("Tem uma surpresa aqui dentro! Aqueça o ovinho… 🥚", 3200);
   } else if (!state.preview && state.audience) say("Tem um ovinho aqui! 🥚", 3000);
   else if (!state.preview && !state.audience) say("Escolhe pra quem é o PIXEL! ✨", 4000);
   requestAnimationFrame(tick);
