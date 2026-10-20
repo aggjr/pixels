@@ -626,6 +626,15 @@
     return item.emoji || "✨";
   }
 
+  function creatorCreditElement(creation) {
+    const credit = window.PixelsCatalog.creatorCredit(creation);
+    if (!credit) return null;
+    const caption = document.createElement("span");
+    caption.className = "creator-credit";
+    caption.textContent = credit;
+    return caption;
+  }
+
   const ECO_KEY = "pixels-ecosystem-v1";
   function loadEco() {
     try {
@@ -898,6 +907,8 @@
       }
       b.setAttribute("aria-pressed", String(equipped));
       b.innerHTML = `${tierBadgeMarkup(item)}<span class="ce">${itemPreviewMarkup(item)}</span><span class="cn">${item.name}</span>`;
+      const credit = creatorCreditElement(item);
+      if (credit) b.querySelector(".ce").after(credit);
       b.addEventListener("click", () => equipItem(item));
       el.closetGrid.appendChild(b);
     });
@@ -1364,6 +1375,16 @@
       const bits = equippedItemsList(p.outfit, p.speciesId).map((i) => i.emoji || "✨").join("");
       const badge = p.frozen ? `<span class="pause-badge">⏸ pausado</span>` : (isActive ? `<span class="pause-badge live">agora</span>` : "");
       card.innerHTML = `<span class="thumb" style="background-image:url(${thumb})"></span><span class="meta"><b></b><i>${sp?.name || ""} · ${STAGE_LABELS[p.stage] || ""}</i>${badge}</span><span class="bits">${bits}</span>`;
+      const photo = document.createElement("span");
+      photo.className = "credited-thumb";
+      card.querySelector(".thumb").replaceWith(photo);
+      const image = document.createElement("img");
+      image.className = "thumb";
+      image.src = thumb;
+      image.alt = p.name || sp?.name || "PIXEL";
+      photo.appendChild(image);
+      const credit = creatorCreditElement(sp);
+      if (credit) photo.appendChild(credit);
       card.querySelector("b").textContent = p.name || sp?.name || "PIXEL";
       card.addEventListener("click", () => {
         if (state.phase === "pet" && !state.preview) saveActivePet({ freeze: true });
@@ -1639,6 +1660,11 @@
     el.actor.style.setProperty("--egg-veil", veil.toFixed(3));
   }
   function renderActor() {
+    const credit = document.getElementById("creatorCredit");
+    if (credit) {
+      credit.textContent = state.phase === "pet" ? window.PixelsCatalog.creatorCredit(state.species) : "";
+      credit.hidden = !credit.textContent;
+    }
     el.stage?.classList.toggle("bat-roost", state.phase === "pet" && state.species?.id === "bat" && state.sleeping);
     el.stage?.classList.toggle("integrated-drink", window.PixelsLooks.active(state.species?.id, state.outfit) && state.pose === "drink");
     el.stage?.classList.toggle("integrated-meal", window.PixelsLooks.active(state.species?.id, state.outfit) && state.pose === "eat");

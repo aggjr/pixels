@@ -386,5 +386,36 @@ function spriteArt(species, stage, variant) {
  const key = species.id + (species.variants ? "_" + (variant || "blue") : "") + "_" + species.stages[stage];
  return spriteOverrides[key] || "assets/pets/" + key + ".webp";
 }
-return { SPECIES, SPECIES_ANCHORS, CLOSET_ITEMS, CLOSET_TABS, lionContent, lionMood, spriteOverrides, spriteArt };
+const CREATORS = {
+  "bia-juju": { displayName: "Bia e Juju" },
+};
+// Explicit IDs keep future submissions from inheriting the original creators.
+const ORIGINAL_SPECIES_IDS = new Set([
+  "unicorn", "dino", "kitty", "duck", "pig", "mole", "bat", "seal", "monkey",
+  "axolotl", "bee", "butterfly", "nini", "floide", "tini", "elephant", "lion",
+  "racer", "botcar", "rocket", "heli", "train", "tractor", "boat", "plane",
+  "slime", "lilica", "robot", "hamster", "panda", "puppy", "dragon", "fox",
+]);
+const ORIGINAL_ITEM_IDS = new Set([
+  "look_lili_complete", "hat_bow_pink", "hat_bow_turquoise", "hat_bow_lilac",
+  "hat_cap_3d", "neck_scarf_3d", "body_dress_lilac", "body_dress_sky", "hat_crown_3d",
+  "face_glasses_ocean", "face_glasses_pink", "face_glasses_gold", "bag_lavender_3d",
+  "bag_mint_3d", "bag_berry_3d", "feet_paw_shoes", "feet_sneakers_3d", "sport_tennis_3d",
+  "sport_bat_3d", "neck_medal_3d", "unicorn_saddle_3d", "unicorn_wings_3d",
+  "power_lightning_3d", "power_beauty_elixir", "tune_spoiler_gt", "tune_spoiler_neon",
+  "tune_siren_3d", "tune_exhaust_flame", "tune_nitro_3d", "tune_wheels_gold",
+  "toy_ball", "toy_yarn", "toy_bone", "toy_carrot", "toy_star", "toy_balloon",
+  "toy_frisbee", "toy_robot", "toy_rocket", "toy_fish", "toy_pudding", "toy_flag",
+]);
+for (const species of SPECIES) {
+  if (ORIGINAL_SPECIES_IDS.has(species.id)) species.creatorId = "bia-juju";
+}
+for (const item of CLOSET_ITEMS) {
+  if (ORIGINAL_ITEM_IDS.has(item.id)) item.creatorId = "bia-juju";
+}
+function creatorCredit(creation) {
+  const creator = CREATORS[creation?.creatorId];
+  return creator?.displayName ? `por ${creator.displayName}` : "";
+}
+return { SPECIES, SPECIES_ANCHORS, CLOSET_ITEMS, CLOSET_TABS, CREATORS, creatorCredit, lionContent, lionMood, spriteOverrides, spriteArt };
 });

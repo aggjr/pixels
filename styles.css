@@ -847,6 +847,36 @@ html[data-sound="off"] .mute-btn { opacity: 0.85; }
 
 .actor-move { position: absolute; inset: 0; transform-origin: 50% 100%; }
 
+.creator-credit {
+  display: block;
+  font-family: "Caveat", "Segoe Print", cursive;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: #542047;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.creator-credit[hidden] { display: none; }
+.stage-credit {
+  position: absolute;
+  z-index: 5;
+  bottom: 0;
+  left: 18%;
+  right: 18%;
+  margin: 0;
+  font-size: 26px;
+  text-shadow: 0 1px 2px #fff, 0 0 6px #fff, 0 0 12px #fff;
+  pointer-events: none;
+}
+.device[data-phase="pet"] .actor { bottom: 36px; }
+.credited-thumb { display: grid; justify-items: center; gap: 3px; min-width: 0; }
+.collection-card { grid-template-columns: 100px minmax(0, 1fr) auto; }
+.collection-card .creator-credit { font-size: 16px; }
+.collection-card .meta { min-width: 0; overflow-wrap: anywhere; }
+.closet-item .creator-credit { font-size: 16px; }
+
 .actor-img {
   position: absolute;
   inset: 0;
