@@ -9,6 +9,8 @@ test("integrated clothes preserve character identity across awake, asleep and ne
   assert.equal(looks.chooseArt(s), looks.art.happy);
   s.sleeping = true; assert.equal(looks.chooseArt(s), looks.art.sleep);
   s.sleeping = false; s.pose = "eat"; assert.equal(looks.chooseArt(s), looks.art.eat);
+  s.pose = "drink"; s.careFrame = "lap"; assert.equal(looks.chooseArt(s), looks.art.drink);
+  s.careFrame = "sip"; assert.equal(looks.chooseArt(s), looks.art.sip);
   s.pose = null;
   s.sleeping = false; s.needs.health = 20; assert.equal(looks.chooseArt(s), looks.art.sad);
   s.needs.health = 100; s.mood = "mad"; assert.equal(looks.chooseArt(s), looks.art.sad);

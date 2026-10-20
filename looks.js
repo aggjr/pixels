@@ -11,12 +11,15 @@
     sad: "assets/pets/lili-dressed-sad.png",
     eat: "assets/pets/lili-dressed-eat.png",
     chew: "assets/pets/lili-dressed-chew.png",
+    drink: "assets/pets/lili-dressed-drink.png",
+    sip: "assets/pets/lili-dressed-sip.png",
   };
   function active(species, outfit) { return species === "kitty" && outfit?.body === id; }
   function chooseArt(state) {
     if (!active(state.species?.id, state.outfit)) return null;
     if (state.sleeping) return art.sleep;
     if (state.pose === "eat") return state.careFrame === "chew" ? art.chew : art.eat;
+    if (state.pose === "drink") return state.careFrame === "sip" ? art.sip : art.drink;
     const n = state.needs || {};
     if (["sad", "sick", "mad"].includes(state.mood) || Object.values(n).some(v => v < 30)) return art.sad;
     return art.happy;

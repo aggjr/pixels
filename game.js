@@ -418,7 +418,8 @@
       if (state.mood === "happy" && lionPamperedEnough() && has("happy")) return "happy";
       if (state.mood === "sad" && has("sad")) return "sad";
       if (state.mood === "mad" && has("mad")) return "mad";
-      return null;
+      // Base lion sprites already show anger; use the friendly pose for neutral mood.
+      return has("happy") ? "happy" : null;
     }
     if (state.mood === "mad" && has("mad")) return "mad";
     const order = ["health", "hygiene", "energy", "love", "hunger", "thirst"];
@@ -1636,6 +1637,7 @@
     el.actor.style.setProperty("--egg-veil", veil.toFixed(3));
   }
   function renderActor() {
+    el.stage?.classList.toggle("integrated-drink", window.PixelsLooks.active(state.species?.id, state.outfit) && state.pose === "drink");
     el.stage?.classList.toggle("integrated-meal", window.PixelsLooks.active(state.species?.id, state.outfit) && state.pose === "eat");
     if (state.phase === "egg" || state.phase === "hatching") {
       el.actorImg.style.scale = "1";
@@ -2609,6 +2611,9 @@
       state.actorOff = { x: 0, y: 0 };
       el.actorMove.style.transform = "";
       const machine = isMachine();
+      state.pose = "drink";
+      state.careFrame = "lap";
+      renderActor();
       if (el.groundBowlImg) {
         el.groundBowlImg.src = machine ? "assets/care/drink-fuel-bowl.png" : "assets/care/drink-water-bowl.png";
       }
@@ -2629,6 +2634,11 @@
       lapTimes.forEach((ms, idx) => {
         setTimeout(() => {
           if (!state.busy) return;
+          if (state.pose !== "drink") return;
+          if (window.PixelsLooks.active(state.species?.id, state.outfit)) {
+            state.careFrame = "lap"; renderActor();
+            setTimeout(() => { if (state.pose === "drink" && state.busy) { state.careFrame = "sip"; renderActor(); } }, 240);
+          }
           pulseBowlChomp();
           if (idx === 1 && !machine && el.groundBowlImg) {
             el.groundBowlImg.src = "assets/care/drink-water-bowl-low.png";
@@ -2638,12 +2648,7 @@
             ring.className = "water-ripple-ring";
             el.groundBowlFx.appendChild(ring);
             setTimeout(() => ring.remove(), 550);
-            if (!machine) {
-              const tongue = document.createElement("span");
-              tongue.className = "lapping-tongue";
-              el.groundBowlFx.appendChild(tongue);
-              setTimeout(() => tongue.remove(), 440);
-            }
+
           }
           fx("float", pick(machine ? ["⛽", "✨", "⚡"] : ["💧", "💦", "🫧", "✨"]), {
             x: 44 + Math.random() * 12,
@@ -2655,6 +2660,8 @@
 
       await wait(2350);
       clearStageCareProps();
+      state.pose = null;
+      state.careFrame = null;
       state.busy = false;
     } else if (kind === "bath") {
       if (tooMuch("hygiene", 90, "Já estou limpinho!")) return;
@@ -3175,6 +3182,15 @@
     el.btn1Text.textContent = "Acordar";
     Object.assign(state.needs, { hunger: Number(q.get("hunger") ?? 70), thirst: 62, hygiene: 80, love: 70, energy: 64, health: Number(q.get("health") ?? 100) });
     state.pose = q.get("pose");
+    if (q.get("outfit")) {
+      const outfit = emptyOutfit();
+      q.get("outfit").split(",").slice(0,3).forEach(id => {
+        const item = CLOSET_ITEMS.find(i => i.id === id);
+        if (item?.slot && window.PixelsWardrobe.compatible(state.species.id, item)) outfit[item.slot] = id;
+      });
+      state.outfit = outfit;
+    }
+    if (state.pose === "drink") state.careFrame = q.get("frame") === "sip" ? "sip" : "lap";
     if (state.pose === "sleep") { state.sleeping = true; state.pose = null; }
     state.petId = state.petId || `preview-${Date.now()}`;
     if (q.get("photo") === "1" && state.species.id === "kitty") {

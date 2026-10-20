@@ -1,4 +1,7 @@
-# Revisão do básico — 0.2.6
+# Revisão do básico — 0.2.7
+
+Conferência geral de 542 imagens e correção da língua ao beber:
+[REVISAO-IMAGENS.md](qa/REVISAO-IMAGENS.md). A arte final continua pendente.
 
 ## Auditoria visual de acessórios
 
