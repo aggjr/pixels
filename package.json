@@ -1,6 +1,6 @@
 {
   "name": "pixels",
-  "version": "0.1.74",
+  "version": "0.1.75",
   "private": true,
   "description": "PIXELS — Tamagotchi de PIXELs",
   "scripts": {
