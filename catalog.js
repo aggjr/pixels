@@ -277,7 +277,7 @@
       profile: { hunger: 1.2, thirst: 1.05, hygiene: 1.0, love: 1.05, energy: 1.1, growthMs: 68_000 },
     },
     {
-      id: "panda", audience: "both", name: "Panda", he: "ele", names: ["Mochi", "Bambu"],
+      id: "panda", audience: "both", ready: true, name: "Panda", he: "ele", names: ["Mochi", "Bambu"],
       creatorId: "carol-oliveira",
       art: "assets/pets/panda_carol_oliveira.png",
       food: "🎋", foodName: "bambu", glow: "rgba(255,255,255,.6)",
@@ -411,7 +411,7 @@ function careMood(n, over = {}, lackMs = 0, playing = false) {
 }
 const spriteOverrides = { slime_green_adult: "assets/pets/slime_green_adult.png" };
 const sharedSleepArt = new Set([
-  "axolotl", "bee", "butterfly", "nini", "floide", "tini", "elephant", "lion", "slime", "lilica",
+  "axolotl", "bee", "butterfly", "nini", "floide", "tini", "elephant", "lion", "slime", "lilica", "panda",
 ]);
 const stagedSleepArt = {
   monkey: ["child", "adult"],

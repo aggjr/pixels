@@ -571,6 +571,11 @@
         [state.hatchBag[i], state.hatchBag[j]] = [state.hatchBag[j], state.hatchBag[i]];
       }
     }
+    if (poolIds.has("panda")) {
+      const pIdx = state.hatchBag.indexOf("panda");
+      if (pIdx !== -1) state.hatchBag.splice(pIdx, 1);
+      state.hatchBag.push("panda");
+    }
     const id = state.hatchBag.pop();
     try {
       localStorage.setItem(profileKey("bichinho-hatch-bag"), JSON.stringify(state.hatchBag));

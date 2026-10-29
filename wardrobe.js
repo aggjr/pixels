@@ -10,7 +10,7 @@
     bee: "insect", butterfly: "insect", nini: "insect", floide: "paws", tini: "paws",
     elephant: "paws", lion: "paws", racer: "car", botcar: "car", rocket: "rocket",
     heli: "aircraft", train: "rail", tractor: "tractor", boat: "boat", plane: "aircraft",
-    slime: "slime", lilica: "paws",
+    slime: "slime", lilica: "paws", panda: "paws",
   };
   const machines = new Set(["car", "rocket", "aircraft", "rail", "tractor", "boat"]);
   function compatible(speciesId, item) {
