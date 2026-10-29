@@ -278,6 +278,8 @@
     },
     {
       id: "panda", audience: "both", name: "Panda", he: "ele", names: ["Mochi", "Bambu"],
+      creatorId: "carol-oliveira",
+      art: "assets/pets/panda_carol_oliveira.png",
       food: "🎋", foodName: "bambu", glow: "rgba(255,255,255,.6)",
       stages: { 1: "baby", 2: "baby", 3: "child", 4: "child" }, poses: [],
       focus: ["hunger", "energy"],
@@ -440,13 +442,14 @@ function spriteArt(species, stage, variant) {
 }
 const CREATORS = {
   "bia-juju": { displayName: "Bia e Juju" },
+  "carol-oliveira": { displayName: "Carol Oliveira" },
 };
 // Explicit IDs keep future submissions from inheriting the original creators.
 const ORIGINAL_SPECIES_IDS = new Set([
   "unicorn", "dino", "kitty", "duck", "pig", "mole", "bat", "seal", "monkey",
   "axolotl", "bee", "butterfly", "nini", "floide", "tini", "elephant", "lion",
   "racer", "botcar", "rocket", "heli", "train", "tractor", "boat", "plane",
-  "slime", "lilica", "robot", "hamster", "panda", "puppy", "dragon", "fox",
+  "slime", "lilica", "robot", "hamster", "puppy", "dragon", "fox",
 ]);
 const ORIGINAL_ITEM_IDS = new Set([
   "look_lili_complete", "hat_bow_pink", "hat_bow_turquoise", "hat_bow_lilac",
