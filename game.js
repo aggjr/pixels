@@ -559,6 +559,8 @@
 
   // Prefere espécie nova; se já tiver todas, pode repetir
   function pickHatchSpecies() {
+    const forcePanda = SPECIES.find((s) => s.id === "panda");
+    if (forcePanda) return forcePanda;
     let pool = availableHatchSpecies();
     if (!pool.length) pool = readySpecies();
     if (!pool.length) return null;
@@ -2255,7 +2257,8 @@
     updateGuide();
 
     // Ovo escolhido já tinha o PIXEL; surpresa só revela no final.
-    species = species || state.forceSpecies || pickHatchSpecies();
+    const forcePanda = SPECIES.find((s) => s.id === "panda");
+    species = forcePanda || species || state.forceSpecies || pickHatchSpecies();
     if (!species) {
       state.phase = "egg";
       el.actor.classList.remove("hatching");
@@ -3277,6 +3280,7 @@
   function beginGameWithAudience(audience) {
     setAudience(audience, { resetBag: true });
     hideAudiencePick();
+    state.forceSpecies = SPECIES.find((s) => s.id === "panda");
     say(audience === "girl" ? "Um PIXEL especial pra menina! 💕" : audience === "boy" ? "Um PIXEL especial pra menino! 🚀" : "Qualquer PIXEL pode nascer! ✨", 2600);
   }
   elAudience?.querySelectorAll("[data-audience]").forEach((btn) => {
@@ -3335,7 +3339,10 @@
     hideAudiencePick();
   }
   renderActor();
-  if (state.phase === "egg" || state.phase === "hatching") renderEgg();
+  if (state.phase === "egg" || state.phase === "hatching") {
+    state.forceSpecies = SPECIES.find((s) => s.id === "panda");
+    renderEgg();
+  }
   if (!state.preview) renderGrowth();
   syncBiome();
   // Filtra bag salva pelo público atual
